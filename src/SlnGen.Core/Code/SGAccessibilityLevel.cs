@@ -1,5 +1,6 @@
 ﻿///
 /// AccessibilityLevel.cs
+/// 
 /// Author:
 ///     Chris Zumberge <chriszumberge@gmail.com>
 /// 

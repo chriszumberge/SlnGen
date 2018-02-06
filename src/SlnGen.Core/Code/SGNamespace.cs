@@ -1,4 +1,12 @@
-﻿using System;
+﻿///
+/// SGNamespace.cs
+/// 
+/// Author:
+///     Chris Zumberge <chriszumberge@gmail.com>
+///     
+/// 02/06/2018
+/// 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

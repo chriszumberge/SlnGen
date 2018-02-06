@@ -38,10 +38,10 @@
 - [x] Overrides ToString() method to display all assembly references then all namespaces
 
 ### Assembly Reference (SGAssemblyReference)
-- [ ] Using statements must be instantied with an assembly name string
-  - [ ] Assembly name cannot be null or empty
-- [ ] Assembly name will replace spaces with empty strings
-- [ ] Using Statements will override the ToString() method as "$using {assemblyName};"
+- [x] Using statements must be instantied with an assembly name string
+  - [x] Assembly name cannot be null or empty
+- [x] Assembly name will replace spaces with empty strings
+- [x] Using Statements will override the ToString() method as $"using {assemblyName};"
 
 ### Namespaces (SGNamespace)
 - [ ] Namespaces must be instantiated with a namespace name string
