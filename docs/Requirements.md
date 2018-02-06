@@ -65,6 +65,12 @@
 ### Structs (SGStructs)
 
 ### Accessibility Levels (SGAccessibilityLevel)
+- [x] Accessibility levels will be implemented as type safe enums
+  - [x] "public" = 1 (Public)
+  - [x] "private" = 2 (Private)
+  - [x] "protected" = 3 (Protected)
+  - [x] "internal" = 4 (Internal)
+  - [x] "" = 5 (None)
 
 ### Method Signatures (SGMethodSignature)
 
