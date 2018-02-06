@@ -54,11 +54,14 @@ The project is open source so pull requests are encouraged.
 
 This project follows the [GitFlow branching model for Git](http://datasift.github.io/gitflow/IntroducingGitFlow.html)
 
+### Known Issues
+- 
+
 ### ToDos
 - 
 
 ### Project Roadmap
-#### Features
+#### New Features
 - 
 
 #### Additional Projects
