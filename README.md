@@ -33,6 +33,7 @@ Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 |-------------|:-------:|
 |.Net         | 4.5+    |
 |.Net Core    | 1.0+    |
+|.Net Standard| ?       |
 
 ## Tests
 - (Test Status)
@@ -55,9 +56,14 @@ Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 The project is open source so pull requests are encouraged.
 - Report bugs by opening an issue
 - Submit feature requests by opening an issue
-- Fix bugs or add features by sending a pull request (see [Coding Conventions](#coding-conventions) below)
+- Fix bugs or add features by sending a pull request (see [Coding Contributions](#coding-contributions) below)
 
-This project follows the [GitFlow branching model for Git](http://datasift.github.io/gitflow/IntroducingGitFlow.html)
+### Coding Contributions
+If contributing by adding code please note the following:
+- This project follows the [GitFlow branching model for Git](http://datasift.github.io/gitflow/IntroducingGitFlow.html)
+- Please see the [Code Conventions](#coding-conventions) and [Project Conventions](#project-conventions) sections below
+- In general, this project uses Test Driven Development princibles with test cases defined by approved items in the
+[requirements document](docs/Requirements.md)
 
 ### Known Issues
 - 
@@ -67,7 +73,7 @@ This project follows the [GitFlow branching model for Git](http://datasift.githu
 
 ### Project Roadmap
 #### New Features
-- 
+- Add MSBuild support to autobuild project
 
 #### Additional Projects
 ##### SlnGen.Desktop
@@ -102,3 +108,6 @@ Taking special note of:
 - Avoid ```this.``` whenever possible
 - Only use ```var``` when it's obvious what the variable type is
 - Use PascalCasing to name constant variables and fields
+
+### Project Conventions
+- Sort and remove all assembly references

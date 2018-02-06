@@ -26,14 +26,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlnGen.Core.Tests", "..\tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlnGen.Web.Tests", "..\tests\SlnGen.Web.Tests\SlnGen.Web.Tests.csproj", "{57DA4BF5-07F4-410C-AA26-4BBAF1584AF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlnGen.Xamarin.Tests", "..\tests\SlnGen.Xamarin.Tests\SlnGen.Xamarin.Tests.csproj", "{6F6B90C1-9B38-47FA-8EBE-B5BB0009B787}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{94D167BA-FB6E-43DE-8F24-A7F07D581461}"
 	ProjectSection(SolutionItems) = preProject
 		..\docs\README.md = ..\docs\README.md
+		..\docs\Requirements.md = ..\docs\Requirements.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{04798899-0643-4B48-BC66-EDA576C4FFE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlnGen.Xamarin.Tests", "..\tests\SlnGen.Xamarin.Tests\SlnGen.Xamarin.Tests.csproj", "{D886E779-C274-45A1-B342-43E696E2A5B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +66,10 @@ Global
 		{57DA4BF5-07F4-410C-AA26-4BBAF1584AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57DA4BF5-07F4-410C-AA26-4BBAF1584AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57DA4BF5-07F4-410C-AA26-4BBAF1584AF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F6B90C1-9B38-47FA-8EBE-B5BB0009B787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F6B90C1-9B38-47FA-8EBE-B5BB0009B787}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F6B90C1-9B38-47FA-8EBE-B5BB0009B787}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F6B90C1-9B38-47FA-8EBE-B5BB0009B787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D886E779-C274-45A1-B342-43E696E2A5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D886E779-C274-45A1-B342-43E696E2A5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D886E779-C274-45A1-B342-43E696E2A5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D886E779-C274-45A1-B342-43E696E2A5B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,7 +81,7 @@ Global
 		{DE89D716-812C-4185-A4BA-F75C0DB205BE} = {3E3F6DBF-D8E4-4BDE-9C99-CC12679B32FE}
 		{201870E7-3691-466D-8BFB-073E2E945852} = {A7EA67AD-5DBF-4B9B-ACA5-54F237AF2E0D}
 		{57DA4BF5-07F4-410C-AA26-4BBAF1584AF7} = {A7EA67AD-5DBF-4B9B-ACA5-54F237AF2E0D}
-		{6F6B90C1-9B38-47FA-8EBE-B5BB0009B787} = {A7EA67AD-5DBF-4B9B-ACA5-54F237AF2E0D}
+		{D886E779-C274-45A1-B342-43E696E2A5B3} = {A7EA67AD-5DBF-4B9B-ACA5-54F237AF2E0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20E98A8A-A233-4384-884E-4CCF368E5B9A}
