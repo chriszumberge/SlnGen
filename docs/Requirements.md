@@ -28,15 +28,16 @@
     - [x] Cannot be a null or empty string
     - [x] String cannot start with or end in a period
     - [x] If string contains no period, a file extension cannot be derived
-- [ ] Files may contain any number of using statements and namespaces
-  - [ ] Using statements can be added as part of a fluent API
-    - [ ] Using statements can be added singularly or in bulk
-  - [ ] Using statemetns can be added as constructor property initializers
-  - [ ] Namespaces can be added as part of a fluent API
-    - [ ] Namespaces can be added singularly or in bulk
-  - [ ] Namespaces can be added as constructor property initializers
+- [x] Files may contain any number of using statements and namespaces
+  - [x] Using statements can be added as part of a fluent API
+    - [x] Using statements can be added singularly or in bulk
+  - [x] Using statemetns can be added as constructor property initializers
+  - [x] Namespaces can be added as part of a fluent API
+    - [x] Namespaces can be added singularly or in bulk
+  - [x] Namespaces can be added as constructor property initializers
+- [x] Overrides ToString() method to display all assembly references then all namespaces
 
-### Using Statement (SGUsingStatement)
+### Assembly Reference (SGAssemblyReference)
 - [ ] Using statements must be instantied with an assembly name string
   - [ ] Assembly name cannot be null or empty
 - [ ] Assembly name will replace spaces with empty strings

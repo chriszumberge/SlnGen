@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SlnGen.Core.Utils
 {
@@ -26,6 +27,18 @@ namespace SlnGen.Core.Utils
                     yield return element;
                 }
             }
+        }
+
+        public static bool ContainsAll<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> values)
+        {
+            foreach(TSource value in values)
+            {
+                if (!source.Contains(value))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

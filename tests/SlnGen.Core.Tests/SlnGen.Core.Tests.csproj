@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="CodeTests\SGAccessibilityLevelTests.cs" />
     <Compile Include="CodeTests\SGFileTests.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

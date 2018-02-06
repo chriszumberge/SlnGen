@@ -1,6 +1,9 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SlnGen.Core.Code;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
+using SlnGen.Core.Utils;
+using System.Collections.Generic;
 
 namespace SlnGen.Core.Tests.CodeTests
 {
@@ -236,6 +239,146 @@ namespace SlnGen.Core.Tests.CodeTests
 
             // Act
             SGFile file = new SGFile(fullFileName);
+        }
+
+        [TestMethod]
+        public void TestAddingAssemblyReference_FluentAPI()
+        {
+            // Arrange
+            string fileName = "TestFile";
+            string fileExtension = "cs";
+            string fullFileName = $"{fileName}.{fileExtension}";
+            string assemblyName = "System";
+            SGAssemblyReference assemblyReference = new SGAssemblyReference(assemblyName);
+
+            // Act
+            SGFile file = new SGFile(fullFileName).WithAssemblies(assemblyReference);
+
+            // Assert
+            Assert.IsTrue(file.AssemblyReferences.Contains(assemblyReference));
+        }
+
+        [TestMethod]
+        public void TestAddingMultipleAssemblyReferences_FluentAPI()
+        {
+            // Arrange
+            string fileName = "TestFile";
+            string fileExtension = "cs";
+            string fullFileName = $"{fileName}.{fileExtension}";
+            string assemblyName = "System";
+            string assemblyName2 = "System.Text";
+            SGAssemblyReference assemblyReference = new SGAssemblyReference(assemblyName);
+            SGAssemblyReference assemblyReference2 = new SGAssemblyReference(assemblyName2);
+
+            // Act
+            SGFile file = new SGFile(fullFileName).WithAssemblies(assemblyReference, assemblyReference2);
+
+            // Assert
+            Assert.IsTrue(file.AssemblyReferences.ContainsAll(new List<SGAssemblyReference>
+            {
+                assemblyReference,
+                assemblyReference2
+            }));
+        }
+
+        [TestMethod]
+        public void TestAddingAssemblyReferences_PropertyInitializer()
+        {
+            // Arrange
+            string fileName = "TestFile";
+            string fileExtension = "cs";
+            string fullFileName = $"{fileName}.{fileExtension}";
+            string assemblyName = "System";
+            string assemblyName2 = "System.Text";
+            SGAssemblyReference assemblyReference = new SGAssemblyReference(assemblyName);
+            SGAssemblyReference assemblyReference2 = new SGAssemblyReference(assemblyName2);
+
+            // Act
+            SGFile file = new SGFile(fullFileName)
+            {
+                AssemblyReferences =
+                {
+                    assemblyReference,
+                    assemblyReference2
+                }
+            };
+
+            // Assert
+            Assert.IsTrue(file.AssemblyReferences.ContainsAll(new List<SGAssemblyReference>
+            {
+                assemblyReference,
+                assemblyReference2
+            }));
+        }
+
+        [TestMethod]
+        public void TestAddingNamespace_FluentAPI()
+        {
+            // Arrange
+            string fileName = "TestFile";
+            string fileExtension = "cs";
+            string fullFileName = $"{fileName}.{fileExtension}";
+            string namespaceName = "SlnGen.Core";
+            SGNamespace @namespace = new SGNamespace(namespaceName);
+
+            // Act
+            SGFile file = new SGFile(fullFileName).WithNamespaces(@namespace);
+
+            // Assert
+            Assert.IsTrue(file.Namespaces.Contains(@namespace));
+        }
+
+        [TestMethod]
+        public void TestAddingMultipleNamespaces_FluentAPI()
+        {
+            // Arrange
+            string fileName = "TestFile";
+            string fileExtension = "cs";
+            string fullFileName = $"{fileName}.{fileExtension}";
+            string namespaceName = "SlnGen.Core";
+            string namespaceName2 = "SlnGen.Core.Code";
+            SGNamespace namespace1 = new SGNamespace(namespaceName);
+            SGNamespace namespace2 = new SGNamespace(namespaceName2);
+
+            // Act
+            SGFile file = new SGFile(fullFileName).WithNamespaces(namespace1, namespace2);
+
+            // Assert
+            Assert.IsTrue(file.Namespaces.ContainsAll(new List<SGNamespace>
+            {
+                namespace1,
+                namespace2
+            }));
+        }
+
+        [TestMethod]
+        public void TestAddingNamespaces_PropertyInitializer()
+        {
+            // Arrange
+            string fileName = "TestFile";
+            string fileExtension = "cs";
+            string fullFileName = $"{fileName}.{fileExtension}";
+            string namespaceName = "SlnGen.Core";
+            string namespaceName2 = "SlnGen.Core.Code";
+            SGNamespace namespace1 = new SGNamespace(namespaceName);
+            SGNamespace namespace2 = new SGNamespace(namespaceName2);
+
+            // Act
+            SGFile file = new SGFile(fullFileName)
+            {
+                Namespaces =
+                {
+                    namespace1,
+                    namespace2
+                }
+            };
+
+            // Assert
+            Assert.IsTrue(file.Namespaces.ContainsAll(new List<SGNamespace>
+            {
+                namespace1,
+                namespace2
+            }));
         }
     }
 }

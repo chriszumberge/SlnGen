@@ -14,6 +14,10 @@ namespace SlnGen.Core.Code
         readonly string _fileExtension;
         public string FileExtension => _fileExtension;
 
+        public List<SGAssemblyReference> AssemblyReferences { get; set; } = new List<SGAssemblyReference>();
+
+        public List<SGNamespace> Namespaces { get; set; } = new List<SGNamespace>();
+
         public SGFile(string fileName, string fileExtension)
         {
             if (fileName == null)
@@ -81,6 +85,37 @@ namespace SlnGen.Core.Code
 
             _fileName = fileName;
             _fileExtension = fileExtension;
+        }
+
+        public SGFile WithAssemblies(params SGAssemblyReference[] assemblyReferences)
+        {
+            this.AssemblyReferences.AddRange(assemblyReferences);
+            return this;
+        }
+
+        public SGFile WithNamespaces(params SGNamespace[] namespaces)
+        {
+            this.Namespaces.AddRange(namespaces);
+            return this;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var assemblyReference in AssemblyReferences)
+            {
+                sb.AppendLine(assemblyReference.ToString());
+            }
+
+            sb.AppendLine();
+
+            foreach (var @namespace in Namespaces)
+            {
+                sb.AppendLine(@namespace.ToString());
+            }
+
+            return sb.ToString();
         }
     }
 }
