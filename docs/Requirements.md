@@ -17,13 +17,17 @@
 - [ ] Csproj must allow files to define build actions
 
 ### File (SGFile Class)
-- [ ] Files must be instantiated with both file name and extension
-  - [ ] Constructor will take a file name string and extension string
-    - [ ] File names must support any number of nested periods
-    - [ ] Neither file name nor extension may be null or empty
-  - [ ] Constructor will take a single string containing the file name and extension
-    - [ ] Must support any number of nested periods
-    - [ ] Cannot be a null or empty string
+- [x] Files must be instantiated with both file name and extension
+  - [x] Constructor will take a file name string and extension string
+    - [x] File names must support any number of nested periods
+    - [x] Neither file name nor extension may be null or empty
+    - [x] File name cannot start with or end in a period
+    - [x] File extension cannot contain a period
+  - [x] Constructor will take a single string containing the file name and extension
+    - [x] Must support any number of nested periods
+    - [x] Cannot be a null or empty string
+    - [x] String cannot start with or end in a period
+    - [x] If string contains no period, a file extension cannot be derived
 - [ ] Files may contain any number of using statements and namespaces
   - [ ] Using statements can be added as part of a fluent API
     - [ ] Using statements can be added singularly or in bulk
