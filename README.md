@@ -42,9 +42,14 @@ Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 - Install into .NET project
 
 ## API Usage
-### Generating and Saving a Class Library
+[SlnGen.Core API Documentation and Examples](src/SlnGen.Core/README.md)
+
+[SlnGen.Web API Documentation and Examples](src/SlnGen.Web/README.md)
+
+[SlnGen.Xamarin API Documentation and Examples](src/SlnGen.Xamarin/README.md)
 
 ### Developer Tips
+- 
 
 ## Contribute
 The project is open source so pull requests are encouraged.
