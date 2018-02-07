@@ -24,9 +24,9 @@ Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 Available on NuGet: (link to nuget) (nuget badge)
 
 ## Builds and Tests
-Master [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true&passingText=master%20-%20passing&pendingText=master%20-%20pending&failingText=master%20-%20-failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
 
-Develop [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
+[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true&passingText=develop%20-%20passing&pendingText=develop%20-%20pending&failingText=develop%20-%20-failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
 
 CI NuGet Feed: (appveyor)
 
