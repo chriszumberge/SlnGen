@@ -1,7 +1,6 @@
 ﻿using System;
 using SlnGen.Core.Code;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 using SlnGen.Core.Utils;
 using System.Collections.Generic;
 

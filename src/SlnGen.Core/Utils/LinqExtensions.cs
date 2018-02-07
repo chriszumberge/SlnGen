@@ -40,5 +40,10 @@ namespace SlnGen.Core.Utils
             }
             return true;
         }
+
+        public static bool ContainsAll<TSource>(this IEnumerable<TSource> source, params TSource[] values)
+        {
+            return source.ContainsAll(values.ToList());
+        }
     }
 }

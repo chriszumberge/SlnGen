@@ -44,22 +44,23 @@
 - [x] Using Statements will override the ToString() method as $"using {assemblyName};"
 
 ### Namespaces (SGNamespace)
-- [ ] Namespaces must be instantiated with a namespace name string
-  - [ ] Namespace name cannot be null or empty
-  - [ ] Namespace names will replace spaces with periods
-- [ ] Namespaces can contain any number of Interfaces
-  - [ ] Interfaces can be added as part of a fluent API
-  - [ ] Interfaces can be added as a constructor property initializer
-- [ ] Namespaces can contain any number of Classes
-  - [ ] Classes can be added as part of a fluent API
-  - [ ] Classes can be added as a constructor property initializer
-- [ ] Namespaces can contain any number of Enums
-  - [ ] as Fluent API
-  - [ ] as Constructor Property Initializer
-- [ ] Namespaces can contain any number of Structs
-  - [ ] as Fluent API
-  - [ ] as Constructor Property Initializer
-- [ ] Namespaces will override the ToString() method listing interfaces first, then classes, then enums, and then structs
+- [x] Namespaces must be instantiated with a namespace name string
+  - [x] Namespace name cannot be null or empty
+  - [x] Namespace names will replace spaces with periods
+- [x] Namespace name will replace spaces with periods
+- [x] Namespaces can contain any number of Interfaces
+  - [x] Interfaces can be added as part of a fluent API
+  - [x] Interfaces can be added as a constructor property initializer
+- [x] Namespaces can contain any number of Classes
+  - [x] Classes can be added as part of a fluent API
+  - [x] Classes can be added as a constructor property initializer
+- [x] Namespaces can contain any number of Enums
+  - [x] as Fluent API
+  - [x] as Constructor Property Initializer
+- [x] Namespaces can contain any number of Structs
+  - [x] as Fluent API
+  - [x] as Constructor Property Initializer
+- [x] Namespaces will override the ToString() method listing interfaces first, then classes, then enums, and then structs
 
 ### Interfaces (SGInterface)
 
