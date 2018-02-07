@@ -2,7 +2,7 @@
 SlnGen is a C# fluent API for programmatically constructing .NET project files.
 
 ## Documentation
-(When available) Get started by reading through the [SlnGen Project Documentation](docs/readme.md)
+(When available) Get started by reading through the [SlnGen Project Documentation](docs/README.md)
 
 SlnGen consists of one core assembly that offers base functionality with additional 
 assemblies that extend its functionality to cover more advanced .NET project types.
@@ -24,9 +24,9 @@ Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 Available on NuGet: (link to nuget) (nuget badge)
 
 ## Builds and Tests
-[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true&passingText=master%20-%20passing&pendingText=master%20-%20pending&failingText=master%20-%20-failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true&passingText=master%20-%20passing&pendingText=master%20-%20pending&failingText=master%20-%20failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true&passingText=develop%20-%20passing&pendingText=develop%20-%20pending&failingText=develop%20-%20-failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
+[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true&passingText=develop%20-%20passing&pendingText=develop%20-%20pending&failingText=develop%20-%20failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
 
 CI NuGet Feed: (appveyor)
 
