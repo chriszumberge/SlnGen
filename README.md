@@ -25,7 +25,8 @@ Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 - (Link to NuGets)
 
 ## Build
-- Master [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
+- Master Branch [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
+- Develop Branch [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
 - CI NuGet Feed (appveyor)
 
 ## Platform Support
