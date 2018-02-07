@@ -20,14 +20,15 @@ such as WebAPI, Mobile Apps, and MVC applications.
 SlnGen.Xamarin builds on SlnGen.Core with the templates to create Xamarin projects
 Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 
-
 ## NuGet
-- (Link to NuGets)
+Available on NuGet: (link to nuget) (nuget badge)
 
-## Build
-- Master Branch [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
-- Develop Branch [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
-- CI NuGet Feed (appveyor)
+## Builds and Tests
+Master [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
+
+Develop [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
+
+CI NuGet Feed: (appveyor)
 
 ## Platform Support
 |Platform     | Version |
@@ -35,9 +36,6 @@ Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.
 |.Net         | 4.5+    |
 |.Net Core    | 1.0+    |
 |.Net Standard| ?       |
-
-## Tests
-- (Test Status)
 
 ## Setup
 - Available on NuGet: (link)
