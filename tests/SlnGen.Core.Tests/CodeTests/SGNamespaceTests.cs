@@ -47,7 +47,7 @@ namespace SlnGen.Core.Tests.CodeTests
         }
 
         [TestMethod]
-        public void TestNamespaceNameWithSpaces_ReplacedWithPeriods()
+        public void TestNamespaceNameWithSpaces_ReplacedWithUnderscores()
         {
             // Arrange
             string namespaceName = "SlnGen Core Code";
@@ -56,7 +56,33 @@ namespace SlnGen.Core.Tests.CodeTests
             SGNamespace @namespace = new SGNamespace(namespaceName);
 
             // Assert
-            Assert.AreEqual(namespaceName.Replace(" ", "."), @namespace.NamespaceName);
+            Assert.AreEqual(namespaceName.Replace(" ", "_"), @namespace.NamespaceName);
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(Exception))]
+        public void TestNamespaceNameSetEmtpy_ThrowsException()
+        {
+            // Arrange
+            string namespaceName = "SlnGen";
+            SGNamespace @namespace = new SGNamespace(namespaceName);
+
+            // Act
+            @namespace.NamespaceName = String.Empty;
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(Exception))]
+        public void TestNamespaceNameSetNull_ThrowsException()
+        {
+            // Arrange
+            string namespaceName = "SlnGen";
+            SGNamespace @namespace = new SGNamespace(namespaceName);
+
+            // Act
+            @namespace.NamespaceName = null;
         }
 
         [TestMethod]
@@ -64,7 +90,8 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string namespaceName = "SlnGen";
-            SGInterface @interface = new SGInterface();
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
 
             // Act
             SGNamespace @namespace = new SGNamespace(namespaceName).WithInterfaces(@interface);
@@ -78,8 +105,9 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string namespaceName = "SlnGen";
-            SGInterface @interface = new SGInterface();
-            SGInterface interface2 = new SGInterface();
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
+            SGInterface interface2 = new SGInterface(interfaceName);
 
             // Act
             SGNamespace @namespace = new SGNamespace(namespaceName).WithInterfaces(@interface, interface2);
@@ -97,8 +125,9 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string namespaceName = "SlnGen";
-            SGInterface @interface = new SGInterface();
-            SGInterface interface2 = new SGInterface();
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
+            SGInterface interface2 = new SGInterface(interfaceName);
 
             // Act
             SGNamespace @namespace = new SGNamespace(namespaceName)

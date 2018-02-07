@@ -58,6 +58,32 @@ namespace SlnGen.Core.Tests.CodeTests
         }
 
         [TestMethod]
+        // Assert
+        [ExpectedException(typeof(Exception))]
+        public void TestAssemblyNameSetEmpty_ThrowsException()
+        {
+            // Arrange
+            string assemblyName = "Assembly Reference";
+            SGAssemblyReference assemblyReference = new SGAssemblyReference(assemblyName);
+
+            // Act
+            assemblyReference.AssemblyName = String.Empty;
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(Exception))]
+        public void TestAssemblyNameSetNull_ThrowsException()
+        {
+            // Arrange
+            string assemblyName = "Assembly Reference";
+            SGAssemblyReference assemblyReference = new SGAssemblyReference(assemblyName);
+
+            // Act
+            assemblyReference.AssemblyName = null;
+        }
+
+        [TestMethod]
         public void Test_ToString()
         {
             // Arrange

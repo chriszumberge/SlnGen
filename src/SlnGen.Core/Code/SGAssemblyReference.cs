@@ -12,7 +12,26 @@ namespace SlnGen.Core.Code
 {
     public sealed class SGAssemblyReference
     {
-        public string AssemblyName { get; set; }
+        string _assemblyName;
+        public string AssemblyName
+        {
+            get { return _assemblyName; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new Exception("Cannot set AssemblyName to null.");
+                }
+                else if (value.Length == 0)
+                {
+                    throw new Exception("Cannot set AssemblyName to empty string.");
+                }
+                else
+                {
+                    _assemblyName = value;
+                }
+            }
+        }
 
         public SGAssemblyReference(string assemblyName)
         {

@@ -15,7 +15,26 @@ namespace SlnGen.Core.Code
 {
     public sealed class SGNamespace
     {
-        public string NamespaceName { get; set; }
+        string _namespaceName;
+        public string NamespaceName
+        {
+            get { return _namespaceName; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new Exception("Cannot set NamespaceName to null.");
+                }
+                else if (value.Length == 0)
+                {
+                    throw new Exception("Cannot set NamespaceName to empty string.");
+                }
+                else
+                {
+                    _namespaceName = value;
+                }
+            }
+        }
 
         public List<SGInterface> Interfaces { get; set; } = new List<SGInterface>();
 
@@ -36,7 +55,7 @@ namespace SlnGen.Core.Code
                 throw new ArgumentException("Argument cannot be an empty string.", nameof(namespaceName));
             }
 
-            NamespaceName = namespaceName.Replace(" ", ".");
+            NamespaceName = namespaceName.Replace(" ", "_");
         }
 
         public SGNamespace WithInterfaces(params SGInterface[] interfaces)

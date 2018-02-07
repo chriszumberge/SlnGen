@@ -41,13 +41,16 @@
 - [x] Using statements must be instantied with an assembly name string
   - [x] Assembly name cannot be null or empty
 - [x] Assembly name will replace spaces with empty strings
+- [x] Assembly name property exposed
+	- [x] Assembly name property cannot be set to null or empty
 - [x] Using Statements will override the ToString() method as $"using {assemblyName};"
 
 ### Namespaces (SGNamespace)
 - [x] Namespaces must be instantiated with a namespace name string
   - [x] Namespace name cannot be null or empty
-  - [x] Namespace names will replace spaces with periods
-- [x] Namespace name will replace spaces with periods
+  - [x] Namespace names will replace spaces with underscores
+- [x] Namespace Name exposed as a public property
+	- [x] Namespace name property cannot be set to null or empty
 - [x] Namespaces can contain any number of Interfaces
   - [x] Interfaces can be added as part of a fluent API
   - [x] Interfaces can be added as a constructor property initializer
@@ -63,6 +66,25 @@
 - [x] Namespaces will override the ToString() method listing interfaces first, then classes, then enums, and then structs
 
 ### Interfaces (SGInterface)
+- [x] Interface names must be instantiated with an accessbility level and name string
+	- [x] Interface names cannot be null or empty
+	- [x] Accessibility levels will default to private
+	- [x] Interface names will replace spaces with underscores
+- [x] Interface Name exposed as a public property
+	- [x] Interface name property cannot be set to null or empty
+- [x] Interfaces must be able to implement other Interfaces
+	- [x] Add interface implementations as strings as part of a fluent API
+	- [x] Add interface implementations as strings as a constructor property initializer
+	- [x] Add as SGInterface as fluent API
+	- [x] Interface implementation cannot be null or empty
+- [x] Interface must be able to be marked as generic
+	- [x] Add multiple generic param names as String via fluent API
+	- [x] Add multiple generic param names a a property initializer
+	- [x] Generic param name cannot be null or empty
+	- [x] Must expose an IsGeneric boolean property
+- [ ] Interfaces can contain any number of method Signatures
+	- [ ] Add as part of a fluent API
+	- [ ] Add as a constructor property initializer
 
 ### Classes (SGClass)
 
