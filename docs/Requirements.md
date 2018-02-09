@@ -45,6 +45,7 @@ Checked requirements are implemented and have unit tests covering the use case.
 - [x] Assembly name will replace spaces with empty strings
 - [x] Assembly name property exposed
 	- [x] Assembly name property cannot be set to null or empty
+    - [ ] Assembly name will replace spaces with empty strings
 - [x] Using Statements will override the ToString() method as $"using {assemblyName};"
 
 ### Namespaces (SGNamespace)
@@ -74,6 +75,7 @@ Checked requirements are implemented and have unit tests covering the use case.
 	- [x] Accessibility levels will default to private
 - [x] Interface Name exposed as a public property
 	- [x] Interface name property cannot be set to null or empty
+    - [ ] Interface names will replace spaces with underscores
 - [ ] Accessibility level exposed as a public property
     - [ ] Accessibility level can be set via a fluent api
     - [ ] Accessibliity level can be set via property
@@ -106,6 +108,7 @@ an abstract flag, a static flag, and a partial class flag
   - [ ] Accessibility level can be set via property
 - [ ] Class name will be exposed via public property
   - [ ] Class name cannot be set to null or empty
+  - [ ] Class names will replace spaces with underscores
 - [ ] Abstract Flag will be exposed as a public property
   - [ ] Abstract flag can be set via fluent api
   - [ ] Abstract flag can be set via property
@@ -160,8 +163,9 @@ a string return type, a static flag, an async flag, and an override flag
 - [ ] Accessibility Level will be exposed via public property
   - [ ] Accessibility level can be set via fluent api
   - [ ] Accessibility level can be set via property
-- [ ] Class name will be exposed via public property
-  - [ ] Class name cannot be set to null or empty
+- [ ] Method Signature name will be exposed via public property
+  - [ ] Method Signature name cannot be set to null or empty
+  - [ ] Method Signature names will replace spaces with underscores
 - [ ] Return Type will be exposed via public property
   - [ ] Return type can be set via fluent api
   - [ ] Return type can be set via property
@@ -183,13 +187,64 @@ a string return type, a static flag, an async flag, and an override flag
 - [ ] Method Signatures must be able to contain any number of Arguments
 
 ### Arguments (SGArgument)
-
+- [ ] Arguments must be instantiated with a string type value and a name string
+  - [ ] Type value string cannot be null or empty
+  - [ ] Type value can be passed as System.Type
+  - [ ] Argument name cannot be null or empty
+  - [ ] Argument name will replace spaces with underscores
+- [ ] Arguments can allow string default values
+  - [ ] Default values can be of type object, evaluated as ToString
+- [ ] Type value will be exposed via public property
+  - [ ] Type value can be set via fluent api
+  - [ ] Type value can be set via property
+  - [ ] Type value cannot be set to null or empty
+- [ ] Argument name will be exposed via public property
+  - [ ] Argument name can be set via fluent api
+  - [ ] Argument name can be set via property
+  - [ ] Argument name cannot be set to null or empty
+  - [ ] Argument name will replace spaces with underscores
 
 ### Class Properties (SGClassProperty)
-
+- [ ] Class Properties must be instantiated with a string type value, an accessibility 
+level, a property name string, a static flag, a getter accessibility level, a setter
+accesibility level
+    - [ ] Property name cannot be null or empty
+    - [ ] Property name will replace spaces with underscores
 
 ### Class Fields (SGClassFields)
-
+- [ ] Class Fields must be instantiated with a string type value, an accessibility level,
+a field name string, a static flag, a const flag, and a read only flag
+  - [ ] Field name cannot be null or empty
+  - [ ] Field name will replace spaces with underscores
+  - [ ] Type value cannot be null or empty
+  - [ ] Type value can be passed as System.Type
+  - [ ] Accessibility level will default to private
+  - [ ] Static flag will default to false
+  - [ ] Const flag will default to false
+  - [ ] Read only flag will default to false
+- [ ] Field name will be exposed via public property
+  - [ ] Field name can be set via fluent api
+  - [ ] Field name can be set via property
+  - [ ] Field name cannot be set to null or empty
+  - [ ] Field name will replace spaces with underscores
+- [ ] Type value will be exposed via public property
+  - [ ] Type value can be set via fluent api
+  - [ ] Type value can be set via property
+  - [ ] Type value cannot be set to null or empty
+- [ ] Accessibility level will be exposed via public property
+  - [ ] Accessiblility level can be set via fluent api
+  - [ ] Accessiblility level can be set via property
+- [ ] Static flag will be exposed via public property
+  - [ ] Static flag can be set via fluent api
+  - [ ] Static flag can be set via property
+- [ ] Const flag will be exposed via public property
+  - [ ] Const flag can be set via fluent api
+  - [ ] Const flag can be set via property
+- [ ] Read only flag will be exposed via public property
+  - [ ] Read only flag can be set via fluent api
+  - [ ] Read only flag can be set via property
+- [ ] Field can define a string initializer value
+  - [ ] Default values can be of type object, evaluated as ToString
 
 ### Class Constructors (SGClassConstructor)
 
