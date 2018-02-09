@@ -210,6 +210,33 @@ level, a property name string, a static flag, a getter accessibility level, a se
 accesibility level
     - [ ] Property name cannot be null or empty
     - [ ] Property name will replace spaces with underscores
+    - [ ] Type value cannot be null or empty
+    - [ ] Type value can be passed as System.Type
+    - [ ] Accessibility will default ot private
+    - [ ] Static flag will default to false
+    - [ ] Getter accessibility level will default to none
+    - [ ] Setter accessibility level will default to none
+- [ ] Property name will be exposed via public property
+  - [ ] Property name can be set via fluent api
+  - [ ] Property name can be set via property
+  - [ ] Property name cannot be set to null or empty
+  - [ ] Setting property name will replace spaces with underscores
+- [ ] Type value will be exposed via public property
+  - [ ] Type value can be set via fluent api
+  - [ ] Type value can be set via property
+  - [ ] Type value cannot be set to null or empty
+- [ ] Accessibility level will be exposed via public property
+  - [ ] Accessiblility level can be set via fluent api
+  - [ ] Accessiblility level can be set via property
+- [ ] Static flag will be exposed via public property
+  - [ ] Static flag can be set via fluent api
+  - [ ] Static flag can be set via property
+- [ ] Getter accessibility level will be exposed via public property
+  - [ ] Getter accessibility level can be set via fluent api
+  - [ ] Getter accessibility level can be set via property
+- [ ] Setter accessibility level will be exposed via public property
+  - [ ] Setter accessibility level can be set via fluent api
+  - [ ] Setter accessibility level can be set via property
 
 ### Class Fields (SGClassFields)
 - [ ] Class Fields must be instantiated with a string type value, an accessibility level,
@@ -226,7 +253,7 @@ a field name string, a static flag, a const flag, and a read only flag
   - [ ] Field name can be set via fluent api
   - [ ] Field name can be set via property
   - [ ] Field name cannot be set to null or empty
-  - [ ] Field name will replace spaces with underscores
+  - [ ] Setting field name will replace spaces with underscores
 - [ ] Type value will be exposed via public property
   - [ ] Type value can be set via fluent api
   - [ ] Type value can be set via property
@@ -247,10 +274,52 @@ a field name string, a static flag, a const flag, and a read only flag
   - [ ] Default values can be of type object, evaluated as ToString
 
 ### Class Constructors (SGClassConstructor)
+- [ ] Class Constructors must be instantiated with an accessibility level, and a class name
+  - [ ] Class name cannot be null or empty
+  - [ ] Class name will replace spaces with underscores
+  - [ ] Accessibility level will default to public
+- [ ] Class name will be exposed via public property
+  - [ ] Class name can be set via fluent api
+  - [ ] Class name can be set via property
+  - [ ] Class name cannot be set to null or empty
+  - [ ] Setting class name will replace spaces with underscores
+- [ ] Accessibility level will be exposed via public property
+  - [ ] Accessibility level can be set via fluent api
+  - [ ] Accessibility level can be set via property
+- [ ] Class Constructor must contain any number of Method Arguments
+- [ ] Class Constructor must allow the specification of Base constructor arguments
+  - [ ] Class Constructor cannot also specify This constructor arguments
+- [ ] Class Constructor must allow the specification of This constructor arguments
+  - [ ] Class Constrcutor cannot also specify Base constructor arguments
 
+- [ ] (Needs analysis) Allowing setting of props/fields from constructor args
 
-### Class Methods (SGClassMethod)
-
+### Methods (SGMethod)
+- [ ] Methods must be instantiated with an accessibility level, a method name, a return
+type, a static flag
+  - [ ] Method name cannot be null or emtpy
+  - [ ] Method name will replace spaces with underscores
+  - [ ] Accessibility level will default to private
+  - [ ] Return type cannot be null or empty
+  - [ ] Return type will default to void
+  - [ ] Return type can be of System.Type
+  - [ ] Static flag will default to false
+- [ ] Method name will be exposed via a public property
+  - [ ] Method name can be set via fluent api
+  - [ ] Method name can be set via property
+  - [ ] Method name cannot bet set to null or empty
+  - [ ] Setting method name will replace spaces with underscores
+- [ ] Accessibility level will be exposed via public property
+  - [ ] Accessibility level can be set via fluent api
+  - [ ] Accessibility level can be set via property
+- [ ] Return Type will be exposed via public property
+  - [ ] Return type can be set via fluent api
+  - [ ] Return type can be set via property
+  - [ ] Return type can be set using System.Type
+- [ ] Static flag will be exposed via public property
+  - [ ] Static flag can be set via fluent api
+  - [ ] Static flag can be set via property
+- [ ] Class Constructor must contain any number of Method Arguments
 
 ### Attribute (SGAttribute)
 
