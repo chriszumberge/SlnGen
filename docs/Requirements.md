@@ -75,10 +75,10 @@ Checked requirements are implemented and have unit tests covering the use case.
 	- [x] Accessibility levels will default to private
 - [x] Interface Name exposed as a public property
 	- [x] Interface name property cannot be set to null or empty
-    - [ ] Interface names will replace spaces with underscores
-- [ ] Accessibility level exposed as a public property
-    - [ ] Accessibility level can be set via a fluent api
-    - [ ] Accessibliity level can be set via property
+    - [x] Interface names will replace spaces with underscores
+- [x] Accessibility level exposed as a public property
+    - [x] Accessibility level can be set via a fluent api
+    - [x] Accessibliity level can be set via property
 - [x] Interfaces must be able to implement other Interfaces
 	- [x] Add interface implementations as strings as part of a fluent API
 	- [x] Add interface implementations as strings as a constructor property initializer
@@ -89,10 +89,14 @@ Checked requirements are implemented and have unit tests covering the use case.
 	- [x] Add multiple generic param names a a property initializer
 	- [x] Generic param name cannot be null or empty
 	- [x] Must expose an IsGeneric boolean property
-- [ ] Interfaces can contain any number of method Signatures
-	- [ ] Add as part of a fluent API
-	- [ ] Add as a constructor property initializer
-- [ ] Interfaces must be able to contain any number of Attributes
+- [x] Interfaces can contain any number of method Signatures
+	- [x] Add as part of a fluent API
+	- [x] Add as a constructor property initializer
+    - [x] Parameter cannot be null, throws exception
+- [x] Interfaces must be able to contain any number of Attributes
+    - [x] Add as part of a fluent API
+    - [x] Add as a constructor property initializer
+    - [x] Parameter cannot be null, throws exception
 
 ### Classes (SGClass)
 - [ ] Classes must be instantiated with an accessibility level, a name string,

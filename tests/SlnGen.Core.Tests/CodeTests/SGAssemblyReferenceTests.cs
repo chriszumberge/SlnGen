@@ -59,8 +59,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestAssemblyNameSetEmpty_ThrowsException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAssemblyNameSetEmpty_ThrowsArgumentException()
         {
             // Arrange
             string assemblyName = "Assembly Reference";
@@ -72,8 +72,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestAssemblyNameSetNull_ThrowsException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestAssemblyNameSetNull_ThrowsArgumentNullException()
         {
             // Arrange
             string assemblyName = "Assembly Reference";

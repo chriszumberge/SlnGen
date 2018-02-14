@@ -41,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\SGAccessibilityLevel.cs" />
+    <Compile Include="Code\SGAttribute.cs" />
     <Compile Include="Code\SGClass.cs" />
     <Compile Include="Code\SGEnum.cs" />
     <Compile Include="Code\SGFile.cs" />
     <Compile Include="Code\SGAssemblyReference.cs" />
     <Compile Include="Code\SGInterface.cs" />
+    <Compile Include="Code\SGMethodSignature.cs" />
     <Compile Include="Code\SGNamespace.cs" />
     <Compile Include="Code\SGStruct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

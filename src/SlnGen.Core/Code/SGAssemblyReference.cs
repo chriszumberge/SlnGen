@@ -20,31 +20,22 @@ namespace SlnGen.Core.Code
             {
                 if (value == null)
                 {
-                    throw new Exception("Cannot set AssemblyName to null.");
+                    throw new ArgumentNullException(nameof(AssemblyName), "Cannot set AssemblyName to null.");
                 }
                 else if (value.Length == 0)
                 {
-                    throw new Exception("Cannot set AssemblyName to empty string.");
+                    throw new ArgumentException("Cannot set AssemblyName to empty string.", nameof(AssemblyName));
                 }
                 else
                 {
-                    _assemblyName = value;
+                    _assemblyName = value.Replace(" ", String.Empty);
                 }
             }
         }
 
         public SGAssemblyReference(string assemblyName)
         {
-            if (assemblyName == null)
-            {
-                throw new ArgumentNullException(nameof(assemblyName));
-            }
-            if (assemblyName.Length == 0)
-            {
-                throw new ArgumentException("Argument cannot be an empty string.", nameof(assemblyName));
-            }
-
-            AssemblyName = assemblyName.Replace(" ", String.Empty);
+            AssemblyName = assemblyName;
         }
 
         public override string ToString()

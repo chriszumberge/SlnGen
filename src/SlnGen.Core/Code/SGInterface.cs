@@ -1,8 +1,14 @@
-﻿using System;
+﻿///
+/// SGInterface.cs
+/// 
+/// Author:
+///     Chris Zumberge <chriszumberge@gmail.com>
+///     
+/// 02/06/2018
+/// 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlnGen.Core.Code
 {
@@ -16,15 +22,15 @@ namespace SlnGen.Core.Code
             {
                 if (value == null)
                 {
-                    throw new Exception("Cannot set InterfaceName to null.");
+                    throw new ArgumentNullException(nameof(InterfaceName), "Cannot set InterfaceName to null.");
                 }
                 else if (value.Length == 0)
                 {
-                    throw new Exception("Cannot set Interfacename to empty string.");
+                    throw new ArgumentException("Cannot set InterfaceName to empty string.", nameof(InterfaceName));
                 }
                 else
                 {
-                    _interfaceName = value;
+                    _interfaceName = value.Replace(" ", "_");
                 }
             }
         }
@@ -33,23 +39,33 @@ namespace SlnGen.Core.Code
 
         public List<string> InterfaceImplementations { get; set; } = new List<string>();
 
-        public bool IsGeneric => GenericTypeNames.Count > 0;
-        public List<string> GenericTypeNames { get; set; } = new List<string>();
+        public bool IsGeneric => (GenericTypeNames?.Count ?? 0) > 0;
+        List<string> _genericTypeNames = new List<string>();
+        public List<string> GenericTypeNames
+        {
+            get { return _genericTypeNames; }
+            set
+            {
+                if (value == null)
+                {
+                    _genericTypeNames = new List<string>();
+                }
+                else
+                {
+                    _genericTypeNames = value;
+                }
+            }
+        }
+
+        public List<SGMethodSignature> MethodSignatures { get; set; } = new List<SGMethodSignature>();
+
+        public List<SGAttribute> Attributes { get; set; } = new List<SGAttribute>();
 
         public SGInterface(string interfaceName) : this(SGAccessibilityLevel.Private, interfaceName) { }
 
         public SGInterface(SGAccessibilityLevel accessibilityLevel, string interfaceName)
         {
-            if (interfaceName == null)
-            {
-                throw new ArgumentNullException(nameof(interfaceName));
-            }
-            if (interfaceName.Length == 0)
-            {
-                throw new ArgumentException("Argument cannot be an empty string.", nameof(interfaceName));
-            }
-
-            InterfaceName = interfaceName.Replace(" ", "_");
+            InterfaceName = interfaceName;
             AccessibilityLevel = accessibilityLevel;
         }
 
@@ -57,7 +73,7 @@ namespace SlnGen.Core.Code
         {
             if (interfaceImplementations.Any(x => String.IsNullOrEmpty(x)))
             {
-                throw new Exception("Interface Implementations cannot be null or empty stings.");
+                throw new ArgumentException("Interface Implementations cannot be null or empty stings.");
             }
             InterfaceImplementations.AddRange(interfaceImplementations);
             return this;
@@ -72,11 +88,44 @@ namespace SlnGen.Core.Code
         {
             if (genericTypeNames.Any(x => String.IsNullOrEmpty(x)))
             {
-                throw new Exception("Generic Type Names cannot be null or empty strings.");
+                throw new ArgumentException("Generic Type Names cannot be null or empty strings.");
             }
 
             GenericTypeNames.AddRange(genericTypeNames);
             return this;
+        }
+
+        public SGInterface WithAccessibilityLevel(SGAccessibilityLevel accessibilityLevel)
+        {
+            AccessibilityLevel = accessibilityLevel;
+            return this;
+        }
+
+        public SGInterface WithMethodSignatures(params SGMethodSignature[] methods)
+        {
+            if (methods == null || methods.Any(x => x == null))
+            {
+                throw new ArgumentException("Method signatures cannot be null.");
+            }
+
+            MethodSignatures.AddRange(methods);
+            return this;
+        }
+
+        public SGInterface WithAttributes(params SGAttribute[] attributes)
+        {
+            if (attributes == null || attributes.Any(x => x == null))
+            {
+                throw new ArgumentException("Attributes cannot be null.");
+            }
+
+            Attributes.AddRange(attributes);
+            return this;
+        }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
         }
     }
 }

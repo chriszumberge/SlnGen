@@ -102,8 +102,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestNamespaceNameSetEmpty_ThrowsException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNamespaceNameSetEmpty_ThrowsArgumentException()
         {
             // Arrange
             string interfaceName = "IInterface";
@@ -115,8 +115,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestNamespaceNameSetNull_ThrowsException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestNamespaceNameSetNull_ThrowsArgumentNullException()
         {
             // Arrange
             string interfaceName = "IInterface";
@@ -124,6 +124,65 @@ namespace SlnGen.Core.Tests.CodeTests
 
             // Act
             @interface.InterfaceName = null;
+        }
+
+        [TestMethod]
+        public void TestNamespaceNameWithSpaces_ReplacedWithUnderscores()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
+            string newInterfaceName = "Some Interface Name";
+
+            // Act
+            @interface.InterfaceName = newInterfaceName;
+
+            // Assert
+            Assert.AreEqual(newInterfaceName.Replace(" ", "_"), @interface.InterfaceName);
+        }
+
+        [TestMethod]
+        public void TestAccessibilityLevelSet_FluentAPI()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(SGAccessibilityLevel.Private, interfaceName);
+
+            // Act
+            @interface = @interface.WithAccessibilityLevel(SGAccessibilityLevel.Public);
+
+            // Assert
+            Assert.AreEqual(SGAccessibilityLevel.Public, @interface.AccessibilityLevel);
+        }
+
+        [TestMethod]
+        public void TestAccessibilityLevelSet_Property()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(SGAccessibilityLevel.Private, interfaceName);
+
+            // Act
+            @interface.AccessibilityLevel = SGAccessibilityLevel.Public;
+
+            // Assert
+            Assert.AreEqual(SGAccessibilityLevel.Public, @interface.AccessibilityLevel);
+        }
+
+        [TestMethod]
+        public void TestAccessibilityLevelSet_PropertyInitializer()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+
+            // Act
+            SGInterface @interface = new SGInterface(interfaceName)
+            {
+                AccessibilityLevel = SGAccessibilityLevel.Public
+            };
+
+            // Assert
+            Assert.AreEqual(SGAccessibilityLevel.Public, @interface.AccessibilityLevel);
         }
 
         [TestMethod]
@@ -180,8 +239,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestAddNullInterfaceImplementation_ThrowsException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddNullInterfaceImplementation_ThrowsArgumentException()
         {
             // Arrange
             string interfaceName = "IInterface";
@@ -193,8 +252,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestAddEmptyInterfaceImplementation_ThrowsException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddEmptyInterfaceImplementation_ThrowsArgumentException()
         {
             // Arrange
             string interfaceName = "IInterface";
@@ -243,8 +302,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestAddNullGeneric_ThrowsException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddNullGeneric_ThrowsArgumentException()
         {
             // Arrange
             string interfaceName = "IInterface";
@@ -256,8 +315,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestAddEmptyGeneric_ThrowsException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddEmptyGeneric_ThrowsArgumentException()
         {
             // Arrange
             string interfaceName = "IInterface";
@@ -292,6 +351,123 @@ namespace SlnGen.Core.Tests.CodeTests
 
             // Assert
             Assert.IsTrue(@interface.IsGeneric);
+        }
+
+        [TestMethod]
+        public void TestIsGenericFlag_FalseWhenSetNull()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            string genericTypeName = "T";
+            SGInterface @interface = new SGInterface(interfaceName).WithGenericTypeNames(genericTypeName);
+
+            // Act
+            @interface.GenericTypeNames = null;
+
+            // Assert
+            Assert.IsFalse(@interface.IsGeneric);
+        }
+
+        [TestMethod]
+        public void TestAddMethodSignatures_FluentAPI()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
+            SGMethodSignature method1 = new SGMethodSignature();
+            SGMethodSignature method2 = new SGMethodSignature();
+
+            // Act
+            @interface = @interface.WithMethodSignatures(method1, method2);
+
+            // Assert
+            Assert.IsTrue(@interface.MethodSignatures.ContainsAll(method1, method2));
+        }
+
+        [TestMethod]
+        public void TestAddMethodSignatures_PropertyInitializer()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGMethodSignature method1 = new SGMethodSignature();
+            SGMethodSignature method2 = new SGMethodSignature();
+
+            // Act
+            SGInterface @interface = new SGInterface(interfaceName)
+            {
+                MethodSignatures =
+                {
+                    method1,
+                    method2
+                }
+            };
+
+            // Assert
+            Assert.IsTrue(@interface.MethodSignatures.ContainsAll(method1, method2));
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddNullMethodSignature_ThrowsArgumentException()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
+
+            // Act
+            @interface = @interface.WithMethodSignatures(null);
+        }
+
+        [TestMethod]
+        public void TestAddAttributes_FluentAPI()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
+            SGAttribute attr1 = new SGAttribute();
+            SGAttribute attr2 = new SGAttribute();
+
+            // Act
+            @interface = @interface.WithAttributes(attr1, attr2);
+
+            // Assert
+            Assert.IsTrue(@interface.Attributes.ContainsAll(attr1, attr2));
+        }
+
+        [TestMethod]
+        public void TestAddAttributes_PropertyInitializer()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGAttribute attr1 = new SGAttribute();
+            SGAttribute attr2 = new SGAttribute();
+
+            // Act
+            SGInterface @interface = new SGInterface(interfaceName)
+            {
+                Attributes =
+                {
+                    attr1,
+                    attr2
+                }
+            };
+
+            // Assert
+            Assert.IsTrue(@interface.Attributes.ContainsAll(attr1, attr2));
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddNullAttribute_ThrowsArgumentException()
+        {
+            // Arrange
+            string interfaceName = "IInterface";
+            SGInterface @interface = new SGInterface(interfaceName);
+
+            // Act
+            @interface = @interface.WithAttributes(null);
         }
     }
 }

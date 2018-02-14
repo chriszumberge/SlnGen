@@ -61,8 +61,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestNamespaceNameSetEmtpy_ThrowsException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestNamespaceNameSetEmtpy_ThrowsArgumentException()
         {
             // Arrange
             string namespaceName = "SlnGen";
@@ -74,8 +74,8 @@ namespace SlnGen.Core.Tests.CodeTests
 
         [TestMethod]
         // Assert
-        [ExpectedException(typeof(Exception))]
-        public void TestNamespaceNameSetNull_ThrowsException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestNamespaceNameSetNull_ThrowsArgumentNullException()
         {
             // Arrange
             string namespaceName = "SlnGen";
