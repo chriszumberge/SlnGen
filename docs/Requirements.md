@@ -45,7 +45,7 @@ Checked requirements are implemented and have unit tests covering the use case.
 - [x] Assembly name will replace spaces with empty strings
 - [x] Assembly name property exposed
 	- [x] Assembly name property cannot be set to null or empty
-    - [ ] Assembly name will replace spaces with empty strings
+    - [x] Assembly name will replace spaces with empty strings
 - [x] Using Statements will override the ToString() method as $"using {assemblyName};"
 
 ### Namespaces (SGNamespace)
@@ -155,21 +155,21 @@ an abstract flag, a static flag, and a partial class flag
 ### Method Signatures (SGMethodSignature)
 - [ ] Method signatures must be instantiated with an accessibility level, a name string,
 a string return type, a static flag, an async flag, and an override flag
-  - [ ] Method Signature names cannot be null or empty
-  - [ ] Method Signature names will replace spaces with underscores
-  - [ ] Accessibility level will default to private
-  - [ ] Return type cannot be null or empty
-  - [ ] Return type will default to void
-  - [ ] Return type can be of System.Type
-  - [ ] Static flag will default to false
-  - [ ] Async flag will default to false
-  - [ ] Override flag will default to false
+  - [x] Method Signature names cannot be null or empty
+  - [x] Method Signature names will replace spaces with underscores
+  - [x] Accessibility level will default to private
+  - [x] Return type cannot be null or empty
+  - [x] Return type will default to void
+  - [x] Return type can be of System.Type
+  - [x] Static flag will default to false
+  - [x] Async flag will default to false
+  - [x] Override flag will default to false
 - [ ] Accessibility Level will be exposed via public property
   - [ ] Accessibility level can be set via fluent api
   - [ ] Accessibility level can be set via property
-- [ ] Method Signature name will be exposed via public property
-  - [ ] Method Signature name cannot be set to null or empty
-  - [ ] Method Signature names will replace spaces with underscores
+- [x] Method Signature name will be exposed via public property
+  - [x] Method Signature name cannot be set to null or empty
+  - [x] Method Signature names will replace spaces with underscores
 - [ ] Return Type will be exposed via public property
   - [ ] Return type can be set via fluent api
   - [ ] Return type can be set via property

@@ -84,6 +84,20 @@ namespace SlnGen.Core.Tests.CodeTests
         }
 
         [TestMethod]
+        public void TestAssemblyNameWithSpacesSet_ReplacedWithEmpty()
+        {
+            // Arrange
+            string assemblyName = "Assembly Reference";
+            SGAssemblyReference assemblyReference = new SGAssemblyReference(assemblyName);
+
+            // Act
+            assemblyReference.AssemblyName = assemblyName;
+
+            // Assert
+            Assert.AreEqual(assemblyName.Replace(" ", String.Empty), assemblyReference.AssemblyName);
+        }
+
+        [TestMethod]
         public void Test_ToString()
         {
             // Arrange
