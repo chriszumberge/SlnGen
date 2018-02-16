@@ -205,7 +205,7 @@ namespace SlnGen.Core.Tests.CodeTests
         }
 
         [TestMethod]
-        public void TestMethodNameSet_WIthSpaces_ReplacedWithUnderscores()
+        public void TestMethodNameSet_WithSpaces_ReplacedWithUnderscores()
         {
             // Arrange
             string methodName = "Method";
@@ -217,6 +217,64 @@ namespace SlnGen.Core.Tests.CodeTests
 
             // Assert
             Assert.AreEqual(newMethodName.Replace(" ", "_"), method.MethodName);
+        }
+
+        [TestMethod]
+        public void TestAccessibilityLevelSet_Property()
+        {
+            // Arrange
+            string methodName = "Method";
+            SGAccessibilityLevel accessibilityLevel = SGAccessibilityLevel.Public;
+            SGAccessibilityLevel newAccessibilityLevel = SGAccessibilityLevel.Protected;
+            SGMethodSignature method = new SGMethodSignature(methodName, accessibilityLevel);
+
+            // Act
+            method.AccessibilityLevel = newAccessibilityLevel;
+
+            // Assert
+            Assert.AreEqual(newAccessibilityLevel, method.AccessibilityLevel);
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestAccessibilityLevelSetNull_Property_ThrowsArgumentNullException()
+        {
+            // Arrange
+            string methodName = "Method";
+            SGAccessibilityLevel accessibilityLevel = SGAccessibilityLevel.Public;
+            SGAccessibilityLevel newAccessibilityLevel = null;
+            SGMethodSignature method = new SGMethodSignature(methodName, accessibilityLevel);
+
+            // Act
+            method.AccessibilityLevel = newAccessibilityLevel;
+        }
+
+        [TestMethod]
+        public void TestAccessibilityLevelSet_FluentAPI()
+        {
+            // Arrange
+            string methodName = "Method";
+            SGAccessibilityLevel accessibilityLevel = SGAccessibilityLevel.Public;
+
+            // Act
+            methodName = new SGMethodSignature(methodName).WithAccessibilityLevel(accessibilityLevel);
+
+            // Assert
+            Assert.AreEqual(newAccessibilityLevel, method.AccessibilityLevel);
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestAccessibilityLevelSetNull_FluentAPI_ThrowsArgumentNullException()
+        {
+            // Arrange
+            string methodName = "Method";
+            SGAccessibilityLevel accessibilityLevel = null;
+
+            // Act
+            methodName = new SGMethodSignature(methodName).WithAccessibilityLevel(accessibilityLevel);
         }
     }
 }

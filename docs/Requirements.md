@@ -165,9 +165,10 @@ a string return type, a static flag, an async flag, and an override flag
   - [x] Async flag will default to false
   - [x] Override flag will default to false
 - [ ] Accessibility Level will be exposed via public property
-  - [ ] Accessibility level can be set via fluent api
-  - [ ] Accessibility level can be set via property
-- [x] Method Signature name will be exposed via public property
+  - [x] Accessibility level can be set via fluent api
+  - [x] Accessibility level can be set via property
+  - [x] Accessibility level cannot be set to null via property or fluent api
+- [ ] Method Signature name will be exposed via public property
   - [x] Method Signature name cannot be set to null or empty
   - [x] Method Signature names will replace spaces with underscores
 - [ ] Return Type will be exposed via public property
