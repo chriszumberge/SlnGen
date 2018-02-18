@@ -102,12 +102,13 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string assemblyName = "System.Text";
-
-            // Act
             SGAssemblyReference assemblyReference = new SGAssemblyReference(assemblyName);
 
+            // Act
+            string output = assemblyReference.ToString();
+
             // Assert
-            Assert.AreEqual($"using {assemblyName};", assemblyReference.ToString());
+            Assert.AreEqual($"using {assemblyName};", output);
         }
     }
 }

@@ -659,8 +659,8 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string methodName = "Method";
-            SGArgument arg1 = new SGArgument();
-            SGArgument arg2 = new SGArgument();
+            SGArgument arg1 = new SGArgument("arg1", "int");
+            SGArgument arg2 = new SGArgument("arg2", "bool");
             SGMethodSignature method = new SGMethodSignature(methodName);
 
             // Act
@@ -675,8 +675,8 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string methodName = "Method";
-            SGArgument arg1 = new SGArgument();
-            SGArgument arg2 = new SGArgument();
+            SGArgument arg1 = new SGArgument("arg1", "int");
+            SGArgument arg2 = new SGArgument("arg2", "bool");
 
             // Act
             SGMethodSignature method = new SGMethodSignature(methodName)
@@ -710,8 +710,8 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string methodName = "Method";
-            SGArgument arg1 = new SGArgument();
-            SGArgument arg2 = new SGArgument();
+            SGArgument arg1 = new SGArgument("arg1", "int");
+            SGArgument arg2 = new SGArgument("arg2", "bool");
             SGMethodSignature method = new SGMethodSignature(methodName)
             {
                 Arguments = { arg1, arg2 }

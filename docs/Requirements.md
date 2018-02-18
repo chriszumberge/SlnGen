@@ -160,7 +160,7 @@ a string return type, a static flag, an async flag, and an override flag
   - [x] Accessibility level will default to private
   - [x] Return type of null or empty sets to void
   - [x] Return type will default to void
-  - [ ] Return type can be of System.Type
+  - [ ] **Return type can be of System.Type**
   - [x] Static flag will default to false
   - [x] Async flag will default to false
   - [x] Override flag will default to false
@@ -194,24 +194,25 @@ a string return type, a static flag, an async flag, and an override flag
   - [x] Must expose Arguments propety
   - [x] Arguments can be added via fluent api
   - [x] Arguments can be added via property
+- [ ] **Method Signatures must be able to contain any number of Attributes**
 
 ### Arguments (SGArgument)
 - [ ] Arguments must be instantiated with a string type value and a name string
-  - [ ] Type value string cannot be null or empty
-  - [ ] Type value can be passed as System.Type
-  - [ ] Argument name cannot be null or empty
-  - [ ] Argument name will replace spaces with underscores
+  - [x] Type value string cannot be null or empty
+  - [x] Type value can be passed as System.Type
+  - [x] Argument name cannot be null or empty
+  - [x] Argument name will replace spaces with underscores
 - [ ] Arguments can allow string default values
-  - [ ] Default values can be of type object, evaluated as ToString
+  - [ ] **Default values can be of type object, evaluated as ToString**
 - [ ] Type value will be exposed via public property
-  - [ ] Type value can be set via fluent api
-  - [ ] Type value can be set via property
-  - [ ] Type value cannot be set to null or empty
+  - [x] Type value can be set via fluent api
+  - [x] Type value can be set via property
+  - [x] Type value cannot be set to null or empty
 - [ ] Argument name will be exposed via public property
-  - [ ] Argument name can be set via fluent api
-  - [ ] Argument name can be set via property
-  - [ ] Argument name cannot be set to null or empty
-  - [ ] Argument name will replace spaces with underscores
+  - [x] Argument name can be set via fluent api
+  - [x] Argument name can be set via property
+  - [x] Argument name cannot be set to null or empty
+  - [x] Argument name will replace spaces with underscores
 
 ### Class Properties (SGClassProperty)
 - [ ] Class Properties must be instantiated with a string type value, an accessibility 
