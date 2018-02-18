@@ -153,43 +153,47 @@ an abstract flag, a static flag, and a partial class flag
   - [x] "" = 5 (None)
 
 ### Method Signatures (SGMethodSignature)
-- [ ] Method signatures must be instantiated with an accessibility level, a name string,
+- [x] Method signatures must be instantiated with an accessibility level, a name string,
 a string return type, a static flag, an async flag, and an override flag
   - [x] Method Signature names cannot be null or empty
   - [x] Method Signature names will replace spaces with underscores
   - [x] Accessibility level will default to private
-  - [x] Return type cannot be null or empty
+  - [x] Return type of null or empty sets to void
   - [x] Return type will default to void
-  - [x] Return type can be of System.Type
+  - [ ] Return type can be of System.Type
   - [x] Static flag will default to false
   - [x] Async flag will default to false
   - [x] Override flag will default to false
-- [ ] Accessibility Level will be exposed via public property
+- [x] Accessibility Level will be exposed via public property
   - [x] Accessibility level can be set via fluent api
   - [x] Accessibility level can be set via property
   - [x] Accessibility level cannot be set to null via property or fluent api
-- [ ] Method Signature name will be exposed via public property
+- [x] Method Signature name will be exposed via public property
   - [x] Method Signature name cannot be set to null or empty
   - [x] Method Signature names will replace spaces with underscores
-- [ ] Return Type will be exposed via public property
-  - [ ] Return type can be set via fluent api
-  - [ ] Return type can be set via property
-  - [ ] Return type can be set using System.Type
-- [ ] Static Flag will be exposed as a public property
-  - [ ] Static flag can be set via fluent api
-  - [ ] Static flag can be set via property
-- [ ] Async Flag will be exposed as a public property
-  - [ ] Async flag can be set via fluent api
-  - [ ] Async flag can be set via property
-- [ ] Override Flag will be exposed as a public property
-  - [ ] Override flag can be set via fluent api
-  - [ ] Override flag can be set via property
-- [ ] Method signatures must be able to be marked as generic
-  - [ ] Add mulitple generic param names as String via fluent API
-  - [ ] Add multiple generic param names as a property initializer
-  - [ ] Generic praam name cannot be null or empty
-  - [ ] Must expose IsGeneric boolean property
-- [ ] Method Signatures must be able to contain any number of Arguments
+- [x] Return Type will be exposed via public property
+  - [x] Return type can be set via fluent api
+  - [x] Return type can be set via property
+  - [x] Return type can be set using System.Type
+  - [x] Return type of null or empty sets to void
+- [x] Static Flag will be exposed as a public property
+  - [x] Static flag can be set via fluent api
+  - [x] Static flag can be set via property
+- [x] Async Flag will be exposed as a public property
+  - [x] Async flag can be set via fluent api
+  - [x] Async flag can be set via property
+- [x] Override Flag will be exposed as a public property
+  - [x] Override flag can be set via fluent api
+  - [x] Override flag can be set via property
+- [x] Method signatures must be able to be marked as generic
+  - [x] Add mulitple generic param names as String via fluent API
+  - [x] Add multiple generic param names as a property initializer
+  - [x] Generic praam name cannot be null or empty
+  - [x] Must expose IsGeneric boolean property
+- [x] Method Signatures must be able to contain any number of Arguments
+  - [x] Must expose Arguments propety
+  - [x] Arguments can be added via fluent api
+  - [x] Arguments can be added via property
 
 ### Arguments (SGArgument)
 - [ ] Arguments must be instantiated with a string type value and a name string

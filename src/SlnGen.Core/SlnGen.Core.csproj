@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\SGAccessibilityLevel.cs" />
+    <Compile Include="Code\SGArgument.cs" />
     <Compile Include="Code\SGAttribute.cs" />
     <Compile Include="Code\SGClass.cs" />
     <Compile Include="Code\SGEnum.cs" />

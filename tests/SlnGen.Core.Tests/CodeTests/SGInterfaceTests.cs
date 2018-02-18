@@ -373,9 +373,11 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string interfaceName = "IInterface";
+            string methodName1 = "Method1";
+            string methodName2 = "Method2";
             SGInterface @interface = new SGInterface(interfaceName);
-            SGMethodSignature method1 = new SGMethodSignature();
-            SGMethodSignature method2 = new SGMethodSignature();
+            SGMethodSignature method1 = new SGMethodSignature(methodName1);
+            SGMethodSignature method2 = new SGMethodSignature(methodName2);
 
             // Act
             @interface = @interface.WithMethodSignatures(method1, method2);
@@ -389,8 +391,10 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string interfaceName = "IInterface";
-            SGMethodSignature method1 = new SGMethodSignature();
-            SGMethodSignature method2 = new SGMethodSignature();
+            string methodName1 = "Method1";
+            string methodName2 = "Method2";
+            SGMethodSignature method1 = new SGMethodSignature(methodName1);
+            SGMethodSignature method2 = new SGMethodSignature(methodName2);
 
             // Act
             SGInterface @interface = new SGInterface(interfaceName)
