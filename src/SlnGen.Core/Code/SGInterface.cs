@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SlnGen.Core.Code
 {
@@ -125,7 +126,29 @@ namespace SlnGen.Core.Code
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            // TODO ADD TESTS FOR DIFFERENT SCENARIOS
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{AccessibilityLevel} inteface {InterfaceName}");
+
+            if (IsGeneric)
+            {
+                sb.Append("<");
+                sb.Append(String.Join(", ", GenericTypeNames));
+                sb.Append(">");
+            }
+
+            if (InterfaceImplementations.Count > 0)
+            {
+                sb.Append(String.Concat(" : ", String.Join(", ", InterfaceImplementations)));
+            }
+            sb.AppendLine();
+            sb.AppendLine("{");
+            foreach (var methodSignature in MethodSignatures)
+            {
+                sb.AppendLine($"\t{methodSignature.ToString()};");
+            }
+            sb.AppendLine("}");
+            return sb.ToString();
         }
     }
 }

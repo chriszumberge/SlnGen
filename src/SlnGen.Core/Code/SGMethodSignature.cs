@@ -169,5 +169,29 @@ namespace SlnGen.Core.Code
             Arguments.AddRange(args);
             return this;
         }
+
+        public override string ToString()
+        {
+            // TODO ADD TESTS FOR MULTIPLE TO STRING SCENARIOS
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{AccessibilityLevel} ");
+            if (IsStatic) { sb.Append("static "); }
+            if (IsAsync) { sb.Append("async "); }
+            if (IsOverride) { sb.Append("override "); }
+            sb.Append($"{ReturnType} {MethodName}");
+
+            if (IsGeneric && GenericTypeNames.Count > 0)
+            {
+                sb.Append("<");
+                sb.Append(String.Join(", ", GenericTypeNames));
+                sb.Append(">");
+            }
+
+            sb.Append(" (");
+            sb.Append(String.Join(", ", Arguments.Select(x => x.ToString())));
+            sb.Append(")");
+
+            return sb.ToString();
+        }
     }
 }
