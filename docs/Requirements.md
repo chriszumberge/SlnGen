@@ -249,7 +249,7 @@ accesibility level
   - [ ] Setter accessibility level can be set via property
 
 ### Class Fields (SGClassFields)
-- [ ] Class Fields must be instantiated with a string type value, an accessibility level,
+- [x] Class Fields must be instantiated with a string type value, an accessibility level,
 a field name string, a static flag, a const flag, and a read only flag
   - [x] Field name cannot be null or empty
   - [x] Field name will replace spaces with underscores
@@ -259,29 +259,30 @@ a field name string, a static flag, a const flag, and a read only flag
   - [x] Static flag will default to false
   - [x] Const flag will default to false
   - [x] Read only flag will default to false
-- [ ] Field name will be exposed via public property
+- [x] Field name will be exposed via public property
   - [x] Field name can be set via fluent api
   - [x] Field name can be set via property
   - [x] Field name cannot be set to null or empty
   - [x] Setting field name will replace spaces with underscores
-- [ ] Type value will be exposed via public property
-  - [ ] Type value can be set via fluent api
-  - [ ] Type value can be set via property
-  - [ ] Type value cannot be set to null or empty
-- [ ] Accessibility level will be exposed via public property
-  - [ ] Accessiblility level can be set via fluent api
-  - [ ] Accessiblility level can be set via property
-- [ ] Static flag will be exposed via public property
-  - [ ] Static flag can be set via fluent api
-  - [ ] Static flag can be set via property
-- [ ] Const flag will be exposed via public property
-  - [ ] Const flag can be set via fluent api
-  - [ ] Const flag can be set via property
-- [ ] Read only flag will be exposed via public property
-  - [ ] Read only flag can be set via fluent api
-  - [ ] Read only flag can be set via property
-- [ ] Field can define a string initializer value
-  - [ ] Default values can be of type object, evaluated as ToString
+- [x] Type value will be exposed via public property
+  - [x] Type value can be set via fluent api
+  - [x] Type value can be set via property
+  - [x] Type value cannot be set to null or empty
+- [x] Accessibility level will be exposed via public property
+  - [x] Accessiblility level can be set via fluent api
+  - [x] Accessiblility level can be set via property
+- [x] Static flag will be exposed via public property
+  - [x] Static flag can be set via fluent api
+  - [x] Static flag can be set via property
+- [x] Const flag will be exposed via public property
+  - [x] Const flag can be set via fluent api
+  - [x] Const flag can be set via property
+- [x] Read only flag will be exposed via public property
+  - [x] Read only flag can be set via fluent api
+  - [x] Read only flag can be set via property
+- [x] Field can define a string initializer value
+  - [x] Default values can be of type object, evaluated as ToString
+- [ ] ToString()
 
 ### Class Constructors (SGClassConstructor)
 - [ ] Class Constructors must be instantiated with an accessibility level, and a class name

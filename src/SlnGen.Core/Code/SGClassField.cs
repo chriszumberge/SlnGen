@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SlnGen.Core.Code
 {
@@ -50,13 +47,30 @@ namespace SlnGen.Core.Code
             }
         }
 
-        public SGAccessibilityLevel AccessibilityLevel { get; set; }
+        SGAccessibilityLevel _accessibilityLevel;
+        public SGAccessibilityLevel AccessibilityLevel
+        {
+            get { return _accessibilityLevel; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(AccessibilityLevel), "Cannot set AccessibilityLevel to null.");
+                }
+                else
+                {
+                    _accessibilityLevel = value;
+                }
+            }
+        }
 
         public bool IsStatic { get; set; }
 
         public bool IsConst { get; set; }
 
         public bool IsReadonly { get; set; }
+
+        public string InitializationValue { get; set; }
 
         public SGClassField(string fieldName, Type fieldType, SGAccessibilityLevel accessibilityLevel = null, bool @static = false,
             bool @const = false, bool @readonly = false)
@@ -84,6 +98,82 @@ namespace SlnGen.Core.Code
             IsStatic = @static;
             IsConst = @const;
             IsReadonly = @readonly;
+        }
+
+        public SGClassField WithFieldName(string newFieldName)
+        {
+            FieldName = newFieldName;
+            return this;
+        }
+
+        public SGClassField WithTypeValue(string newFieldType)
+        {
+            FieldType = newFieldType;
+            return this;
+        }
+
+        public SGClassField WithTypeValue(Type newFieldType)
+        {
+            FieldType = newFieldType?.Name;
+            return this;
+        }
+
+        public SGClassField WithAccessibilityLevel(SGAccessibilityLevel newAccessibilityLevel)
+        {
+            AccessibilityLevel = newAccessibilityLevel;
+            return this;
+        }
+
+        public SGClassField WithIsStatic(bool isStatic)
+        {
+            IsStatic = isStatic;
+            return this;
+        }
+
+        public SGClassField WithIsConst(bool isConst)
+        {
+            IsConst = isConst;
+            return this;
+        }
+
+        public SGClassField WithIsReadonly(bool isReadonly)
+        {
+            IsReadonly = isReadonly;
+            return this;
+        }
+
+        public SGClassField WithInitializationValue(object initializationValue)
+        {
+            if (initializationValue?.GetType() == typeof(string))
+            {
+                // Wrap strings in quotes for being evaluated
+                InitializationValue = $"\"{initializationValue}\"";
+            }
+            else
+            {
+                InitializationValue = initializationValue?.ToString() ?? "null";
+            }
+            return this;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{AccessibilityLevel} ");
+            if (IsStatic) { sb.Append("static "); }
+            if (IsConst) { sb.Append("const "); }
+            if (IsReadonly) { sb.Append("readonly "); }
+            sb.Append($"{FieldType} ");
+            sb.Append($"{FieldName}");
+
+            if (!(InitializationValue == null))
+            {
+                sb.Append($" = {InitializationValue}");
+            }
+
+            sb.AppendLine(";");
+
+            return sb.ToString();
         }
     }
 }
