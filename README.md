@@ -26,14 +26,18 @@ Available on NuGet: (link to nuget) (nuget badge)
 ## Builds and Tests
 
 ### Master Branch
-[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true&passingText=master%20-%20passing&pendingText=master%20-%20pending&failingText=master%20-%20failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
+<!-- [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true&passingText=master%20-%20passing&pendingText=master%20-%20pending&failingText=master%20-%20failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master) -->
+
+[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/master?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/master)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/95c5f5a4dfce4dde9cc76247a88a8190)](https://www.codacy.com/app/chriszumberge/SlnGen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chriszumberge/SlnGen&amp;utm_campaign=Badge_Grade)
 
 CI NuGet Feed: (appveyor)
 
 ### Develop Branch
-[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true&passingText=develop%20-%20passing&pendingText=develop%20-%20pending&failingText=develop%20-%20failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
+<!-- [![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true&passingText=develop%20-%20passing&pendingText=develop%20-%20pending&failingText=develop%20-%20failing)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop) -->
+
+[![Build status](https://ci.appveyor.com/api/projects/status/7aiumqihtin1hmwg/branch/develop?svg=true)](https://ci.appveyor.com/project/chriszumberge/slngen/branch/develop)
 
 [Develop Branch Codacy Report](https://app.codacy.com/app/chriszumberge/SlnGen/dashboard?bid=6598595)
 
