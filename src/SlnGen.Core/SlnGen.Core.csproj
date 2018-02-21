@@ -45,6 +45,7 @@
     <Compile Include="Code\SGAttribute.cs" />
     <Compile Include="Code\SGClass.cs" />
     <Compile Include="Code\SGClassField.cs" />
+    <Compile Include="Code\SGClassProperty.cs" />
     <Compile Include="Code\SGEnum.cs" />
     <Compile Include="Code\SGFile.cs" />
     <Compile Include="Code\SGAssemblyReference.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Utils\LinqExtensions.cs" />
     <Compile Include="Utils\ListExtensions.cs" />
     <Compile Include="Utils\OverwritableDictionary.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="Utils\TypeFilteredList.cs" />
     <Compile Include="Utils\TypeSafeEnum.cs" />
   </ItemGroup>

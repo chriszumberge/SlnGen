@@ -422,6 +422,41 @@ namespace SlnGen.Core.Tests.CodeTests
         }
 
         [TestMethod]
+        public void TestAccessibilityLevelSet_PropertyInitializer()
+        {
+            // Arrange
+            string fieldName = "field";
+            string fieldType = "int";
+            SGAccessibilityLevel accessibilityLevel = SGAccessibilityLevel.Public;
+
+            // Act
+            SGClassField field = new SGClassField(fieldName, fieldType)
+            {
+                AccessibilityLevel = accessibilityLevel
+            };
+
+            // Assert
+            Assert.AreEqual(accessibilityLevel, field.AccessibilityLevel);
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestAccessibilityLevelSetNull_PropertyInitializer_ThrowsArgumentNullException()
+        {
+            // Arrange
+            string fieldName = "field";
+            string fieldType = "int";
+            SGAccessibilityLevel accessibilityLevel = null;
+
+            // Act
+            SGClassField field = new SGClassField(fieldName, fieldType)
+            {
+                AccessibilityLevel = accessibilityLevel
+            };
+        }
+
+        [TestMethod]
         public void TestAccessibilityLevelSet_FluentAPI()
         {
             // Arrange
@@ -699,7 +734,7 @@ namespace SlnGen.Core.Tests.CodeTests
             field = field.WithInitializationValue(initializationValue);
 
             // Assert
-            Assert.AreEqual($"5", field.InitializationValue);
+            Assert.AreEqual("5", field.InitializationValue);
         }
 
         [TestMethod]

@@ -197,56 +197,58 @@ a string return type, a static flag, an async flag, and an override flag
 - [ ] **Method Signatures must be able to contain any number of Attributes**
 
 ### Arguments (SGArgument)
-- [ ] Arguments must be instantiated with a string type value and a name string
+- [x] Arguments must be instantiated with a string type value and a name string
   - [x] Type value string cannot be null or empty
   - [x] Type value can be passed as System.Type
   - [x] Argument name cannot be null or empty
   - [x] Argument name will replace spaces with underscores
 - [ ] Arguments can allow string default values
   - [ ] **Default values can be of type object, evaluated as ToString**
-- [ ] Type value will be exposed via public property
+- [x] Type value will be exposed via public property
   - [x] Type value can be set via fluent api
   - [x] Type value can be set via property
   - [x] Type value cannot be set to null or empty
-- [ ] Argument name will be exposed via public property
+- [x] Argument name will be exposed via public property
   - [x] Argument name can be set via fluent api
   - [x] Argument name can be set via property
   - [x] Argument name cannot be set to null or empty
   - [x] Argument name will replace spaces with underscores
 
 ### Class Properties (SGClassProperty)
-- [ ] Class Properties must be instantiated with a string type value, an accessibility 
+- [x] Class Properties must be instantiated with a string type value, an accessibility 
 level, a property name string, a static flag, a getter accessibility level, a setter
 accesibility level
-    - [ ] Property name cannot be null or empty
-    - [ ] Property name will replace spaces with underscores
-    - [ ] Type value cannot be null or empty
-    - [ ] Type value can be passed as System.Type
-    - [ ] Accessibility will default to private
-    - [ ] Static flag will default to false
-    - [ ] Getter accessibility level will default to none
-    - [ ] Setter accessibility level will default to none
-- [ ] Property name will be exposed via public property
-  - [ ] Property name can be set via fluent api
-  - [ ] Property name can be set via property
-  - [ ] Property name cannot be set to null or empty
-  - [ ] Setting property name will replace spaces with underscores
-- [ ] Type value will be exposed via public property
-  - [ ] Type value can be set via fluent api
-  - [ ] Type value can be set via property
-  - [ ] Type value cannot be set to null or empty
-- [ ] Accessibility level will be exposed via public property
-  - [ ] Accessiblility level can be set via fluent api
-  - [ ] Accessiblility level can be set via property
-- [ ] Static flag will be exposed via public property
-  - [ ] Static flag can be set via fluent api
-  - [ ] Static flag can be set via property
-- [ ] Getter accessibility level will be exposed via public property
-  - [ ] Getter accessibility level can be set via fluent api
-  - [ ] Getter accessibility level can be set via property
-- [ ] Setter accessibility level will be exposed via public property
-  - [ ] Setter accessibility level can be set via fluent api
-  - [ ] Setter accessibility level can be set via property
+    - [x] Property name cannot be null or empty
+    - [x] Property name will replace spaces with underscores
+    - [x] Type value cannot be null or empty
+    - [x] Type value can be passed as System.Type
+    - [x] Accessibility will default to private
+    - [x] Static flag will default to false
+    - [x] Getter accessibility level will default to none
+    - [x] Setter accessibility level will default to none
+- [x] Property name will be exposed via public property
+  - [x] Property name can be set via fluent api
+  - [x] Property name can be set via property
+  - [x] Property name cannot be set to null or empty
+  - [x] Setting property name will replace spaces with underscores
+- [x] Type value will be exposed via public property
+  - [x] Type value can be set via fluent api
+  - [x] Type value can be set via property
+  - [x] Type value cannot be set to null or empty
+- [x] Accessibility level will be exposed via public property
+  - [x] Accessiblility level can be set via fluent api
+  - [x] Accessiblility level can be set via property
+- [x] Static flag will be exposed via public property
+  - [x] Static flag can be set via fluent api
+  - [x] Static flag can be set via property
+- [x] Getter accessibility level will be exposed via public property
+  - [x] Getter accessibility level can be set via fluent api
+  - [x] Getter accessibility level can be set via property
+- [x] Setter accessibility level will be exposed via public property
+  - [x] Setter accessibility level can be set via fluent api
+  - [x] Setter accessibility level can be set via property
+- [x] Property can define a string initializer value
+  - [x] Initializer values can be of type object, evaluated as ToString
 
 ### Class Fields (SGClassFields)
 - [x] Class Fields must be instantiated with a string type value, an accessibility level,
@@ -281,7 +283,7 @@ a field name string, a static flag, a const flag, and a read only flag
   - [x] Read only flag can be set via fluent api
   - [x] Read only flag can be set via property
 - [x] Field can define a string initializer value
-  - [x] Default values can be of type object, evaluated as ToString
+  - [x] Initializer values can be of type object, evaluated as ToString
 - [ ] ToString()
 
 ### Class Constructors (SGClassConstructor)

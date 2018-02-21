@@ -13,11 +13,11 @@ namespace SlnGen.Core.Code
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(FieldName), "Cannot set FieldName to null.");
+                    throw new ArgumentNullException(nameof(FieldName), $"Cannot set {nameof(FieldName)} to null.");
                 }
                 else if (value.Length == 0)
                 {
-                    throw new ArgumentException("Cannot set FieldName to empty string.", nameof(FieldName));
+                    throw new ArgumentException($"Cannot set {nameof(FieldName)} to empty string.", nameof(FieldName));
                 }
                 else
                 {
@@ -34,11 +34,11 @@ namespace SlnGen.Core.Code
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(FieldType), "Cannot set FieldType to null.");
+                    throw new ArgumentNullException(nameof(FieldType), $"Cannot set {nameof(FieldType)} to null.");
                 }
                 else if (value.Length == 0)
                 {
-                    throw new ArgumentException("Cannot set FieldType to empty string.", nameof(FieldType));
+                    throw new ArgumentException($"Cannot set {nameof(FieldType)} to empty string.", nameof(FieldType));
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace SlnGen.Core.Code
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(AccessibilityLevel), "Cannot set AccessibilityLevel to null.");
+                    throw new ArgumentNullException(nameof(AccessibilityLevel), $"Cannot set {nameof(AccessibilityLevel)} to null.");
                 }
                 else
                 {
@@ -72,32 +72,20 @@ namespace SlnGen.Core.Code
 
         public string InitializationValue { get; set; }
 
-        public SGClassField(string fieldName, Type fieldType, SGAccessibilityLevel accessibilityLevel = null, bool @static = false,
-            bool @const = false, bool @readonly = false)
+        public SGClassField(string fieldName, Type fieldType, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false,
+            bool isConst = false, bool isReadonly = false) :
+            this(fieldName, fieldType?.Name ?? throw new ArgumentNullException(nameof(fieldType)), accessibilityLevel, isStatic, isConst, isReadonly)
+        { }
+
+        public SGClassField(string fieldName, string fieldTypeName, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false,
+            bool isConst = false, bool isReadonly = false)
         {
             FieldName = fieldName;
-
-            if (fieldType == null)
-            {
-                throw new ArgumentNullException(nameof(fieldType));
-            }
-            FieldType = fieldType.Name;
-
+            FieldType = fieldTypeName;
             AccessibilityLevel = accessibilityLevel ?? SGAccessibilityLevel.Private;
-            IsStatic = @static;
-            IsConst = @const;
-            IsReadonly = @readonly;
-        }
-
-        public SGClassField(string fieldName, string fieldType, SGAccessibilityLevel accessibilityLevel = null, bool @static = false,
-            bool @const = false, bool @readonly = false)
-        {
-            FieldName = fieldName;
-            FieldType = fieldType;
-            AccessibilityLevel = accessibilityLevel ?? SGAccessibilityLevel.Private;
-            IsStatic = @static;
-            IsConst = @const;
-            IsReadonly = @readonly;
+            IsStatic = isStatic;
+            IsConst = isConst;
+            IsReadonly = isReadonly;
         }
 
         public SGClassField WithFieldName(string newFieldName)
@@ -106,9 +94,9 @@ namespace SlnGen.Core.Code
             return this;
         }
 
-        public SGClassField WithTypeValue(string newFieldType)
+        public SGClassField WithTypeValue(string newFieldTypeName)
         {
-            FieldType = newFieldType;
+            FieldType = newFieldTypeName;
             return this;
         }
 
