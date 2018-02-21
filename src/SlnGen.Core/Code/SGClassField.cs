@@ -62,7 +62,13 @@ namespace SlnGen.Core.Code
             bool @const = false, bool @readonly = false)
         {
             FieldName = fieldName;
-            FieldType = fieldType?.Name ?? throw new ArgumentNullException(nameof(fieldType));
+
+            if (fieldType == null)
+            {
+                throw new ArgumentNullException(nameof(fieldType));
+            }
+            FieldType = fieldType.Name;
+
             AccessibilityLevel = accessibilityLevel ?? SGAccessibilityLevel.Private;
             IsStatic = @static;
             IsConst = @const;
