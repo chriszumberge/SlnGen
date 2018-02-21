@@ -49,42 +49,42 @@ namespace SlnGen.Core.Tests.CodeTests
             Assert.AreEqual(false, method.IsOverride);
         }
 
-        //[TestMethod]
-        //public void TestMethodCtor_TypedReturnType_InitsFields()
-        //{
-        //    // Arrange
-        //    string methodName = "Method";
-        //    Type returnType = typeof(int);
+        [TestMethod]
+        public void TestMethodCtor_TypedReturnType_InitsFields()
+        {
+            // Arrange
+            string methodName = "Method";
+            Type returnType = typeof(int);
 
-        //    // Act
-        //    SGMethodSignature method = new SGMethodSignature(methodName, returnType: returnType);
+            // Act
+            SGMethodSignature method = new SGMethodSignature(methodName, returnType: returnType);
 
-        //    // Assert
-        //    Assert.AreEqual(returnType.Name, method.ReturnType);
-        //}
+            // Assert
+            Assert.AreEqual(returnType.Name, method.ReturnType);
+        }
 
-        //[TestMethod]
-        //public void TestMethodCtor_All_with_TypedReturnType_InitsFields()
-        //{
-        //    // Arrange
-        //    string methodName = "Method";
-        //    SGAccessibilityLevel accessibilityLevel = SGAccessibilityLevel.Public;
-        //    Type returnType = typeof(int);
-        //    bool @static = true;
-        //    bool @async = true;
-        //    bool @override = true;
+        [TestMethod]
+        public void TestMethodCtor_All_with_TypedReturnType_InitsFields()
+        {
+            // Arrange
+            string methodName = "Method";
+            SGAccessibilityLevel accessibilityLevel = SGAccessibilityLevel.Public;
+            Type returnType = typeof(int);
+            bool @static = true;
+            bool @async = true;
+            bool @override = true;
 
-        //    // Act
-        //    SGMethodSignature method = new SGMethodSignature(methodName, accessibilityLevel, @static, @async, @override, returnType);
+            // Act
+            SGMethodSignature method = new SGMethodSignature(methodName, returnType, accessibilityLevel, @static, @async, @override);
 
-        //    // Assert
-        //    Assert.AreEqual(methodName, method.MethodName);
-        //    Assert.AreEqual(accessibilityLevel, method.AccessibilityLevel);
-        //    Assert.AreEqual(returnType.Name, method.ReturnType);
-        //    Assert.AreEqual(@static, method.IsStatic);
-        //    Assert.AreEqual(async, method.IsAsync);
-        //    Assert.AreEqual(@override, method.IsOverride);
-        //}
+            // Assert
+            Assert.AreEqual(methodName, method.MethodName);
+            Assert.AreEqual(accessibilityLevel, method.AccessibilityLevel);
+            Assert.AreEqual(returnType.Name, method.ReturnType);
+            Assert.AreEqual(@static, method.IsStatic);
+            Assert.AreEqual(async, method.IsAsync);
+            Assert.AreEqual(@override, method.IsOverride);
+        }
 
         [TestMethod]
         // Assert

@@ -160,7 +160,7 @@ a string return type, a static flag, an async flag, and an override flag
   - [x] Accessibility level will default to private
   - [x] Return type of null or empty sets to void
   - [x] Return type will default to void
-  - [ ] **Return type can be of System.Type**
+  - [x] Return type can be of System.Type
   - [x] Static flag will default to false
   - [x] Async flag will default to false
   - [x] Override flag will default to false
@@ -222,7 +222,7 @@ accesibility level
     - [ ] Property name will replace spaces with underscores
     - [ ] Type value cannot be null or empty
     - [ ] Type value can be passed as System.Type
-    - [ ] Accessibility will default ot private
+    - [ ] Accessibility will default to private
     - [ ] Static flag will default to false
     - [ ] Getter accessibility level will default to none
     - [ ] Setter accessibility level will default to none
@@ -251,19 +251,19 @@ accesibility level
 ### Class Fields (SGClassFields)
 - [ ] Class Fields must be instantiated with a string type value, an accessibility level,
 a field name string, a static flag, a const flag, and a read only flag
-  - [ ] Field name cannot be null or empty
-  - [ ] Field name will replace spaces with underscores
-  - [ ] Type value cannot be null or empty
-  - [ ] Type value can be passed as System.Type
-  - [ ] Accessibility level will default to private
-  - [ ] Static flag will default to false
-  - [ ] Const flag will default to false
-  - [ ] Read only flag will default to false
+  - [x] Field name cannot be null or empty
+  - [x] Field name will replace spaces with underscores
+  - [x] Type value cannot be null or empty
+  - [x] Type value can be passed as System.Type
+  - [x] Accessibility level will default to private
+  - [x] Static flag will default to false
+  - [x] Const flag will default to false
+  - [x] Read only flag will default to false
 - [ ] Field name will be exposed via public property
-  - [ ] Field name can be set via fluent api
-  - [ ] Field name can be set via property
-  - [ ] Field name cannot be set to null or empty
-  - [ ] Setting field name will replace spaces with underscores
+  - [x] Field name can be set via fluent api
+  - [x] Field name can be set via property
+  - [x] Field name cannot be set to null or empty
+  - [x] Setting field name will replace spaces with underscores
 - [ ] Type value will be exposed via public property
   - [ ] Type value can be set via fluent api
   - [ ] Type value can be set via property

@@ -111,6 +111,16 @@ namespace SlnGen.Core.Code
             ReturnType = returnType;
         }
 
+        public SGMethodSignature(string methodName, Type returnType, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isAsync = false, bool isOverride = false)
+        {
+            MethodName = methodName;
+            AccessibilityLevel = accessibilityLevel ?? SGAccessibilityLevel.Private;
+            IsStatic = isStatic;
+            IsAsync = isAsync;
+            IsOverride = isOverride;
+            ReturnType = returnType?.Name;
+        }
+
         public SGMethodSignature WithAccessibilityLevel(SGAccessibilityLevel newAccessibilityLevel)
         {
             AccessibilityLevel = newAccessibilityLevel;

@@ -68,6 +68,12 @@ namespace SlnGen.Core.Code
 
         public SGArgument(string argumentName, Type argumentType, object defaultValue) : this(argumentName, argumentType?.Name, defaultValue) { }
 
+        public SGArgument WithArgumentName(string newArgName)
+        {
+            ArgumentName = newArgName;
+            return this;
+        }
+
         public SGArgument WithArgumentTypeName(string newArgTypeName)
         {
             ArgumentTypeName = newArgTypeName;

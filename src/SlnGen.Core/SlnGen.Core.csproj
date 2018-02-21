@@ -44,6 +44,7 @@
     <Compile Include="Code\SGArgument.cs" />
     <Compile Include="Code\SGAttribute.cs" />
     <Compile Include="Code\SGClass.cs" />
+    <Compile Include="Code\SGClassField.cs" />
     <Compile Include="Code\SGEnum.cs" />
     <Compile Include="Code\SGFile.cs" />
     <Compile Include="Code\SGAssemblyReference.cs" />

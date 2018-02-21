@@ -51,6 +51,7 @@
     <Compile Include="CodeTests\SGNamespaceTests.cs" />
     <Compile Include="CodeTests\SGMethodSignatureTests.cs" />
     <Compile Include="CodeTests\SGArgumentTests.cs" />
+    <Compile Include="CodeTests\SGClassFieldTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

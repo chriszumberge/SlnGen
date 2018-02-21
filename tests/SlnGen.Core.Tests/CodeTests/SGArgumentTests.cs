@@ -224,7 +224,69 @@ namespace SlnGen.Core.Tests.CodeTests
         }
 
         [TestMethod]
-        public void TestArgumentNameSet_WithSpaces_RepalcedWithUnderscores()
+        public void TestArgumentNameSet_WithSpaces_ReplacedWithUnderscores()
+        {
+            // Arrange
+            string argumentName = "Argument";
+            string argTypeName = "ArgType";
+            string newArgName = "New Argument Name";
+            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            
+            // Act
+            arg.ArgumentName = newArgName;
+
+            // Assert
+            Assert.AreEqual(newArgName.Replace(" ", "_"), arg.ArgumentName);
+        }
+
+        [TestMethod]
+        public void TestArgumentNameSet_FluentAPI()
+        {
+            // Arrange
+            string argumentName = "Argument";
+            string argTypeName = "ArgType";
+            string newArgName = "NewArgumentName";
+            SGArgument arg = new SGArgument(argumentName, argTypeName);
+
+            // Act
+            arg = arg.WithArgumentName(newArgName);
+
+            // Assert
+            Assert.AreEqual(newArgName, arg.ArgumentName);
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestArgumentNameSetNull_FluentAPI_ThrowsArgumentNullException()
+        {
+            // Arrange
+            string argumentName = "Argument";
+            string argTypeName = "ArgType";
+            string newArgName = null;
+            SGArgument arg = new SGArgument(argumentName, argTypeName);
+
+            // Act
+            arg = arg.WithArgumentName(newArgName);
+        }
+
+        [TestMethod]
+        // Assert
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestArgumentNameSetEmpty_FluentAPI_ThrowsArgumentException()
+        {
+            // Arrange
+            string argumentName = "Argument";
+            string argTypeName = "ArgType";
+            string newArgName = String.Empty;
+            SGArgument arg = new SGArgument(argumentName, argTypeName);
+
+            // Act
+            arg = arg.WithArgumentName(newArgName);
+        }
+
+        [TestMethod]
+        public void TestArgumentNameSetWithSpaces_FluentAPI_ReplacedWithUnderscores()
         {
             // Arrange
             string argumentName = "Argument";
@@ -233,7 +295,7 @@ namespace SlnGen.Core.Tests.CodeTests
             SGArgument arg = new SGArgument(argumentName, argTypeName);
 
             // Act
-            arg.ArgumentName = newArgName;
+            arg = arg.WithArgumentName(newArgName);
 
             // Assert
             Assert.AreEqual(newArgName.Replace(" ", "_"), arg.ArgumentName);
