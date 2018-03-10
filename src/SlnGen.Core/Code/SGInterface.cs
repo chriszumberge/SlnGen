@@ -36,7 +36,22 @@ namespace SlnGen.Core.Code
             }
         }
 
-        public SGAccessibilityLevel AccessibilityLevel { get; set; }
+        SGAccessibilityLevel _accessibilityLevel;
+        public SGAccessibilityLevel AccessibilityLevel
+        {
+            get { return _accessibilityLevel; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(AccessibilityLevel), "Cannot set AccessibilityLevel to null.");
+                }
+                else
+                {
+                    _accessibilityLevel = value;
+                }
+            }
+        }
 
         public List<string> InterfaceImplementations { get; set; } = new List<string>();
 
@@ -74,7 +89,7 @@ namespace SlnGen.Core.Code
         {
             if (interfaceImplementations.Any(x => String.IsNullOrEmpty(x)))
             {
-                throw new ArgumentException("Interface Implementations cannot be null or empty stings.");
+                throw new ArgumentException("Interface Implementations cannot be null or empty strings.");
             }
             InterfaceImplementations.AddRange(interfaceImplementations);
             return this;
@@ -128,7 +143,8 @@ namespace SlnGen.Core.Code
         {
             // TODO ADD TESTS FOR DIFFERENT SCENARIOS
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{AccessibilityLevel} inteface {InterfaceName}");
+            // Attributes
+            sb.Append($"{AccessibilityLevel} interface {InterfaceName}");
 
             if (IsGeneric)
             {

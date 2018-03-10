@@ -333,6 +333,7 @@ type, a static flag
   - [ ] Static flag can be set via fluent api
   - [ ] Static flag can be set via property
 - [ ] Class Constructor must contain any number of Method Arguments
+- [ ] Method comments
 
 ### Attribute (SGAttribute)
 

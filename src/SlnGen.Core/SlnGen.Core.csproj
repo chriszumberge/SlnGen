@@ -44,12 +44,14 @@
     <Compile Include="Code\SGArgument.cs" />
     <Compile Include="Code\SGAttribute.cs" />
     <Compile Include="Code\SGClass.cs" />
+    <Compile Include="Code\SGClassConstructor.cs" />
     <Compile Include="Code\SGClassField.cs" />
     <Compile Include="Code\SGClassProperty.cs" />
     <Compile Include="Code\SGEnum.cs" />
     <Compile Include="Code\SGFile.cs" />
     <Compile Include="Code\SGAssemblyReference.cs" />
     <Compile Include="Code\SGInterface.cs" />
+    <Compile Include="Code\SGMethod.cs" />
     <Compile Include="Code\SGMethodSignature.cs" />
     <Compile Include="Code\SGNamespace.cs" />
     <Compile Include="Code\SGStruct.cs" />
@@ -64,8 +66,6 @@
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
