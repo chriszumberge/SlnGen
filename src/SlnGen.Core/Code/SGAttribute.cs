@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SlnGen.Core.Code
+﻿namespace SlnGen.Core.Code
 {
+    // TODO temp implementation
     public class SGAttribute
     {
+        public string AttributeText { get; }
+
+        public SGAttribute(string attributeText)
+        {
+            AttributeText = attributeText;
+        }
+
+        public override string ToString()
+        {
+            return AttributeText;
+        }
     }
 }

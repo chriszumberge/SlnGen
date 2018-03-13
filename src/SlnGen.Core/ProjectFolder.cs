@@ -1,16 +1,11 @@
 ﻿using SlnGen.Core.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlnGen.Core
 {
     public class ProjectFolder : IFileContainer
     {
-        readonly string _folderName;
-        public string FolderName => _folderName;
+        public string FolderName { get; }
 
         List<ProjectFile> _files = new List<ProjectFile>();
         public List<ProjectFile> Files => _files;
@@ -20,7 +15,7 @@ namespace SlnGen.Core
 
         public ProjectFolder(string folderName)
         {
-            _folderName = folderName;
+            FolderName = folderName;
         }
 
         List<ProjectFile> IFileContainer.GetFiles() => _files;

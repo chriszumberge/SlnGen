@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyReference.cs" />
     <Compile Include="Code\SGAccessibilityLevel.cs" />
     <Compile Include="Code\SGArgument.cs" />
     <Compile Include="Code\SGAttribute.cs" />
@@ -55,12 +56,29 @@
     <Compile Include="Code\SGMethodSignature.cs" />
     <Compile Include="Code\SGNamespace.cs" />
     <Compile Include="Code\SGStruct.cs" />
+    <Compile Include="EmbeddedResourceProjectFile.cs" />
+    <Compile Include="Files\AppConfigFile.cs" />
+    <Compile Include="Files\AssemblyInfoFile.cs" />
+    <Compile Include="Files\ConfigFile.cs" />
+    <Compile Include="Files\XamlProjectFile.cs" />
     <Compile Include="Interfaces\IFileContainer.cs" />
+    <Compile Include="NugetAssembly.cs" />
+    <Compile Include="NugetPackage.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectFile.cs" />
     <Compile Include="ProjectFolder.cs" />
+    <Compile Include="ProjectReference.cs" />
+    <Compile Include="Projects\ConsoleApplicationProject.cs" />
+    <Compile Include="Projects\NetFrameworkClassLibraryProject.cs" />
+    <Compile Include="Projects\NetStandardClassLibraryProject.cs" />
+    <Compile Include="Projects\PortableClassLibraryProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="References\Assemblies.cs" />
+    <Compile Include="References\Extensions.cs" />
+    <Compile Include="References\Nuget.cs" />
     <Compile Include="Solution.cs" />
+    <Compile Include="SupportedBuildConfiguration.cs" />
+    <Compile Include="Utils\FileTemplate.cs" />
     <Compile Include="Utils\LinqExtensions.cs" />
     <Compile Include="Utils\ListExtensions.cs" />
     <Compile Include="Utils\OverwritableDictionary.cs" />
@@ -72,9 +90,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Files\" />
-    <Folder Include="Projects\" />
-    <Folder Include="References\" />
+    <Folder Include="Factories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
