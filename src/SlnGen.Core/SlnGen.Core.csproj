@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SlnGen.Core</RootNamespace>
     <AssemblyName>SlnGen.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,7 +41,71 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyReference.cs" />
+    <Compile Include="Code\SGAccessibilityLevel.cs" />
+    <Compile Include="Code\SGArgument.cs" />
+    <Compile Include="Code\SGAttribute.cs" />
+    <Compile Include="Code\SGClass.cs" />
+    <Compile Include="Code\SGClassConstructor.cs" />
+    <Compile Include="Code\SGClassField.cs" />
+    <Compile Include="Code\SGClassProperty.cs" />
+    <Compile Include="Code\SGEnum.cs" />
+    <Compile Include="Code\SGFile.cs" />
+    <Compile Include="Code\SGAssemblyReference.cs" />
+    <Compile Include="Code\SGInterface.cs" />
+    <Compile Include="Code\SGMethod.cs" />
+    <Compile Include="Code\SGMethodSignature.cs" />
+    <Compile Include="Code\SGNamespace.cs" />
+    <Compile Include="Code\SGStruct.cs" />
+    <Compile Include="EmbeddedResourceProjectFile.cs" />
+    <Compile Include="Files\AppConfigFile.cs" />
+    <Compile Include="Files\AssemblyInfoFile.cs" />
+    <Compile Include="Files\ConfigFile.cs" />
+    <Compile Include="Files\XamlProjectFile.cs" />
+    <Compile Include="Interfaces\IFileContainer.cs" />
+    <Compile Include="Projects\Base\NetFrameworkProject.cs" />
+    <Compile Include="NugetAssembly.cs" />
+    <Compile Include="NugetPackage.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="ProjectFile.cs" />
+    <Compile Include="ProjectFolder.cs" />
+    <Compile Include="ProjectReference.cs" />
+    <Compile Include="Projects\Base\NetCoreProject.cs" />
+    <Compile Include="Projects\NetCoreClassLibraryProject.cs" />
+    <Compile Include="Projects\NetCoreConsoleApplicationProject.cs" />
+    <Compile Include="Projects\NetFrameworkConsoleApplicationProject.cs" />
+    <Compile Include="Projects\NetFrameworkClassLibraryProject.cs" />
+    <Compile Include="Projects\NetStandardClassLibraryProject.cs" />
+    <Compile Include="Projects\Base\NetStandardProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="References\Assemblies.cs" />
+    <Compile Include="References\Extensions.cs" />
+    <Compile Include="References\Nuget.cs" />
+    <Compile Include="Solution.cs" />
+    <Compile Include="SupportedBuildConfiguration.cs" />
+    <Compile Include="Utils\FileTemplate.cs" />
+    <Compile Include="Utils\Framework\NetPlatform.cs" />
+    <Compile Include="Utils\Framework\XamarinAndroidPlatform.cs" />
+    <Compile Include="Utils\LinqExtensions.cs" />
+    <Compile Include="Utils\ListExtensions.cs" />
+    <Compile Include="Utils\Framework\NetCorePlatform.cs" />
+    <Compile Include="Utils\Framework\NetFrameworkPlatform.cs" />
+    <Compile Include="Utils\Framework\NetImplementationSupport.cs" />
+    <Compile Include="Utils\Framework\NetStandardPlatform.cs" />
+    <Compile Include="Utils\OverwritableDictionary.cs" />
+    <Compile Include="Utils\RelativePathBuilder.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
+    <Compile Include="Utils\TypeFilteredList.cs" />
+    <Compile Include="Utils\TypeSafeEnum.cs" />
+    <Compile Include="Wizard\SolutionWizard.cs" />
+    <Compile Include="Wizard\SolutionWizard.FileCreators.cs" />
+    <Compile Include="Wizard\SolutionWizardExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Factories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

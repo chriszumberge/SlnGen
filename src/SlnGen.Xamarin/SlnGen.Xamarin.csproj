@@ -40,7 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Files\AndroidResourceProjectFile.cs" />
+    <Compile Include="Files\DefaultAppXamlFile.cs" />
+    <Compile Include="Files\DefaultMainPageXamlFile.cs" />
+    <Compile Include="Projects\NetStandardXamarinClassLibraryProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="References\Nuget.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SlnGen.Core\SlnGen.Core.csproj">
+      <Project>{254312c7-153d-474f-a145-3bd047140b50}</Project>
+      <Name>SlnGen.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Code\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Projects\Base\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Wizard\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
