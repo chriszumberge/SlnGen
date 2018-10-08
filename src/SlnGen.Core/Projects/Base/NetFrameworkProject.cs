@@ -61,31 +61,7 @@ namespace SlnGen.Core.Projects
 
             tempCsProjDirectoryPath = csprojDirectoryPath;
 
-            // Do packages.config with all the added nuget packages
-            var packageRoot = new XElement("packages");
-            ProjectFile packagesConfig = new ProjectFile("packages.config", false, false);
-            foreach (NugetPackage package in NugetPackages)
-            {
-                XElement packageElement =
-                        new XElement("package",
-                            new XAttribute("id", package.Id),
-                            new XAttribute("version", package.Version),
-                            new XAttribute("targetFramework", package.TargetFramework)
-                        );
-                packageRoot.Add(packageElement);
-            }
-            using (var memoryStream = new MemoryStream())
-            {
-                packageRoot.Save(memoryStream);
-
-                memoryStream.Position = 0;
-                using (var streamReader = new StreamReader(memoryStream))
-                {
-                    string contents = streamReader.ReadToEnd();
-                    packagesConfig.FileContents = contents;
-                }
-            }
-            Files.Add(packagesConfig);
+            CreatePackageConfig();
 
             AddProjectFilesAndFolders(this, csprojDirectoryPath);
 
@@ -156,6 +132,35 @@ namespace SlnGen.Core.Projects
             xmlNode.Save(csprojFilePath);
 
             return csprojFilePath;
+        }
+
+        private void CreatePackageConfig()
+        {
+            // Do packages.config with all the added nuget packages
+            var packageRoot = new XElement("packages");
+            ProjectFile packagesConfig = new ProjectFile("packages.config", false, false);
+            foreach (NugetPackage package in NugetPackages)
+            {
+                XElement packageElement =
+                        new XElement("package",
+                            new XAttribute("id", package.Id),
+                            new XAttribute("version", package.Version),
+                            new XAttribute("targetFramework", package.TargetFrameworks[TargetFrameworkVersion])
+                        );
+                packageRoot.Add(packageElement);
+            }
+            using (var memoryStream = new MemoryStream())
+            {
+                packageRoot.Save(memoryStream);
+
+                memoryStream.Position = 0;
+                using (var streamReader = new StreamReader(memoryStream))
+                {
+                    string contents = streamReader.ReadToEnd();
+                    packagesConfig.FileContents = contents;
+                }
+            }
+            Files.Add(packagesConfig);
         }
 
         protected XElement[] GetBuildConfigurationPropertyGroups(XNamespace xNamespace)

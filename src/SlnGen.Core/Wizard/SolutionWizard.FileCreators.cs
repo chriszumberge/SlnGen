@@ -9,7 +9,7 @@ namespace SlnGen.Core.Wizard
 {
     public sealed partial class SolutionWizard
     {
-        internal static SGFile CreateEmptyClassFile(string namespaceName)
+        internal static SGFile CreateEmpty_NetFramework_ClassFile(string namespaceName)
         {
             string className = "Class1";
 
@@ -36,7 +36,7 @@ namespace SlnGen.Core.Wizard
             };
         }
 
-        internal static SGFile CreateDefaultConsoleProgram(string namespaceName)
+        internal static SGFile CreateDefault_NetFramework_ConsoleProgram(string namespaceName)
         {
             string className = "Program";
 

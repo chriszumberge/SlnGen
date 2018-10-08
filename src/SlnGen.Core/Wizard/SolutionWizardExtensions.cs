@@ -15,7 +15,7 @@ namespace SlnGen.Core.Wizard
         {
             Project newProj = new NetFrameworkClassLibraryProject(assemblyName, targetFrameworkVersion);
 
-            newProj.AddFileToFolder(new ProjectFile("Class1.cs", true, false, SolutionWizard.CreateEmptyClassFile(assemblyName).ToString()));
+            newProj.AddFileToFolder(new ProjectFile("Class1.cs", true, false, SolutionWizard.CreateEmpty_NetFramework_ClassFile(assemblyName).ToString()));
 
             wizard.WithProject(newProj);
 
@@ -27,7 +27,7 @@ namespace SlnGen.Core.Wizard
             Project newConsoleApp = new NetFrameworkConsoleApplicationCsProj(assemblyName, targetFrameworkVersion);
 
             newConsoleApp.AddFileToFolder(new AppConfigFile(targetFrameworkVersion));
-            newConsoleApp.AddFileToFolder(new ProjectFile(SolutionWizard.CreateDefaultConsoleProgram(assemblyName)));
+            newConsoleApp.AddFileToFolder(new ProjectFile(SolutionWizard.CreateDefault_NetFramework_ConsoleProgram(assemblyName)));
 
             wizard.WithProject(newConsoleApp);
 

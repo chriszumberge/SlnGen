@@ -20,6 +20,9 @@ namespace SlnGen.Demo
             slnPath = TestWizard();
             Console.WriteLine($"Completed at {slnPath}");
 
+            slnPath = TestConsoleAppWithNetCoreClassLibrarySolution();
+            Console.WriteLine($"Completed at {slnPath}");
+
             Console.ReadLine();
         }
 
@@ -34,14 +37,14 @@ namespace SlnGen.Demo
         private static string TestConsoleAppWithNetFrameworkClassLibrarySolution()
         {
             Project classLibProject = new NetFrameworkClassLibraryProject("TestClassLibrary", NetFrameworkPlatform.v4_5_2)
-                .WithNugetPackage(Core.References.Nuget.NewtonsoftJson_net452);
+                .WithNugetPackage(Core.References.Nuget.Newtonsoft_Json__10_0_1);
 
             //classLibProject.AddFileToFolder(new ProjectFile("Class1.cs", true, false, CreateEmptyClassFile("TestClassLibrary", "Class1").ToString()));
-            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.AssemblyName).ToString()));
+            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.DefaultNamespace).ToString()));
             classLibProject.AddFileToFolder(new ProjectFile("Test.txt", false, true, "Testing a simple text file creation."));
 
             Project consoleAppProject = new NetFrameworkConsoleApplicationCsProj("TestConsoleApplication", NetFrameworkPlatform.v4_5_2)
-                .WithNugetPackage(Core.References.Nuget.NewtonsoftJson_net452)
+                .WithNugetPackage(Core.References.Nuget.Newtonsoft_Json__10_0_1)
                 // Fully qualify
                 //.WithProjectReference(new ProjectReference(classLibProject.AssemblyName, $@"..\{classLibProject.AssemblyName}\{classLibProject.AssemblyName}.csproj", classLibProject.AssemblyGuid));
                 // or
@@ -63,7 +66,7 @@ namespace SlnGen.Demo
                     },
                     Namespaces =
                     {
-                        new SGNamespace("TestConsoleApplication")
+                        new SGNamespace(consoleAppProject.DefaultNamespace)
                         {
                             Classes =
                             {
@@ -93,11 +96,69 @@ namespace SlnGen.Demo
                     }
                 }));
 
-            Solution sln = new Solution("TestClassLibraries")
+            Solution sln = new Solution("TestNetFrameworkSolution")
                 .WithProject(classLibProject)
                 .WithProject(consoleAppProject);
 
             return sln.GenerateSolutionFiles(@"C:\");
+        }
+
+        private static string TestConsoleAppWithNetCoreClassLibrarySolution()
+        {
+            Project classLibProject = new NetCoreClassLibraryProject("NetCoreClassLibrary", NetCorePlatform.v2_0)
+                .WithNugetPackage(Core.References.Nuget.Newtonsoft_Json__11_0_2);
+
+            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.DefaultNamespace).ToString()));
+            classLibProject.AddFileToFolder(new ProjectFile("Test.txt", false, true, "Testing a simple text file creation."));
+
+            Project consoleAppProject = new NetCoreConsoleApplicationProject("NetCoreConsoleApp", NetCorePlatform.v2_0)
+                .WithProjectReference(new ProjectReference(classLibProject, new RelativePathBuilder().AppendPath(RelativePath.Up_Directory).ToString()));
+
+            consoleAppProject.AddFileToFolder(new ProjectFile("help.txt", false, true));
+            consoleAppProject.AddFileToFolder(new ProjectFile(
+                new SGFile("Program.cs")
+                {
+                    AssemblyReferences =
+                    {
+                        new SGAssemblyReference("System"),
+                        new SGAssemblyReference(classLibProject)
+                    },
+                    Namespaces =
+                    {
+                        new SGNamespace(consoleAppProject.DefaultNamespace)
+                        {
+                            Classes =
+                            {
+                                new SGClass("Program", SGAccessibilityLevel.None)
+                                {
+                                    Methods =
+                                    {
+                                        new SGMethod(new SGMethodSignature(accessibilityLevel: SGAccessibilityLevel.Private, methodName: "Main", returnType: "void", isStatic: true)
+                                        {
+                                            Arguments =
+                                            {
+                                                new SGArgument("args", "string[]")
+                                            }
+                                        })
+                                        {
+                                            Lines =
+                                            {
+                                                $"Console.WriteLine(HelloWorld.Greeting);",
+                                                "",
+                                                "Console.ReadLine();"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }));
+
+            return new Solution("TestNetCoreSolution")
+                .WithProject(classLibProject)
+                .WithProject(consoleAppProject)
+                .GenerateSolutionFiles(@"C:\");
         }
 
         public static SGFile CreateEmptyClassFile(string namespaceName, string className)

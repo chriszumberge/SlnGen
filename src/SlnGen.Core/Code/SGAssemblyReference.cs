@@ -40,7 +40,7 @@ namespace SlnGen.Core.Code
 
         public SGAssemblyReference(Project project)
         {
-            AssemblyName = project.AssemblyName;
+            AssemblyName = project.DefaultNamespace;
         }
 
         public override string ToString()

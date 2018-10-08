@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SlnGen.Core.Utils;
+using System.Collections.Generic;
 
 namespace SlnGen.Core
 {
@@ -26,7 +27,7 @@ namespace SlnGen.Core
         /// <value>
         /// The target framework.
         /// </value>
-        public string TargetFramework { get; }
+        public Dictionary<NetPlatform, string> TargetFrameworks { get; set; } = new Dictionary<NetPlatform, string>();
 
         /// <summary>
         /// Gets or sets the nuget package assemblies.
@@ -42,11 +43,10 @@ namespace SlnGen.Core
         /// <param name="id">The identifier.</param>
         /// <param name="version">The version.</param>
         /// <param name="targetFramework">The target framework.</param>
-        public NugetPackage(string id, string version, string targetFramework)
+        public NugetPackage(string id, string version)
         {
             Id = id;
             Version = version;
-            TargetFramework = targetFramework;
         }
     }
 }

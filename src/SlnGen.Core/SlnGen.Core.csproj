@@ -71,6 +71,8 @@
     <Compile Include="ProjectFolder.cs" />
     <Compile Include="ProjectReference.cs" />
     <Compile Include="Projects\Base\NetCoreProject.cs" />
+    <Compile Include="Projects\NetCoreClassLibraryProject.cs" />
+    <Compile Include="Projects\NetCoreConsoleApplicationProject.cs" />
     <Compile Include="Projects\NetFrameworkConsoleApplicationProject.cs" />
     <Compile Include="Projects\NetFrameworkClassLibraryProject.cs" />
     <Compile Include="Projects\NetStandardClassLibraryProject.cs" />

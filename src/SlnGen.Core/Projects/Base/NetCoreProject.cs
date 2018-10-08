@@ -22,6 +22,8 @@ namespace SlnGen.Core.Projects
 
             tempCsProjDirectoryPath = csprojDirectoryPath;
 
+            AddProjectFilesAndFolders(this, csprojDirectoryPath);
+
             var xmlNode = new XElement("Project",
                                             new XAttribute("Sdk", "Microsoft.NET.Sdk"),
                                             new XElement("PropertyGroup",

@@ -32,6 +32,14 @@ namespace SlnGen.Core
         /// </value>
         public Guid AssemblyGuid { get; }
 
+        /// <summary>
+        /// Gets the default namespace.
+        /// </summary>
+        /// <value>
+        /// The default namespace.
+        /// </value>
+        public string DefaultNamespace { get; }
+
 
         /// <summary>
         /// Gets the assembly references.
@@ -106,10 +114,11 @@ namespace SlnGen.Core
         public Project(string assemblyName, string outputType, NetPlatform targetFrameworkVersion) :
             this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion) { }
 
-        public Project(string assemblyName, Guid assemblyGuid, string outputType, NetPlatform targetFrameworkVersion)
+        public Project(string assemblyName, Guid assemblyGuid, string outputType, NetPlatform targetFrameworkVersion, string defaultNamespace = "")
         {
             AssemblyGuid = assemblyGuid;
             AssemblyName = assemblyName;
+            DefaultNamespace = String.IsNullOrEmpty(defaultNamespace) ? assemblyName : defaultNamespace;
             OutputType = outputType;
             TargetFrameworkVersion = targetFrameworkVersion;
         }
