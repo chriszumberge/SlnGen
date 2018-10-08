@@ -76,6 +76,7 @@
     <Compile Include="Projects\NetFrameworkConsoleApplicationProject.cs" />
     <Compile Include="Projects\NetFrameworkClassLibraryProject.cs" />
     <Compile Include="Projects\NetStandardClassLibraryProject.cs" />
+    <Compile Include="Projects\Base\NetStandardProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="References\Assemblies.cs" />
     <Compile Include="References\Extensions.cs" />

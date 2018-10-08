@@ -8,7 +8,8 @@ namespace SlnGen.Core.References
         {
             TargetFrameworks =
             {
-                { NetFrameworkPlatform.v4_5_2, "net452" }
+                { NetFrameworkPlatform.v4_5_2, "net452" },
+                { NetFrameworkPlatform.v4_6_1, "net461" }
             },
             Assemblies =
             {
@@ -21,7 +22,8 @@ namespace SlnGen.Core.References
         {
             TargetFrameworks =
             {
-                { NetFrameworkPlatform.v4_5_2, "net452" }
+                { NetFrameworkPlatform.v4_5_2, "net452" },
+                { NetFrameworkPlatform.v4_6_1, "net461" }
             },
             Assemblies =
             {

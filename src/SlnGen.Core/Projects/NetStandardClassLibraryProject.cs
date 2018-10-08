@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SlnGen.Core.Utils;
 
 namespace SlnGen.Core.Projects
 {
-    class NetStandardClassLibraryProject
+    public class NetStandardClassLibraryProject : NetStandardProject
     {
+        public NetStandardClassLibraryProject(string assemblyName, NetStandardPlatform targetFrameworkVersion) : base(assemblyName, "Library", targetFrameworkVersion)
+        {
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Debug", "Any CPU"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Release", "Any CPU"));
+        }
     }
 }

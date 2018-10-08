@@ -17,7 +17,7 @@ namespace SlnGen.Core.Files
             {
                 NetFrameworkPlatform frameworkVersion = netPlatformVersion as NetFrameworkPlatform;
 
-                supportedRuntimeNode.SetAttributeValue("version", frameworkVersion.TargetFrameworkVersion);
+                supportedRuntimeNode.SetAttributeValue("version", frameworkVersion.RuntimeVersion);
 
                 if (!String.IsNullOrEmpty(frameworkVersion.SKU))
                 {

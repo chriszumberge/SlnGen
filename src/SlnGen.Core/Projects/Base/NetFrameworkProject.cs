@@ -113,7 +113,10 @@ namespace SlnGen.Core.Projects
                                             new XElement(xNamespace + "FileAlignment",
                                                 new XText("512")
                                                 ),
-                                            GetProjectSpecificPropertyNodes(xNamespace, solutionGuid)
+                                            GetProjectSpecificPropertyNodes(xNamespace, solutionGuid),
+                                            new XElement(xNamespace + "TargetFrameworkProfile",
+                                                new XText(((NetFrameworkPlatform)TargetFrameworkVersion).Profile ?? String.Empty)
+                                                )
                                         ), // END PROPERTY GROUP
                                         GetBuildConfigurationPropertyGroups(xNamespace),
                                         GetAssemblyReferenceItemGroup(),
