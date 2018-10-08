@@ -63,13 +63,14 @@
     <Compile Include="Files\ConfigFile.cs" />
     <Compile Include="Files\XamlProjectFile.cs" />
     <Compile Include="Interfaces\IFileContainer.cs" />
-    <Compile Include="Projects\NetFrameworkProject.cs" />
+    <Compile Include="Projects\Base\NetFrameworkProject.cs" />
     <Compile Include="NugetAssembly.cs" />
     <Compile Include="NugetPackage.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectFile.cs" />
     <Compile Include="ProjectFolder.cs" />
     <Compile Include="ProjectReference.cs" />
+    <Compile Include="Projects\Base\NetCoreProject.cs" />
     <Compile Include="Projects\NetFrameworkConsoleApplicationProject.cs" />
     <Compile Include="Projects\NetFrameworkClassLibraryProject.cs" />
     <Compile Include="Projects\NetStandardClassLibraryProject.cs" />

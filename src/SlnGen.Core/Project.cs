@@ -170,5 +170,28 @@ namespace SlnGen.Core
         void IFileContainer.AddFolder(ProjectFolder folder) => _folders.Add(folder);
 
         internal abstract string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid);
+
+        protected Dictionary<ProjectFile, string> tempFileRelativePathDictionary = new Dictionary<ProjectFile, string>();
+        protected string tempCsProjDirectoryPath;
+        protected void AddProjectFilesAndFolders(IFileContainer container, string currentPath)
+        {
+            // Create directory if it doesn't exist
+            if (!Directory.Exists(currentPath))
+            {
+                Directory.CreateDirectory(currentPath);
+            }
+            // Add files to this directory
+            foreach (ProjectFile file in container.GetFiles())
+            {
+                string filePath = Path.Combine(currentPath, file.FileName);
+                File.WriteAllText(filePath, file.FileContents);
+                tempFileRelativePathDictionary.Add(file, filePath.Replace(String.Concat(tempCsProjDirectoryPath, @"\"), String.Empty));
+            }
+            // Go into each folder recursively down the chain creating files and folders
+            foreach (ProjectFolder folder in container.GetFolders())
+            {
+                AddProjectFilesAndFolders(folder, Path.Combine(currentPath, folder.FolderName));
+            }
+        }
     }
 }

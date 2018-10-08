@@ -195,18 +195,18 @@ namespace SlnGen.Core.Projects
         protected XElement GetAssemblyReferenceItemGroup()
         {
             XElement itemGroup = new XElement(xNamespace + "ItemGroup");
-            foreach (NugetPackage package in NugetPackages)
+            foreach (NugetPackage nugetPackage in NugetPackages)
             {
-                foreach (NugetAssembly assembly in package.Assemblies)
+                foreach (NugetAssembly nugetAssembly in nugetPackage.Assemblies)
                 {
                     XElement packageElement =
                         new XElement(xNamespace + "Reference",
-                            new XAttribute("Include", assembly.Include),
+                            new XAttribute("Include", nugetAssembly.Include),
                             new XElement(xNamespace + "HintPath",
-                                new XText(assembly.HintPath)
+                                new XText(nugetAssembly.HintPath)
                             ),
                             new XElement(xNamespace + "Private",
-                                new XText(assembly.IsPrivate.ToString())
+                                new XText(nugetAssembly.IsPrivate.ToString())
                             )
                         );
                     itemGroup.Add(packageElement);
@@ -437,29 +437,6 @@ namespace SlnGen.Core.Projects
         protected virtual XElement[] GetProjectSpecificPropertyNodes(XNamespace xNamespace, Guid solutionGuid)
         {
             return new XElement[] { };
-        }
-
-        Dictionary<ProjectFile, string> tempFileRelativePathDictionary = new Dictionary<ProjectFile, string>();
-        string tempCsProjDirectoryPath;
-        private void AddProjectFilesAndFolders(IFileContainer container, string currentPath)
-        {
-            // Create directory if it doesn't exist
-            if (!Directory.Exists(currentPath))
-            {
-                Directory.CreateDirectory(currentPath);
-            }
-            // Add files to this directory
-            foreach (ProjectFile file in container.GetFiles())
-            {
-                string filePath = Path.Combine(currentPath, file.FileName);
-                File.WriteAllText(filePath, file.FileContents);
-                tempFileRelativePathDictionary.Add(file, filePath.Replace(String.Concat(tempCsProjDirectoryPath, @"\"), String.Empty));
-            }
-            // Go into each folder recursively down the chain creating files and folders
-            foreach (ProjectFolder folder in container.GetFolders())
-            {
-                AddProjectFilesAndFolders(folder, Path.Combine(currentPath, folder.FolderName));
-            }
         }
     }
 }
