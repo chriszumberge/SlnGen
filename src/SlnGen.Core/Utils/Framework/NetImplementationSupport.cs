@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SlnGen.Core.Utils
 {
+    // https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support
     public static class NetImplementationSupport
     {
         static List<NetImplementation> s_implementations = new List<NetImplementation>
