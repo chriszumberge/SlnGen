@@ -26,28 +26,28 @@ namespace SlnGen.Demo
         private static string TestWizard()
         {
             return new SolutionWizard("TestWizard", new RelativePathBuilder().AppendPath(RelativePath.C_Drive).ToString())
-                .With_NetFrameworkClassLibrary("TestWizardLib", NetFrameworkVersion.v4_5_1)
-                .With_NetFrameworkConsoleApplication("TestWizardConsole", NetFrameworkVersion.v4_5_1)
+                .With_NetFrameworkClassLibrary("TestWizardLib", NetFrameworkPlatform.v4_5_1)
+                .With_NetFrameworkConsoleApplication("TestWizardConsole", NetFrameworkPlatform.v4_5_1)
                 .Build();
         }
 
         private static string TestConsoleAppWithNetFrameworkClassLibrarySolution()
         {
-            Project classLibProject = new NetFrameworkClassLibraryProject("TestClassLibrary", NetFrameworkVersion.v4_5_2.TargetVersion)
+            Project classLibProject = new NetFrameworkClassLibraryProject("TestClassLibrary", NetFrameworkPlatform.v4_5_2)
                 .WithNugetPackage(Core.References.Nuget.NewtonsoftJson_net452);
 
             //classLibProject.AddFileToFolder(new ProjectFile("Class1.cs", true, false, CreateEmptyClassFile("TestClassLibrary", "Class1").ToString()));
             classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.AssemblyName).ToString()));
             classLibProject.AddFileToFolder(new ProjectFile("Test.txt", false, true, "Testing a simple text file creation."));
 
-            Project consoleAppProject = new NetFrameworkConsoleApplicationCsProj("TestConsoleApplication", NetFrameworkVersion.v4_5_2.TargetVersion)
+            Project consoleAppProject = new NetFrameworkConsoleApplicationCsProj("TestConsoleApplication", NetFrameworkPlatform.v4_5_2)
                 .WithNugetPackage(Core.References.Nuget.NewtonsoftJson_net452)
                 // Fully qualify
                 //.WithProjectReference(new ProjectReference(classLibProject.AssemblyName, $@"..\{classLibProject.AssemblyName}\{classLibProject.AssemblyName}.csproj", classLibProject.AssemblyGuid));
                 // or
                 .WithProjectReference(new ProjectReference(classLibProject, new RelativePathBuilder().AppendPath(RelativePath.Up_Directory).ToString()));
 
-            consoleAppProject.AddFileToFolder(new AppConfigFile(NetFrameworkVersion.v4_5_2));
+            consoleAppProject.AddFileToFolder(new AppConfigFile(consoleAppProject.TargetFrameworkVersion));
             consoleAppProject.AddFileToFolder(new ProjectFile("help.txt", false, true));
             consoleAppProject.AddFileToFolder(new ProjectFile(
                 new SGFile("Program.cs")

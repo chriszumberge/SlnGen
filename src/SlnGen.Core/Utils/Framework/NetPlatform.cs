@@ -2,14 +2,17 @@
 {
     public abstract class NetPlatform
     {
-        string _name;
-        protected NetPlatform(string name)
+        public string Name { get; }
+        public string TargetVersion { get; }
+
+        protected NetPlatform(string name, string targetVersion)
         {
-            _name = name;
+            Name = name;
+            TargetVersion = targetVersion;
         }
         public override string ToString()
         {
-            return _name;
+            return Name;
         }
 
         //public static implicit operator string(NetPlatform platform) => platform.ToString();

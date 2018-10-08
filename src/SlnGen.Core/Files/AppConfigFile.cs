@@ -13,11 +13,11 @@ namespace SlnGen.Core.Files
         {
             var supportedRuntimeNode = new XElement("supportedRuntime");
 
-            if (netPlatformVersion is NetFrameworkVersion)
+            if (netPlatformVersion is NetFrameworkPlatform)
             {
-                NetFrameworkVersion frameworkVersion = netPlatformVersion as NetFrameworkVersion;
+                NetFrameworkPlatform frameworkVersion = netPlatformVersion as NetFrameworkPlatform;
 
-                supportedRuntimeNode.SetAttributeValue("version", frameworkVersion.TargetVersion);
+                supportedRuntimeNode.SetAttributeValue("version", frameworkVersion.TargetFrameworkVersion);
 
                 if (!String.IsNullOrEmpty(frameworkVersion.SKU))
                 {

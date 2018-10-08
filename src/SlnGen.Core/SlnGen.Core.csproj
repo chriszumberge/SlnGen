@@ -63,6 +63,7 @@
     <Compile Include="Files\ConfigFile.cs" />
     <Compile Include="Files\XamlProjectFile.cs" />
     <Compile Include="Interfaces\IFileContainer.cs" />
+    <Compile Include="Projects\NetFrameworkProject.cs" />
     <Compile Include="NugetAssembly.cs" />
     <Compile Include="NugetPackage.cs" />
     <Compile Include="Project.cs" />
@@ -82,10 +83,10 @@
     <Compile Include="Utils\Framework\NetPlatform.cs" />
     <Compile Include="Utils\LinqExtensions.cs" />
     <Compile Include="Utils\ListExtensions.cs" />
-    <Compile Include="Utils\Framework\NetCoreVersion.cs" />
-    <Compile Include="Utils\Framework\NetFrameworkVersion.cs" />
+    <Compile Include="Utils\Framework\NetCorePlatform.cs" />
+    <Compile Include="Utils\Framework\NetFrameworkPlatform.cs" />
     <Compile Include="Utils\Framework\NetImplementationSupport.cs" />
-    <Compile Include="Utils\Framework\NetStandardVersion.cs" />
+    <Compile Include="Utils\Framework\NetStandardPlatform.cs" />
     <Compile Include="Utils\OverwritableDictionary.cs" />
     <Compile Include="Utils\RelativePathBuilder.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
