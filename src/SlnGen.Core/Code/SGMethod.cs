@@ -1,10 +1,13 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace SlnGen.Core.Code
 {
     public class SGMethod
     {
         SGMethodSignature _methodSignature;
+
+        public List<string> Lines { get; set; } = new List<string>();
 
         public SGMethod(SGMethodSignature methodSignature)
         {
@@ -22,7 +25,7 @@ namespace SlnGen.Core.Code
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(_methodSignature.ToString());
             sb.AppendLine("{");
-
+            Lines.ForEach((l) => sb.AppendLine($"\t{l}"));
             sb.AppendLine("}");
             return sb.ToString();
         }

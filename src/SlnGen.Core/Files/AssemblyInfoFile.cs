@@ -1,4 +1,5 @@
 ﻿using SlnGen.Core.Code;
+using SlnGen.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace SlnGen.Core.Files
                         new SGAssemblyReference("System.Runtime.CompilerServices"),
                         new SGAssemblyReference("System.Runtime.InteropServices")
                     },
-                    AdditionalLines =
+                    Lines =
                     {
                         "// General Information about an assembly is controlled through the following ",
                         "// set of attributes. Change these attribute values to modify the information",

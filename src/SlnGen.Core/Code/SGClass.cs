@@ -260,7 +260,10 @@ namespace SlnGen.Core.Code
             StringBuilder sb = new StringBuilder();
 
             // Class Attributes
-            sb.Append($"{AccessibilityLevel} ");
+            if (!AccessibilityLevel.Equals(SGAccessibilityLevel.None))
+            {
+                sb.Append($"{AccessibilityLevel} ");
+            }
             if (IsStatic) { sb.Append("static "); }
             if (IsAbstract) { sb.Append("abstract "); }
             if (IsPartial) { sb.Append("partial "); }

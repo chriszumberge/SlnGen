@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SlnGen.Core</RootNamespace>
     <AssemblyName>SlnGen.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,10 +69,9 @@
     <Compile Include="ProjectFile.cs" />
     <Compile Include="ProjectFolder.cs" />
     <Compile Include="ProjectReference.cs" />
-    <Compile Include="Projects\ConsoleApplicationProject.cs" />
+    <Compile Include="Projects\NetFrameworkConsoleApplicationProject.cs" />
     <Compile Include="Projects\NetFrameworkClassLibraryProject.cs" />
     <Compile Include="Projects\NetStandardClassLibraryProject.cs" />
-    <Compile Include="Projects\PortableClassLibraryProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="References\Assemblies.cs" />
     <Compile Include="References\Extensions.cs" />
@@ -79,12 +79,21 @@
     <Compile Include="Solution.cs" />
     <Compile Include="SupportedBuildConfiguration.cs" />
     <Compile Include="Utils\FileTemplate.cs" />
+    <Compile Include="Utils\Framework\NetPlatform.cs" />
     <Compile Include="Utils\LinqExtensions.cs" />
     <Compile Include="Utils\ListExtensions.cs" />
+    <Compile Include="Utils\Framework\NetCoreVersion.cs" />
+    <Compile Include="Utils\Framework\NetFrameworkVersion.cs" />
+    <Compile Include="Utils\Framework\NetImplementationSupport.cs" />
+    <Compile Include="Utils\Framework\NetStandardVersion.cs" />
     <Compile Include="Utils\OverwritableDictionary.cs" />
+    <Compile Include="Utils\RelativePathBuilder.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="Utils\TypeFilteredList.cs" />
     <Compile Include="Utils\TypeSafeEnum.cs" />
+    <Compile Include="Wizard\SolutionWizard.cs" />
+    <Compile Include="Wizard\SolutionWizard.FileCreators.cs" />
+    <Compile Include="Wizard\SolutionWizardExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

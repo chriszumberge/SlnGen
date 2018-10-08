@@ -37,5 +37,12 @@ namespace SlnGen.Core
             Include = include;
             ProjectGuid = projetGuid;
         }
+
+        public ProjectReference(Project project, string relativePath)
+        {
+            Name = project.AssemblyName;
+            Include = $@"{relativePath}\{project.AssemblyName}\{project.AssemblyName}.csproj";
+            ProjectGuid = project.AssemblyGuid;
+        }
     }
 }

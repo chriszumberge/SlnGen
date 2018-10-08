@@ -24,6 +24,8 @@ namespace SlnGen.Core.Code
 
         public List<SGNamespace> Namespaces { get; set; } = new List<SGNamespace>();
 
+        public List<string> Lines { get; set; } = new List<string>();
+
         public SGFile(string fileName, string fileExtension)
         {
             if (fileName == null)
@@ -119,6 +121,12 @@ namespace SlnGen.Core.Code
             foreach (var @namespace in Namespaces)
             {
                 sb.AppendLine(@namespace.ToString());
+            }
+
+
+            foreach (var line in Lines)
+            {
+                sb.AppendLine(line);
             }
 
             return sb.ToString();

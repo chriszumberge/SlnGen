@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SlnGen.Core.Projects
+namespace SlnGen.Core.Utils
 {
-    class PortableClassLibraryProject
+    public static class NetImplementationSupport
     {
+
     }
 }

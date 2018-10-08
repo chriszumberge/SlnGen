@@ -184,7 +184,10 @@ namespace SlnGen.Core.Code
         {
             // TODO ADD TESTS FOR MULTIPLE TO STRING SCENARIOS
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{AccessibilityLevel} ");
+            if (!AccessibilityLevel.Equals(SGAccessibilityLevel.None))
+            {
+                sb.Append($"{AccessibilityLevel} ");
+            }
             if (IsStatic) { sb.Append("static "); }
             if (IsAsync) { sb.Append("async "); }
             if (IsOverride) { sb.Append("override "); }

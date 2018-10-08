@@ -38,6 +38,11 @@ namespace SlnGen.Core.Code
             AssemblyName = assemblyName;
         }
 
+        public SGAssemblyReference(Project project)
+        {
+            AssemblyName = project.AssemblyName;
+        }
+
         public override string ToString()
         {
             return $"using {AssemblyName};";

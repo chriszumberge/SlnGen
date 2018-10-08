@@ -3,10 +3,10 @@ using System.Xml.Linq;
 
 namespace SlnGen.Core.Projects
 {
-    public class ConsoleApplicationCsProj : Project
+    public class NetFrameworkConsoleApplicationCsProj : Project
     {
 
-        public ConsoleApplicationCsProj(string assemblyName, string targetFrameworkVersion) : base(assemblyName, "Exe", targetFrameworkVersion)
+        public NetFrameworkConsoleApplicationCsProj(string assemblyName, string targetFrameworkVersion) : base(assemblyName, "Exe", targetFrameworkVersion)
         {
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Debug", "Any CPU"));
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Release", "Any CPU"));

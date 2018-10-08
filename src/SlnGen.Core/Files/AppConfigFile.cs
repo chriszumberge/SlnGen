@@ -1,18 +1,37 @@
-﻿using System.IO;
+﻿using SlnGen.Core.Utils;
+using System;
+using System.IO;
 using System.Xml.Linq;
 
 namespace SlnGen.Core.Files
 {
     public class AppConfigFile : ConfigFile
     {
-        public AppConfigFile() : base("App")
+        //public AppConfigFile(NetFrameworkVersion netFrameworkVersion) : this(netFrameworkVersion.ToString()) { }
+
+        public AppConfigFile(NetPlatform netPlatformVersion) : base("App")
         {
+            var supportedRuntimeNode = new XElement("supportedRuntime");
+
+            if (netPlatformVersion is NetFrameworkVersion)
+            {
+                NetFrameworkVersion frameworkVersion = netPlatformVersion as NetFrameworkVersion;
+
+                supportedRuntimeNode.SetAttributeValue("version", frameworkVersion.TargetVersion);
+
+                if (!String.IsNullOrEmpty(frameworkVersion.SKU))
+                {
+                    supportedRuntimeNode.SetAttributeValue("sku", frameworkVersion.SKU);
+                }
+            }
+
             var configNode = new XElement("configuration",
                                     new XElement("startup",
-                                        new XElement("supportedRuntime",
-                                            new XAttribute("version", "v4.0"),
-                                            new XAttribute("sku", ".NETFramework,Version=v4.5.2")
-                                        )
+                                        supportedRuntimeNode
+                                        //new XElement("supportedRuntime",
+                                        //    new XAttribute("version", "v4.0"),
+                                        //    new XAttribute("sku", ".NETFramework,Version=v4.5.2")
+                                        //)
                                     )
                                 );
 
