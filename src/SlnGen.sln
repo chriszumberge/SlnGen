@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{04798899
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlnGen.Xamarin.Tests", "..\tests\SlnGen.Xamarin.Tests\SlnGen.Xamarin.Tests.csproj", "{D886E779-C274-45A1-B342-43E696E2A5B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlnGen.Xamarin.Demo", "..\samples\SlnGen.Xamarin.Demo\SlnGen.Xamarin.Demo.csproj", "{86A8308B-051F-4284-B668-02042F1D99D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{D886E779-C274-45A1-B342-43E696E2A5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D886E779-C274-45A1-B342-43E696E2A5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D886E779-C274-45A1-B342-43E696E2A5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A8308B-051F-4284-B668-02042F1D99D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A8308B-051F-4284-B668-02042F1D99D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A8308B-051F-4284-B668-02042F1D99D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A8308B-051F-4284-B668-02042F1D99D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{201870E7-3691-466D-8BFB-073E2E945852} = {A7EA67AD-5DBF-4B9B-ACA5-54F237AF2E0D}
 		{57DA4BF5-07F4-410C-AA26-4BBAF1584AF7} = {A7EA67AD-5DBF-4B9B-ACA5-54F237AF2E0D}
 		{D886E779-C274-45A1-B342-43E696E2A5B3} = {A7EA67AD-5DBF-4B9B-ACA5-54F237AF2E0D}
+		{86A8308B-051F-4284-B668-02042F1D99D6} = {3E3F6DBF-D8E4-4BDE-9C99-CC12679B32FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20E98A8A-A233-4384-884E-4CCF368E5B9A}

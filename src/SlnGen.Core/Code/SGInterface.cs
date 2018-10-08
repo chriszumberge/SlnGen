@@ -143,7 +143,10 @@ namespace SlnGen.Core.Code
         {
             // TODO ADD TESTS FOR DIFFERENT SCENARIOS
             StringBuilder sb = new StringBuilder();
-            // Attributes
+            foreach (var attr in Attributes)
+            {
+                sb.AppendLine(attr.ToString());
+            }
             sb.Append($"{AccessibilityLevel} interface {InterfaceName}");
 
             if (IsGeneric)

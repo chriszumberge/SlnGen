@@ -1,31 +1,32 @@
 ﻿using SlnGen.Core.Code;
 using SlnGen.Core.Files;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
-
 
 namespace SlnGen.Xamarin.Files
 {
     public class DefaultMainPageXamlFile : XamlProjectFile
     {
-        public DefaultMainPageXamlFile(string namespaceName) : base("MainPage")
+        public DefaultMainPageXamlFile(string assemblyName) : base("MainPage")
         {
             XNamespace @namespace = "http://xamarin.com/schemas/2014/forms";
             XNamespace xNamespace = "http://schemas.microsoft.com/winfx/2009/xaml";
-            XNamespace localNamespace = $"clr-namespace:{namespaceName}";
+            XNamespace localNamespace = $"clr-namespace:{assemblyName}";
 
             XElement rootNode = new XElement(@namespace + "ContentPage",
                     //new XAttribute(@namespace+"xmlns", "http://xamarin.com/schemas/2014/forms"),
                     //new XAttribute(xNamespace+"xmlns", "http://schemas.microsoft.com/winfx/2009/xaml"),
                     //new XAttribute(localNamespace+"xmlns", $"clr-namespace:{assemblyName}"),
-                    new XAttribute(xNamespace + "Class", $"{namespaceName}.MainPage"),
-                    new XElement(@namespace + "StackLayout",
-                        new XComment("Place new controls here"),
-                        new XElement(@namespace + "Label",
-                            new XAttribute("Text", "Welcome to Xamarin Forms!"),
-                            new XAttribute("VerticalOptions", "Center"),
-                            new XAttribute("HorizontalOptions", "CenterAndExpand")
-                        )
+                    new XAttribute(xNamespace + "Class", $"{assemblyName}.MainPage"),
+                    new XElement(@namespace + "Label",
+                        new XAttribute("Text", "Welcome to Xamarin Forms!"),
+                        new XAttribute("VerticalOptions", "Center"),
+                        new XAttribute("HorizontalOptions", "Center")
                     )
                 );
 
@@ -40,33 +41,36 @@ namespace SlnGen.Xamarin.Files
                 }
             }
 
-            SGFile file = new SGFile("App.xaml.cs")
+            SGFile file = new SGFile("MainPage.xaml.cs")
             {
-                AssemblyReferences =
+                UsingStatements =
                 {
-                    new SGAssemblyReference("System"),
-                    new SGAssemblyReference("System.Collections.Generic"),
-                    new SGAssemblyReference("System.Linq"),
-                    new SGAssemblyReference("System.Text"),
-                    new SGAssemblyReference("System.Threading.Tasks"),
-                    new SGAssemblyReference("Xamarin.Forms")
+                    new CGUsingStatement("System"),
+                    new CGUsingStatement("System.Collections.Generic"),
+                    new CGUsingStatement("System.Linq"),
+                    new CGUsingStatement("System.Text"),
+                    new CGUsingStatement("System.Threading.Tasks"),
+                    new CGUsingStatement("Xamarin.Forms")
                 },
                 Namespaces =
                 {
-                    new SGNamespace(namespaceName)
+                    new CGNamespace(assemblyName)
                     {
                         Classes =
                         {
-                            new SGClass("MainPage", SGAccessibilityLevel.Public, isPartial: true)
+                            new CGClass("MainPage", "ContentPage", false, false, true)
                             {
-                                Constructors =
+                                ClassConstructors =
                                 {
-                                    new SGClassConstructor("MainPage", SGAccessibilityLevel.Public)
+                                    new CGClassConstructor("MainPage")
                                     {
-                                        Lines = { "InitializeComponent();" }
+                                        ConstructorText =
+                                        {
+                                            "InitializeComponent();"
+                                        }
                                     }
                                 }
-                            }.WithBaseClass("ContentPage")
+                            }
                         }
                     }
                 }

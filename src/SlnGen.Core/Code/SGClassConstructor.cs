@@ -96,6 +96,8 @@ namespace SlnGen.Core.Code
             }
         }
 
+        public List<string> Lines = new List<string>();
+
         public SGClassConstructor(string className, SGAccessibilityLevel accessibilityLevel = null)
         {
             ClassName = className;
@@ -162,7 +164,7 @@ namespace SlnGen.Core.Code
             sb.AppendLine();
 
             sb.AppendLine("{");
-
+            Lines.ForEach((l) => sb.AppendLine($"\t{l}"));
             sb.AppendLine("}");
             return sb.ToString();
         }

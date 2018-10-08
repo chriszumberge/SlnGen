@@ -85,6 +85,7 @@
     <Compile Include="SupportedBuildConfiguration.cs" />
     <Compile Include="Utils\FileTemplate.cs" />
     <Compile Include="Utils\Framework\NetPlatform.cs" />
+    <Compile Include="Utils\Framework\XamarinAndroidPlatform.cs" />
     <Compile Include="Utils\LinqExtensions.cs" />
     <Compile Include="Utils\ListExtensions.cs" />
     <Compile Include="Utils\Framework\NetCorePlatform.cs" />

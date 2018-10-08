@@ -44,6 +44,8 @@ namespace SlnGen.Core.Code
 
         public List<SGStruct> Structs { get; set; } = new List<SGStruct>();
 
+        public List<SGAttribute> Attributes { get; set; } = new List<SGAttribute>();
+
         public SGNamespace(string namespaceName)
         {
             NamespaceName = namespaceName;
@@ -76,6 +78,10 @@ namespace SlnGen.Core.Code
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            foreach(var attr in Attributes)
+            {
+                sb.AppendLine(attr.ToString());
+            }
             sb.AppendLine($"namespace {NamespaceName}");
             sb.AppendLine("{");
             foreach (string interfaceLine in Interfaces.BreakIntoLines())

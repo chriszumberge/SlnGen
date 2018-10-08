@@ -1,17 +1,13 @@
-﻿using SlnGen.Core.Files;
-using System;
-using System.Collections.Generic;
+﻿using SlnGen.Core.Code;
+using SlnGen.Core.Files;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace SlnGen.Xamarin.Files
 {
     public class DefaultAppXamlFile : XamlProjectFile
     {
-        public DefaultAppXamlFile(string assemblyName) : base("App")
+        public DefaultAppXamlFile(string namespaceName) : base("App")
         {
             XNamespace @namespace = "http://xamarin.com/schemas/2014/forms";
             XNamespace xNamespace = "http://schemas.microsoft.com/winfx/2009/xaml";
@@ -19,7 +15,7 @@ namespace SlnGen.Xamarin.Files
             XElement rootNode = new XElement(@namespace + "Application",
                     //new XAttribute("xmlns", "http://xamarin.com/schemas/2014/forms"),
                     //new XAttribute("xmlns", "http://schemas.microsoft.com/winfx/2009/xaml"),
-                    new XAttribute(xNamespace + "Class", $"{assemblyName}.App"),
+                    new XAttribute(xNamespace + "Class", $"{namespaceName}.App"),
                     new XElement(@namespace + "Application.Resources"
                     )
                 );
@@ -31,57 +27,58 @@ namespace SlnGen.Xamarin.Files
                 memoryStream.Position = 0;
                 using (var streamReader = new StreamReader(memoryStream))
                 {
-                    string contents = streamReader.ReadToEnd();
-                    XamlFileContents = contents;
+                    XamlFileContents = streamReader.ReadToEnd();
                 }
             }
 
             SGFile file = new SGFile("App.xaml.cs")
             {
-                UsingStatements =
+                AssemblyReferences =
                 {
-                    new CGUsingStatement("System"),
-                    new CGUsingStatement("System.Collections.Generic"),
-                    new CGUsingStatement("System.Linq"),
-                    new CGUsingStatement("System.Text"),
-                    new CGUsingStatement("Xamarin.Forms")
+                    new SGAssemblyReference("System"),
+                    new SGAssemblyReference("Xamarin.Forms"),
+                    new SGAssemblyReference("Xamarin.Forms.Xaml")
                 },
                 Namespaces =
                 {
-                    new CGNamespace(assemblyName)
+                    new SGNamespace(namespaceName)
                     {
+                        Attributes =
+                        {
+                            new SGAttribute("XamlCompilation", "XamlCompilationOptions.Compile").WithNamespace("assembly")
+                        },
                         Classes =
                         {
-                            new CGClass("App", "Application", false, false, true)
+                            new SGClass("App", SGAccessibilityLevel.Public, false, false, true)
                             {
-                                ClassConstructors =
+                                Constructors =
                                 {
-                                    new CGClassConstructor("App")
+                                    new SGClassConstructor("App", SGAccessibilityLevel.Public)
                                     {
-                                        ConstructorText =
+                                        Lines =
                                         {
                                             "InitializeComponent();",
-                                            Environment.NewLine,
-                                            $"MainPage = new {assemblyName}.MainPage();"
+                                            "",
+                                            "MainPage = new MainPage();"
                                         }
                                     }
                                 },
-                                ClassMethods =
+                                Methods =
                                 {
-                                    new CGMethod(new CGMethodSignature(AccessibilityLevel.Protected, "OnStart", "void", false, true))
+                                    new SGMethod(new SGMethodSignature("OnStart", SGAccessibilityLevel.Protected, isOverride: true, returnType: "void"))
                                     {
-                                        MethodText = "// Handle when your app starts"
+                                        Lines = { "// Handle when your app starts" }
                                     },
-                                    new CGMethod(new CGMethodSignature(AccessibilityLevel.Protected, "OnSleep", "void", false, true))
+                                    new SGMethod(new SGMethodSignature("OnSleep", SGAccessibilityLevel.Protected, isOverride: true, returnType: "void"))
                                     {
-                                        MethodText = "// Handle when your app sleeps"
+                                        Lines = { "// Handle when your app sleeps" }
                                     },
-                                    new CGMethod(new CGMethodSignature(AccessibilityLevel.Protected, "OnResume", "void", false, true))
+                                    new SGMethod(new SGMethodSignature("OnResume", SGAccessibilityLevel.Protected, isOverride: true, returnType: "void"))
                                     {
-                                        MethodText = "// Handle when your app resumes"
+                                        Lines = { "// Handle when your app resumes" }
                                     }
                                 }
-                            }
+                            }.WithBaseClass("Application")
                         }
                     }
                 }

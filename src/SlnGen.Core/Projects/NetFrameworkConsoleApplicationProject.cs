@@ -1,4 +1,5 @@
-﻿using SlnGen.Core.Utils;
+﻿using SlnGen.Core.Files;
+using SlnGen.Core.Utils;
 using System;
 using System.Xml.Linq;
 
@@ -11,6 +12,8 @@ namespace SlnGen.Core.Projects
         {
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Debug", "Any CPU"));
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Release", "Any CPU"));
+
+            AddFileToFolder(new AppConfigFile(targetFrameworkVersion));
         }
 
         protected override XElement[] GetProjectSpecificPropertyNodes(XNamespace xNamespace, Guid solutionGuid)

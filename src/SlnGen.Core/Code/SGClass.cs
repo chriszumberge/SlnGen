@@ -16,11 +16,11 @@ namespace SlnGen.Core.Code
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(nameof(ClassName), "Cannot set ClassName to null.");
+                    throw new ArgumentNullException(nameof(ClassName), $"Cannot set {nameof(ClassName)} to null.");
                 }
                 else if (value.Length == 0)
                 {
-                    throw new ArgumentException("Cannot set ClassName to empty string.", nameof(ClassName));
+                    throw new ArgumentException($"Cannot set {nameof(ClassName)} to empty string.", nameof(ClassName));
                 }
                 else
                 {
@@ -259,7 +259,11 @@ namespace SlnGen.Core.Code
         {
             StringBuilder sb = new StringBuilder();
 
-            // Class Attributes
+            foreach (var attr in Attributes)
+            {
+                sb.AppendLine(attr.ToString());
+            }
+
             if (!AccessibilityLevel.Equals(SGAccessibilityLevel.None))
             {
                 sb.Append($"{AccessibilityLevel} ");

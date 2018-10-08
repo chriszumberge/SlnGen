@@ -57,7 +57,7 @@ namespace SlnGen.Demo
                 // or
                 .WithProjectReference(new ProjectReference(classLibProject, new RelativePathBuilder().AppendPath(RelativePath.Up_Directory).ToString()));
 
-            consoleAppProject.AddFileToFolder(new AppConfigFile(consoleAppProject.TargetFrameworkVersion));
+            //consoleAppProject.AddFileToFolder(new AppConfigFile(consoleAppProject.TargetFrameworkVersion));
             consoleAppProject.AddFileToFolder(new ProjectFile("help.txt", false, true));
             consoleAppProject.AddFileToFolder(new ProjectFile(
                 new SGFile("Program.cs")
@@ -182,7 +182,7 @@ namespace SlnGen.Demo
                 .WithProjectReference(new ProjectReference(classLibProject, new RelativePathBuilder().AppendPath(RelativePath.Up_Directory).ToString()))
                 .WithNugetPackage(Core.References.Nuget.Newtonsoft_Json__11_0_2);
 
-            netFrameworkConsoleAppProject.AddFileToFolder(new AppConfigFile(netFrameworkConsoleAppProject.TargetFrameworkVersion));
+            //netFrameworkConsoleAppProject.AddFileToFolder(new AppConfigFile(netFrameworkConsoleAppProject.TargetFrameworkVersion));
             netFrameworkConsoleAppProject.AddFileToFolder(new ProjectFile(
                 new SGFile("Program.cs")
                 {
