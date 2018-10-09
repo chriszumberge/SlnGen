@@ -93,6 +93,7 @@
     <Compile Include="Utils\Framework\NetImplementationSupport.cs" />
     <Compile Include="Utils\Framework\NetStandardPlatform.cs" />
     <Compile Include="Utils\OverwritableDictionary.cs" />
+    <Compile Include="Utils\ProjectTypeGuids.cs" />
     <Compile Include="Utils\RelativePathBuilder.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="Utils\TypeFilteredList.cs" />

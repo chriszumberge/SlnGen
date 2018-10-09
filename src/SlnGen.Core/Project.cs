@@ -33,12 +33,12 @@ namespace SlnGen.Core
         public Guid AssemblyGuid { get; }
 
         /// <summary>
-        /// Gets the default namespace.
+        /// Gets the root namespace.
         /// </summary>
         /// <value>
-        /// The default namespace.
+        /// The root namespace.
         /// </value>
-        public string DefaultNamespace { get; }
+        public string RootNamespace { get; }
 
 
         /// <summary>
@@ -111,14 +111,14 @@ namespace SlnGen.Core
         public List<SupportedBuildConfiguration> SupportedBuildConfigurations => _supportedBuildConfigurations;
         protected List<SupportedBuildConfiguration> _supportedBuildConfigurations = new List<SupportedBuildConfiguration>();
 
-        public Project(string assemblyName, string outputType, NetPlatform targetFrameworkVersion) :
-            this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion) { }
+        public Project(string assemblyName, string outputType, NetPlatform targetFrameworkVersion, string rootNamespace = "") :
+            this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion, rootNamespace) { }
 
-        public Project(string assemblyName, Guid assemblyGuid, string outputType, NetPlatform targetFrameworkVersion, string defaultNamespace = "")
+        public Project(string assemblyName, Guid assemblyGuid, string outputType, NetPlatform targetFrameworkVersion, string rootNamespace = "")
         {
             AssemblyGuid = assemblyGuid;
             AssemblyName = assemblyName;
-            DefaultNamespace = String.IsNullOrEmpty(defaultNamespace) ? assemblyName : defaultNamespace;
+            RootNamespace = String.IsNullOrEmpty(rootNamespace) ? assemblyName : rootNamespace;
             OutputType = outputType;
             TargetFrameworkVersion = targetFrameworkVersion;
         }
@@ -180,7 +180,8 @@ namespace SlnGen.Core
 
         internal abstract string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid);
 
-        protected Dictionary<ProjectFile, string> tempFileRelativePathDictionary = new Dictionary<ProjectFile, string>();
+        protected Dictionary<ProjectFile, string> _tempFileRelativePathDictionary = new Dictionary<ProjectFile, string>();
+        protected List<string> _emptyFolderRelativePathList = new List<string>();
         protected string tempCsProjDirectoryPath;
         protected void AddProjectFilesAndFolders(IFileContainer container, string currentPath)
         {
@@ -189,12 +190,21 @@ namespace SlnGen.Core
             {
                 Directory.CreateDirectory(currentPath);
             }
-            // Add files to this directory
-            foreach (ProjectFile file in container.GetFiles())
+
+            var containerFiles = container.GetFiles();
+            if (containerFiles.Count > 0)
             {
-                string filePath = Path.Combine(currentPath, file.FileName);
-                File.WriteAllText(filePath, file.FileContents);
-                tempFileRelativePathDictionary.Add(file, filePath.Replace(String.Concat(tempCsProjDirectoryPath, @"\"), String.Empty));
+                // Add files to this directory
+                foreach (ProjectFile file in containerFiles)
+                {
+                    string filePath = Path.Combine(currentPath, file.FileName);
+                    File.WriteAllText(filePath, file.FileContents);
+                    _tempFileRelativePathDictionary.Add(file, filePath.Replace(String.Concat(tempCsProjDirectoryPath, @"\"), String.Empty));
+                }
+            }
+            else
+            {
+                _emptyFolderRelativePathList.Add(currentPath.Replace(String.Concat(tempCsProjDirectoryPath, @"\"), String.Empty));
             }
             // Go into each folder recursively down the chain creating files and folders
             foreach (ProjectFolder folder in container.GetFolders())

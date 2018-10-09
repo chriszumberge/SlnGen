@@ -10,25 +10,25 @@ namespace SlnGen.Core.Files
 {
     public class AssemblyInfoFile : ProjectFile
     {
-        readonly string mAssembltyTitle;
-        readonly Guid mAssemblyGuid;
-        readonly Version mAssemblyVersion;
-        readonly Version mAssemblyFileVersion;
+        readonly string _AssembltyTitle;
+        readonly Guid _AssemblyGuid;
+        readonly Version _AssemblyVersion;
+        readonly Version _AssemblyFileVersion;
 
         public AssemblyInfoFile(string assemblyTitle, Guid assemblyGuid, Version assemblyVersion, Version assemblyFileVersion) : base("AssemblyInfo.cs", true, false)
         {
-            mAssembltyTitle = assemblyTitle;
-            mAssemblyGuid = assemblyGuid;
-            mAssemblyVersion = assemblyVersion;
-            mAssemblyFileVersion = assemblyFileVersion;
+            _AssembltyTitle = assemblyTitle;
+            _AssemblyGuid = assemblyGuid;
+            _AssemblyVersion = assemblyVersion;
+            _AssemblyFileVersion = assemblyFileVersion;
 
             FileContents = AssemblyInfoTemplate.CompileTemplateWithReplacers(
                 new List<TemplateFieldReplacer>
                 {
-                    new TemplateFieldReplacer("AssemblyTitle", mAssembltyTitle),
-                    new TemplateFieldReplacer("AssemblyGuid", mAssemblyGuid.ToString()),
-                    new TemplateFieldReplacer("AssemblyVersion", mAssemblyVersion.ToString()),
-                    new TemplateFieldReplacer("AssemblyFileVersion", mAssemblyFileVersion.ToString())
+                    new TemplateFieldReplacer("AssemblyTitle", _AssembltyTitle),
+                    new TemplateFieldReplacer("AssemblyGuid", _AssemblyGuid.ToString()),
+                    new TemplateFieldReplacer("AssemblyVersion", _AssemblyVersion.ToString()),
+                    new TemplateFieldReplacer("AssemblyFileVersion", _AssemblyFileVersion.ToString())
                 });
         }
 

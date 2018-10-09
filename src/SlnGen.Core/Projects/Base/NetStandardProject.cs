@@ -7,12 +7,12 @@ namespace SlnGen.Core.Projects
 {
     public abstract class NetStandardProject : Project
     {
-        public NetStandardProject(string assemblyName, string outputType, NetStandardPlatform targetFrameworkVersion) :
-            this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion)
+        public NetStandardProject(string assemblyName, string outputType, NetStandardPlatform targetFrameworkVersion, string rootNamespace = "") :
+            this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion, rootNamespace)
         { }
 
-        public NetStandardProject(string assemblyName, Guid assemblyGuid, string outputType, NetStandardPlatform targetFrameworkVersion) :
-            base(assemblyName, assemblyGuid, outputType, targetFrameworkVersion)
+        public NetStandardProject(string assemblyName, Guid assemblyGuid, string outputType, NetStandardPlatform targetFrameworkVersion, string rootNamespace = "") :
+            base(assemblyName, assemblyGuid, outputType, targetFrameworkVersion, rootNamespace)
         { }
 
         internal override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)

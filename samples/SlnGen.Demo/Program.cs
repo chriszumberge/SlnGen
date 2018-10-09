@@ -47,7 +47,7 @@ namespace SlnGen.Demo
                 .WithNugetPackage(Core.References.Nuget.Newtonsoft_Json__10_0_1);
 
             //classLibProject.AddFileToFolder(new ProjectFile("Class1.cs", true, false, CreateEmptyClassFile("TestClassLibrary", "Class1").ToString()));
-            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.DefaultNamespace).ToString()));
+            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.RootNamespace).ToString()));
             classLibProject.AddFileToFolder(new ProjectFile("Test.txt", false, true, "Testing a simple text file creation."));
 
             Project consoleAppProject = new NetFrameworkConsoleApplicationCsProj("TestConsoleApplication", NetFrameworkPlatform.v4_5_2)
@@ -73,7 +73,7 @@ namespace SlnGen.Demo
                     },
                     Namespaces =
                     {
-                        new SGNamespace(consoleAppProject.DefaultNamespace)
+                        new SGNamespace(consoleAppProject.RootNamespace)
                         {
                             Classes =
                             {
@@ -115,7 +115,7 @@ namespace SlnGen.Demo
             Project classLibProject = new NetCoreClassLibraryProject("NetCoreClassLibrary", NetCorePlatform.v2_0)
                 .WithNugetPackage(Core.References.Nuget.Newtonsoft_Json__11_0_2);
 
-            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.DefaultNamespace).ToString()));
+            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.RootNamespace).ToString()));
             classLibProject.AddFileToFolder(new ProjectFile("Test.txt", false, true, "Testing a simple text file creation."));
 
             Project consoleAppProject = new NetCoreConsoleApplicationProject("NetCoreConsoleApp", NetCorePlatform.v2_0)
@@ -132,7 +132,7 @@ namespace SlnGen.Demo
                     },
                     Namespaces =
                     {
-                        new SGNamespace(consoleAppProject.DefaultNamespace)
+                        new SGNamespace(consoleAppProject.RootNamespace)
                         {
                             Classes =
                             {
@@ -175,7 +175,7 @@ namespace SlnGen.Demo
             Project classLibProject = new NetStandardClassLibraryProject("NetStandardClassLibrary", netStandardPlatform)
                 .WithNugetPackage(Core.References.Nuget.Newtonsoft_Json__11_0_2);
 
-            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.DefaultNamespace).ToString()));
+            classLibProject.AddFileToFolder(new ProjectFile("HelloWorld.cs", true, false, CreateHelloWorldClassFile(classLibProject.RootNamespace).ToString()));
             classLibProject.AddFileToFolder(new ProjectFile("Test.txt", false, true, "Testing a simple text file creation."));
 
             Project netFrameworkConsoleAppProject = new NetFrameworkConsoleApplicationCsProj("NetFrameworkConsoleApp", NetImplementationSupport.GetMinCompatibleWith(netStandardPlatform).NetFramework)
@@ -197,7 +197,7 @@ namespace SlnGen.Demo
                     },
                     Namespaces =
                     {
-                        new SGNamespace(netFrameworkConsoleAppProject.DefaultNamespace)
+                        new SGNamespace(netFrameworkConsoleAppProject.RootNamespace)
                         {
                             Classes =
                             {

@@ -1,55 +1,150 @@
-﻿using SlnGen.Core.Files;
-using SlnGen.Core.Interfaces;
-using SlnGen.Core.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using SlnGen.Core;
+using SlnGen.Core.Files;
+using SlnGen.Core.Utils;
+using SlnGen.Xamarin.Files;
 
-namespace SlnGen.Core.Projects
+namespace SlnGen.Xamarin.Projects
 {
-    public abstract class NetFrameworkProject : Project
+    public class XamarinAndroidAppProject : Project
     {
-        public NetFrameworkProject(string assemblyName, string outputType, NetFrameworkPlatform targetFrameworkVersion, string rootNamespace = "") :
-            this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion, rootNamespace) { }
+        public XamarinAndroidAppProject(string assemblyName, string packageName, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion, 
+            NugetPackage xamarinPackage, string rootNamespace = "") :
+            this(assemblyName, packageName, Guid.NewGuid(), targetFrameworkVersion, minSdkVersion, targetSdkVersion, xamarinPackage, rootNamespace)
+        { }
 
-        public NetFrameworkProject(string assemblyName, Guid assemblyGuid, string outputType, NetFrameworkPlatform targetFrameworkVersion, string rootNamespace = "") : 
-            base(assemblyName, assemblyGuid, outputType, targetFrameworkVersion, rootNamespace)
+        public XamarinAndroidAppProject(string assemblyName, string packageName, Guid assemblyGuid, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion, 
+            NugetPackage xamarinPackage, string rootNamespace = "") :
+            base(assemblyName, assemblyGuid, "Library", targetFrameworkVersion, rootNamespace)
         {
+            _minSdkVersion = minSdkVersion;
+            _targetSdkVersion = targetSdkVersion;
+            _packageName = packageName;
+
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Ad-Hoc", "Any CPU"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Ad-Hoc", "iPhone"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Ad-Hoc", "iPhoneSimulator"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("AppStore", "Any CPU"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("AppStore", "iPhone"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("AppStore", "iPhoneSimulator"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Debug", "Any CPU"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Debug", "iPhone"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Debug", "iPhoneSimulator"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Release", "Any CPU"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Release", "iPhone"));
+            SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Release", "iPhoneSimulator"));
+
+            WithNugetPackage(xamarinPackage);
+
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Design__27_0_2_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_AppCompat__27_0_2_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v4__27_0_2_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_CardView__27_0_2_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_MediaRouter__27_0_2_1);
+
             AddDefaultAssemblyReferences();
             AddDefaultFoldersAndFiles();
         }
 
-        /// <summary>
-        /// Adds the default assembly references.
-        /// This method is called in the project constructor. Override to customize.
-        /// </summary>
-        protected virtual void AddDefaultAssemblyReferences()
+        protected int _minSdkVersion;
+        protected int _targetSdkVersion;
+        protected string _packageName;
+
+        private void AddDefaultAssemblyReferences()
         {
-            AssemblyReferences.Add(References.Assemblies.System);
-            AssemblyReferences.Add(References.Assemblies.System_Core);
-            AssemblyReferences.Add(References.Assemblies.System_Xml_Linq);
-            AssemblyReferences.Add(References.Assemblies.Microsoft_CSharp);
-            AssemblyReferences.Add(References.Assemblies.System_Data);
-            AssemblyReferences.Add(References.Assemblies.System_Net_Http);
-            AssemblyReferences.Add(References.Assemblies.System_Xml);
+            AssemblyReferences.Add(SlnGen.Xamarin.References.Assemblies.Mono_Android);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Core);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml_Linq);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml);
         }
 
-        /// <summary>
-        /// Adds the default folders and files.
-        /// This method is called in the project constructor. Override to customize.
-        /// Recommend calling Base on this method as it adds the properties folder and assembly info file.
-        /// </summary>
-        protected virtual void AddDefaultFoldersAndFiles()
+        private void AddDefaultFoldersAndFiles()
         {
+            Files.Add(new MainActivityFile(AssemblyName, RootNamespace));
             Folders.Add(new ProjectFolder("Properties")
             {
                 Files =
                 {
-                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0))
+                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0)),
+                    new AndroidManifestFile(AssemblyName, _packageName, _minSdkVersion, _targetSdkVersion)
                 }
             });
+            Folders.Add(new ProjectFolder("Assets")
+            {
+                Files =
+                {
+                    new ProjectFile("AboutAssets.txt", false, false,
+                    String.Join(Environment.NewLine,
+                    "Any raw assets you want to be deployed with your application can be placed in",
+                    "this directory (and child directories) is given a Build Action of \"AndroidAsset\".",
+                    "",
+                    "These files will be deployed with your package and will be accessible using Android's",
+                    "AssetManager, like this:",
+                    "",
+                    "public class ReadAsset : Activity",
+                    "{",
+                    "\tprotected override void OnCreate (Bundle bundle)",
+                    "\t{",
+                    "\t\tbase.OnCreate (bundle);",
+                    "",
+                    "\t\tInputStream input = Assets.Open (\"my_asset.txt\");",
+                    "\t}",
+                    "}",
+                    "",
+                    "Additionally, some Android functions will automatically load asset files:",
+                    "",
+                    "Typeface tf = Typeface.CreateFromAsset (Context.Assets, \"fonts/samplefont.tff\");"
+                    ))
+                }
+            });
+            Folders.Add(new ProjectFolder("Resources")
+            {
+                Folders =
+                {
+                    new ProjectFolder("layout")
+                    {
+                        Files = { }
+                    },
+                    new ProjectFolder("mipmap-anydpi-v26")
+                    {
+                        Files ={ }
+                    },
+                    new ProjectFolder("mipmap-hdpi")
+                    {
+                        Files = { }
+                    },
+                    new ProjectFolder("mipmap-mdpi")
+                    {
+                        Files = { }
+                    },
+                    new ProjectFolder("mipmap-xhdpi")
+                    {
+                        Files = { }
+                    },
+                    new ProjectFolder("mipmap-xxhdpi")
+                    {
+                        Files = { }
+                    },
+                    new ProjectFolder("mipmap-xxxhdpi")
+                    {
+                        Files = { }
+                    },
+                    new ProjectFolder("values")
+                    {
+                        Files = { }
+                    }
+                },
+                Files =
+                {
+                    new ProjectFile("AboutResources.txt", false, false, String.Empty),
+                    new AndroidResourceDesignerFile(RootNamespace)
+                }
+            }.WithFolders("drawable", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"));
         }
 
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
@@ -61,28 +156,12 @@ namespace SlnGen.Core.Projects
 
             tempCsProjDirectoryPath = csprojDirectoryPath;
 
-            CreatePackageConfig();
-
             AddProjectFilesAndFolders(this, csprojDirectoryPath);
 
-            // create csproj file using xmlwriter
-            //using (XmlWriter writer = XmlWriter.Create(String.Concat(AssemblyName, ".csproj")))
-            //{
-            //    writer.WriteStartDocument();
-            //}
-            //XmlDocument doc = new XmlDocument();
-            //XmlElement root = doc.CreateElement("Project");
-            //root.SetAttribute("ToolsVersion", "14.0");
-            //root.SetAttribute("DefaultTargets", "Build");
-            //root.SetAttribute("xmlns", "http://schemas.microsoft.com/developer/msbuild/2003");
             var xmlNode = new XElement(xNamespace + "Project",
-                                        new XAttribute("ToolsVersion", "14.0"),
+                                        new XAttribute("ToolsVersion", "4.0"),
                                         new XAttribute("DefaultTargets", "Build"),
                                         new XAttribute("xmlns", "http://schemas.microsoft.com/developer/msbuild/2003"),
-                                        new XElement(xNamespace + "Import",
-                                            new XAttribute("Project", @"$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"),
-                                            new XAttribute("Condition", @"Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')")
-                                        ),
                                         new XElement(xNamespace + "PropertyGroup",
                                             new XElement(xNamespace + "Configuration",
                                                 new XAttribute("Condition", " '$(Configuration)' == '' "),
@@ -95,76 +174,68 @@ namespace SlnGen.Core.Projects
                                             new XElement(xNamespace + "ProjectGuid",
                                                 new XText(String.Concat("{", AssemblyGuid.ToString(), "}"))
                                             ),
+                                            new XElement(xNamespace + "ProjectTypeGuids",
+                                                new XText($"{{{ProjectTypeGuids.Mono_for_Android}}};{{{ProjectTypeGuids.Cs}}}")
+                                            ),
+                                            //new XElement(xNamespace + "TemplateGuid"
+                                            //),
                                             new XElement(xNamespace + "OutputType",
                                                 new XText(OutputType)
                                             ),
-                                            new XElement(xNamespace + "AppDesignerFolder",
-                                                new XText("Properties")
-                                            ),
                                             new XElement(xNamespace + "RootNamespace",
                                                 new XText(RootNamespace)
-                                                ),
+                                            ),
                                             new XElement(xNamespace + "AssemblyName",
                                                 new XText(AssemblyName)
-                                                ),
+                                            ),
+                                            new XElement(xNamespace + "AndroidApplication",
+                                                new XText("True")
+                                            ),
+                                            new XElement(xNamespace + "AndroidResgenFile",
+                                                new XText(@"Resources\Resource.designer.cs")
+                                            ),
+                                            new XElement(xNamespace + "AndroidResgenClass",
+                                                new XText("Resource")
+                                            ),
+                                            new XElement(xNamespace + "AndroidManifest",
+                                                new XText(@"Properties\AndroidManifest.xml")
+                                            ),
+                                            new XElement(xNamespace + "MonoAndroidResourcePrefix",
+                                                new XText("Resources")
+                                            ),
+                                            new XElement(xNamespace + "MonoAndroidAssetsPrefix",
+                                                new XText("Assets")
+                                            ),
+                                            new XElement(xNamespace + "AndroidUseLatestPlatformSdk",
+                                                new XText("false")
+                                            ),
                                             new XElement(xNamespace + "TargetFrameworkVersion",
                                                 new XText(TargetFrameworkVersion.TargetVersion)
-                                                ),
-                                            new XElement(xNamespace + "FileAlignment",
-                                                new XText("512")
-                                                ),
-                                            GetProjectSpecificPropertyNodes(xNamespace, solutionGuid),
-                                            new XElement(xNamespace + "TargetFrameworkProfile",
-                                                new XText(((NetFrameworkPlatform)TargetFrameworkVersion).Profile ?? String.Empty)
-                                                )
+                                            ),
+                                            new XElement(xNamespace + "AndroidHttpClientHandlerType",
+                                                new XText("Xamarin.Android.Net.AndroidClientHandler")
+                                            )
                                         ), // END PROPERTY GROUP
                                         GetBuildConfigurationPropertyGroups(xNamespace),
                                         GetAssemblyReferenceItemGroup(),
+                                        GetNugetReferenceItemGroup(),
                                         GetProjectReferenceItemGroup(),
                                         GetCompileFilesItemGroup(),
                                         GetOtherFileItemGroup(),
                                         GetContentFilesItemGroup(),
                                         GetNoneFilesItemGroup(),
+                                        GetAndroidResourceFilesItemGroup(),
                                         GetProjectFoldersItemGroup(),
-                                        GetCustomFilesItemGroups(xNamespace),
-                                        GetImportProjectItems(xNamespace),
-                                        GetTargetItems(xNamespace),
-                                        GetPreBuildEventPropertyGroups(xNamespace),
-                                        GetPostBuildEventPropertyGroups(xNamespace)
+                                        //GetCustomFilesItemGroups(xNamespace),
+                                        GetImportProjectItems(xNamespace)
+                                        //GetTargetItems(xNamespace),
+                                        //GetPreBuildEventPropertyGroups(xNamespace),
+                                        //GetPostBuildEventPropertyGroups(xNamespace)
                                     ); // END PROJECT
             string csprojFilePath = Path.Combine(csprojDirectoryPath, String.Concat(AssemblyName, ".csproj"));
             xmlNode.Save(csprojFilePath);
 
             return csprojFilePath;
-        }
-
-        private void CreatePackageConfig()
-        {
-            // Do packages.config with all the added nuget packages
-            var packageRoot = new XElement("packages");
-            ProjectFile packagesConfig = new ProjectFile("packages.config", false, false);
-            foreach (NugetPackage package in NugetPackages)
-            {
-                XElement packageElement =
-                        new XElement("package",
-                            new XAttribute("id", package.Id),
-                            new XAttribute("version", package.Version),
-                            new XAttribute("targetFramework", package.TargetFrameworks[TargetFrameworkVersion])
-                        );
-                packageRoot.Add(packageElement);
-            }
-            using (var memoryStream = new MemoryStream())
-            {
-                packageRoot.Save(memoryStream);
-
-                memoryStream.Position = 0;
-                using (var streamReader = new StreamReader(memoryStream))
-                {
-                    string contents = streamReader.ReadToEnd();
-                    packagesConfig.FileContents = contents;
-                }
-            }
-            Files.Add(packagesConfig);
         }
 
         protected XElement[] GetBuildConfigurationPropertyGroups(XNamespace xNamespace)
@@ -204,23 +275,6 @@ namespace SlnGen.Core.Projects
         protected XElement GetAssemblyReferenceItemGroup()
         {
             XElement itemGroup = new XElement(xNamespace + "ItemGroup");
-            foreach (NugetPackage nugetPackage in NugetPackages)
-            {
-                foreach (NugetAssembly nugetAssembly in nugetPackage.Assemblies)
-                {
-                    XElement packageElement =
-                        new XElement(xNamespace + "Reference",
-                            new XAttribute("Include", nugetAssembly.Include),
-                            new XElement(xNamespace + "HintPath",
-                                new XText(nugetAssembly.HintPath)
-                            ),
-                            new XElement(xNamespace + "Private",
-                                new XText(nugetAssembly.IsPrivate.ToString())
-                            )
-                        );
-                    itemGroup.Add(packageElement);
-                }
-            }
             foreach (AssemblyReference assembly in AssemblyReferences)
             {
                 XElement assemblyElement =
@@ -228,6 +282,22 @@ namespace SlnGen.Core.Projects
                         new XAttribute("Include", assembly.Name)
                     );
                 itemGroup.Add(assemblyElement);
+            }
+            return itemGroup;
+        }
+
+        protected XElement GetNugetReferenceItemGroup()
+        {
+            XElement itemGroup = new XElement(xNamespace + "ItemGroup");
+            foreach (NugetPackage nugetPackage in NugetPackages)
+            {
+                XElement packageElement =
+                    new XElement(xNamespace + "PackageReference",
+                        new XAttribute("Include", nugetPackage.Id),
+                        new XAttribute("Version", nugetPackage.Version)
+                    );
+
+                itemGroup.Add(packageElement);
             }
             return itemGroup;
         }
@@ -299,19 +369,6 @@ namespace SlnGen.Core.Projects
                 itemGroup.Add(embeddedElement);
             }
 
-            // TODO WHEN MONO ANDROID PROJECT?
-            //List<KeyValuePair<ProjectFile, string>> androidResourceFiles = tempFileRelativePathDictionary.Where(x => x.Key is AndroidResourceProjectFile).ToList();
-            //foreach (KeyValuePair<ProjectFile, string> androidResourceFile in androidResourceFiles)
-            //{
-            //    AndroidResourceProjectFile typeCastedFile = androidResourceFile.Key as AndroidResourceProjectFile;
-
-            //    XElement resourceElement =
-            //        new XElement(xNamespace + "AndroidResource",
-            //            new XAttribute("Include", androidResourceFile.Value)
-            //        );
-            //    itemGroup.Add(resourceElement);
-            //}
-
             return itemGroup;
         }
 
@@ -349,6 +406,25 @@ namespace SlnGen.Core.Projects
             return itemGroup;
         }
 
+        protected XElement GetAndroidResourceFilesItemGroup()
+        {
+            XElement itemGroup = new XElement(xNamespace + "ItemGroup");
+
+            List<KeyValuePair<ProjectFile, string>> androidResourceFiles = _tempFileRelativePathDictionary.Where(x => x.Key is AndroidResourceProjectFile).ToList();
+            foreach (KeyValuePair<ProjectFile, string> androidResourceFile in androidResourceFiles)
+            {
+                AndroidResourceProjectFile typeCastedFile = androidResourceFile.Key as AndroidResourceProjectFile;
+
+                XElement resourceElement =
+                    new XElement(xNamespace + "AndroidResource",
+                        new XAttribute("Include", androidResourceFile.Value)
+                    );
+                itemGroup.Add(resourceElement);
+            }
+
+            return itemGroup;
+        }
+
         protected XElement GetProjectFoldersItemGroup()
         {
             XElement itemGroup = new XElement(xNamespace + "ItemGroup");
@@ -365,6 +441,18 @@ namespace SlnGen.Core.Projects
             return itemGroup;
         }
 
+        /// <remarks>
+        /// Probably should not call base when overriding this method. If you're overriding it there's a chance you do not want the default features.
+        /// </remarks>
+        protected virtual XElement[] GetImportProjectItems(XNamespace xNamespace)
+        {
+            return new XElement[] {
+                new XElement(xNamespace + "Import",
+                    new XAttribute("Project", @"$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets")
+                )
+            };
+        }
+
         protected XElement GetDebugAnyCPUPropertyGroup()
         {
             return
@@ -374,7 +462,7 @@ namespace SlnGen.Core.Projects
                     new XText("true")
                     ),
                 new XElement(xNamespace + "DebugType",
-                    new XText("full")
+                    new XText("portable")
                     ),
                 new XElement(xNamespace + "Optimize",
                     new XText("false")
@@ -383,13 +471,16 @@ namespace SlnGen.Core.Projects
                     new XText(@"bin\Debug\")
                     ),
                 new XElement(xNamespace + "DefineConstants",
-                    new XText("DEBUG;TRACE")
+                    new XText("DEBUG;")
                     ),
                 new XElement(xNamespace + "ErrorReport",
                     new XText("prompt")
                     ),
                 new XElement(xNamespace + "WarningLevel",
                     new XText("4")
+                    ),
+                new XElement(xNamespace + "AndroidLinkMode",
+                    new XText("None")
                     )
                 );
 
@@ -400,6 +491,9 @@ namespace SlnGen.Core.Projects
             return
             new XElement(xNamespace + "PropertyGroup",
                 new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "),
+                new XElement(xNamespace + "DebugSymbols",
+                    new XText("true")
+                    ),
                 new XElement(xNamespace + "DebugType",
                     new XText("pdbonly")
                     ),
@@ -409,59 +503,19 @@ namespace SlnGen.Core.Projects
                 new XElement(xNamespace + "OutputPath",
                     new XText(@"bin\Release\")
                     ),
-                new XElement(xNamespace + "DefineConstants",
-                    new XText("TRACE")
-                    ),
                 new XElement(xNamespace + "ErrorReport",
                     new XText("prompt")
                     ),
                 new XElement(xNamespace + "WarningLevel",
                     new XText("4")
+                    ),
+                new XElement(xNamespace + "AndroidManagedSymbols",
+                    new XText("true")
+                    ),
+                new XElement(xNamespace + "AndroidUseSharedRuntime",
+                    new XText("false")
                     )
                 );
-        }
-
-        protected virtual XElement[] GetPreBuildEventPropertyGroups(XNamespace xNamespace)
-        {
-            //<PropertyGroup>
-            //    <PreBuildEvent>$(SolutionDir)\BuildUtilities\IncrementBuildiOS.exe "$(ProjectDir)\Info.plist"</PreBuildEvent>
-            //</PropertyGroup>
-            return new XElement[] { };
-        }
-
-        protected virtual XElement[] GetPostBuildEventPropertyGroups(XNamespace xNamespace)
-        {
-            //<PropertyGroup>
-            //    <PostBuildEvent>$(SolutionDir)\BuildUtilities\IncrementBuildiOS.exe "$(ProjectDir)\Info.plist"</PostBuildEvent>
-            //</PropertyGroup>
-            return new XElement[] { };
-        }
-
-        protected virtual XElement[] GetCustomFilesItemGroups(XNamespace xNamespace)
-        {
-            return new XElement[] { };
-        }
-
-        /// <remarks>
-        /// Probably should not call base when overriding this method. If you're overriding it there's a chance you do not want the default features.
-        /// </remarks>
-        protected virtual XElement[] GetImportProjectItems(XNamespace xNamespace)
-        {
-            return new XElement[] {
-                new XElement(xNamespace + "Import",
-                    new XAttribute("Project", @"$(MSBuildToolsPath)\Microsoft.CSharp.targets")
-                )
-            };
-        }
-
-        protected virtual XElement[] GetTargetItems(XNamespace xNamespace)
-        {
-            return new XElement[] { };
-        }
-
-        protected virtual XElement[] GetProjectSpecificPropertyNodes(XNamespace xNamespace, Guid solutionGuid)
-        {
-            return new XElement[] { };
         }
     }
 }

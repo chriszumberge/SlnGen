@@ -35,11 +35,13 @@ namespace SlnGen.Xamarin.Demo
             //Project codeProj = new NetStandardClassLibraryProject(appName, NetStandardPlatform.v2_0)
             //    .WithNugetPackage(xamarinFormsPkg);
             Project codeProj = new NetStandardXamarinClassLibraryProject(appName, NetStandardPlatform.v2_0, xamarinFormsPkg);
-
+            Project androidProj = new XamarinAndroidAppProject(appName + ".Droid", $"com.slngen.{appName}", XamarinAndroidPlatform.v8_1, 21, 27, xamarinFormsPkg)
+                .WithProjectReference(new ProjectReference(codeProj, new RelativePathBuilder().AppendPath(RelativePath.Up_Directory).ToPath()));
 
 
             return new Solution("TestXamarinCrossPlatformApp")
                 .WithProject(codeProj)
+                .WithProject(androidProj)
                 .GenerateSolutionFiles(@"C:\");
         }
     }

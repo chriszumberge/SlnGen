@@ -7,7 +7,8 @@ namespace SlnGen.Xamarin.Projects
 {
     public class NetStandardXamarinClassLibraryProject : NetStandardClassLibraryProject
     {
-        public NetStandardXamarinClassLibraryProject(string assemblyName, NetStandardPlatform targetFrameworkVersion, NugetPackage xamarinPackage) : base(assemblyName, targetFrameworkVersion)
+        public NetStandardXamarinClassLibraryProject(string assemblyName, NetStandardPlatform targetFrameworkVersion, NugetPackage xamarinPackage, string rootNamespace = "") : 
+            base(assemblyName, targetFrameworkVersion, rootNamespace)
         {
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Ad-Hoc", "Any CPU"));
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Ad-Hoc", "iPhone"));
@@ -22,8 +23,8 @@ namespace SlnGen.Xamarin.Projects
 
             WithNugetPackage(xamarinPackage);
 
-            AddFileToFolder(new DefaultAppXamlFile(DefaultNamespace));
-            AddFileToFolder(new DefaultMainPageXamlFile(DefaultNamespace));
+            AddFileToFolder(new DefaultAppXamlFile(RootNamespace));
+            AddFileToFolder(new DefaultMainPageXamlFile(RootNamespace));
         }
     }
 }
