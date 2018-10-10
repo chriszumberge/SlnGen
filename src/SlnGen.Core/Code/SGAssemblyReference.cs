@@ -38,6 +38,11 @@ namespace SlnGen.Core.Code
             AssemblyName = assemblyName;
         }
 
+        public SGAssemblyReference(params string[] assemblyPath)
+        {
+            AssemblyName = String.Join(".", assemblyPath);
+        }
+
         public SGAssemblyReference(Project project)
         {
             AssemblyName = project.RootNamespace;

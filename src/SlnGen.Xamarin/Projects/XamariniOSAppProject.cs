@@ -1,30 +1,27 @@
-﻿using System;
+﻿using SlnGen.Core;
+using SlnGen.Core.Files;
+using SlnGen.Core.Utils;
+using SlnGen.Xamarin.Files;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using SlnGen.Core;
-using SlnGen.Core.Files;
-using SlnGen.Core.Utils;
-using SlnGen.Xamarin.Files;
 
 namespace SlnGen.Xamarin.Projects
 {
-    public class XamarinAndroidAppProject : Project
+    public class XamariniOSAppProject : Project
     {
-        public XamarinAndroidAppProject(string assemblyName, string appName, string packageName, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion, 
-            NugetPackage xamarinPackage, string rootNamespace = "") :
-            this(assemblyName, appName, packageName, Guid.NewGuid(), targetFrameworkVersion, minSdkVersion, targetSdkVersion, xamarinPackage, rootNamespace)
+        public XamariniOSAppProject(string assemblyName, string appName, string bundleIdentifier, XamariniOSPlatform targetFrameworkVersion, NugetPackage xamarinPackage, string rootNamespace = "") :
+            this(assemblyName, appName, bundleIdentifier, new Guid(), targetFrameworkVersion, xamarinPackage, rootNamespace)
         { }
 
-        public XamarinAndroidAppProject(string assemblyName, string appName, string packageName, Guid assemblyGuid, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion, 
-            NugetPackage xamarinPackage, string rootNamespace = "") :
-            base(assemblyName, assemblyGuid, "Library", targetFrameworkVersion, rootNamespace)
+        public XamariniOSAppProject(string assemblyName, string appName, string bundleIdentifier, Guid assemblyGuid, XamariniOSPlatform targetFrameworkVersion, NugetPackage xamarinPackage, string rootNamespace = "") :
+            base(assemblyName, assemblyGuid, "Exe", targetFrameworkVersion, rootNamespace)
         {
-            _minSdkVersion = minSdkVersion;
-            _targetSdkVersion = targetSdkVersion;
-            _packageName = packageName;
+            // project specific fields
             _appName = appName;
+            _bundleIdentifier = bundleIdentifier;
 
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Ad-Hoc", "Any CPU"));
             SupportedBuildConfigurations.Add(new SupportedBuildConfiguration("Ad-Hoc", "iPhone"));
@@ -41,112 +38,51 @@ namespace SlnGen.Xamarin.Projects
 
             WithNugetPackage(xamarinPackage);
 
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Design__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_AppCompat__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v4__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_CardView__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_MediaRouter__27_0_2_1);
-
             AddDefaultAssemblyReferences();
             AddDefaultFoldersAndFiles();
         }
 
-        protected int _minSdkVersion;
-        protected int _targetSdkVersion;
-        protected string _packageName;
         protected string _appName;
+        protected string _bundleIdentifier;
 
         private void AddDefaultAssemblyReferences()
         {
-            AssemblyReferences.Add(SlnGen.Xamarin.References.Assemblies.Mono_Android);
-            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System);
-            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Core);
-            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml_Linq);
-            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml);
+            AssemblyReferences.Add(Core.References.Assemblies.System);
+            AssemblyReferences.Add(Core.References.Assemblies.System_Xml);
+            AssemblyReferences.Add(Core.References.Assemblies.System_Core);
+            AssemblyReferences.Add(Xamarin.References.Assemblies.Xamarin_iOS);
         }
 
         private void AddDefaultFoldersAndFiles()
         {
-            Files.Add(new MainActivityFile(_appName, RootNamespace));
+            Folders.Add(new ProjectFolder("Assets.xcassets")
+            {
+                Folders =
+                {
+                    new ProjectFolder("AppIcon.appiconset")
+                    {
+                        Files = { }
+                    }
+                }
+            });
             Folders.Add(new ProjectFolder("Properties")
             {
                 Files =
                 {
-                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0)),
-                    new AndroidManifestFile(AssemblyName, _packageName, _minSdkVersion, _targetSdkVersion)
-                }
-            });
-            Folders.Add(new ProjectFolder("Assets")
-            {
-                Files =
-                {
-                    new ProjectFile("AboutAssets.txt", false, false,
-                    String.Join(Environment.NewLine,
-                    "Any raw assets you want to be deployed with your application can be placed in",
-                    "this directory (and child directories) is given a Build Action of \"AndroidAsset\".",
-                    "",
-                    "These files will be deployed with your package and will be accessible using Android's",
-                    "AssetManager, like this:",
-                    "",
-                    "public class ReadAsset : Activity",
-                    "{",
-                    "\tprotected override void OnCreate (Bundle bundle)",
-                    "\t{",
-                    "\t\tbase.OnCreate (bundle);",
-                    "",
-                    "\t\tInputStream input = Assets.Open (\"my_asset.txt\");",
-                    "\t}",
-                    "}",
-                    "",
-                    "Additionally, some Android functions will automatically load asset files:",
-                    "",
-                    "Typeface tf = Typeface.CreateFromAsset (Context.Assets, \"fonts/samplefont.tff\");"
-                    ))
+                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0))
                 }
             });
             Folders.Add(new ProjectFolder("Resources")
             {
-                Folders =
-                {
-                    new ProjectFolder("layout")
-                    {
-                        Files = { }
-                    },
-                    new ProjectFolder("mipmap-anydpi-v26")
-                    {
-                        Files ={ }
-                    },
-                    new ProjectFolder("mipmap-hdpi")
-                    {
-                        Files = { }
-                    },
-                    new ProjectFolder("mipmap-mdpi")
-                    {
-                        Files = { }
-                    },
-                    new ProjectFolder("mipmap-xhdpi")
-                    {
-                        Files = { }
-                    },
-                    new ProjectFolder("mipmap-xxhdpi")
-                    {
-                        Files = { }
-                    },
-                    new ProjectFolder("mipmap-xxxhdpi")
-                    {
-                        Files = { }
-                    },
-                    new ProjectFolder("values")
-                    {
-                        Files = { }
-                    }
-                },
                 Files =
                 {
-                    new ProjectFile("AboutResources.txt", false, false, String.Empty),
-                    new AndroidResourceDesignerFile(RootNamespace)
+
                 }
-            }.WithFolders("drawable", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"));
+            });
+            Files.Add(new AppDelegateFile(RootNamespace));
+            Files.Add(new EntitlementsPListFile());
+            Files.Add(new InfoPListFile(_appName, _bundleIdentifier));
+            Files.Add(new iOSMainFile(RootNamespace));
         }
 
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
@@ -171,13 +107,19 @@ namespace SlnGen.Xamarin.Projects
                                             ),
                                             new XElement(xNamespace + "Platform",
                                                 new XAttribute("Condition", " '$(Platform)' == '' "),
-                                                new XText(DEFAULT_BUILD_PLATFORM)
+                                                new XText("iPhoneSimulator")
+                                            ),
+                                            new XElement(xNamespace + "ProductVersion",
+                                                new XText(TargetFrameworkVersion.TargetVersion)
+                                            ),
+                                            new XElement(xNamespace + "SchemaVersion",
+                                                new XText(((XamariniOSPlatform)TargetFrameworkVersion).SchemaVersion)
                                             ),
                                             new XElement(xNamespace + "ProjectGuid",
                                                 new XText(String.Concat("{", AssemblyGuid.ToString(), "}"))
                                             ),
                                             new XElement(xNamespace + "ProjectTypeGuids",
-                                                new XText($"{{{ProjectTypeGuids.Xamarin_Android}}};{{{ProjectTypeGuids.Cs}}}")
+                                                new XText($"{{{ProjectTypeGuids.Xamarin_iOS}}};{{{ProjectTypeGuids.Cs}}}")
                                             ),
                                             //new XElement(xNamespace + "TemplateGuid"
                                             //),
@@ -190,32 +132,11 @@ namespace SlnGen.Xamarin.Projects
                                             new XElement(xNamespace + "AssemblyName",
                                                 new XText(AssemblyName)
                                             ),
-                                            new XElement(xNamespace + "AndroidApplication",
-                                                new XText("True")
-                                            ),
-                                            new XElement(xNamespace + "AndroidResgenFile",
-                                                new XText(@"Resources\Resource.designer.cs")
-                                            ),
-                                            new XElement(xNamespace + "AndroidResgenClass",
-                                                new XText("Resource")
-                                            ),
-                                            new XElement(xNamespace + "AndroidManifest",
-                                                new XText(@"Properties\AndroidManifest.xml")
-                                            ),
-                                            new XElement(xNamespace + "MonoAndroidResourcePrefix",
+                                            new XElement(xNamespace + "IPhoneResourcePrefix",
                                                 new XText("Resources")
                                             ),
-                                            new XElement(xNamespace + "MonoAndroidAssetsPrefix",
-                                                new XText("Assets")
-                                            ),
-                                            new XElement(xNamespace + "AndroidUseLatestPlatformSdk",
-                                                new XText("false")
-                                            ),
-                                            new XElement(xNamespace + "TargetFrameworkVersion",
-                                                new XText(TargetFrameworkVersion.TargetVersion)
-                                            ),
-                                            new XElement(xNamespace + "AndroidHttpClientHandlerType",
-                                                new XText("Xamarin.Android.Net.AndroidClientHandler")
+                                            new XElement(xNamespace + "MtouchHttpClientHandler",
+                                                new XText("NSUrlSessionHandler")
                                             )
                                         ), // END PROPERTY GROUP
                                         GetBuildConfigurationPropertyGroups(xNamespace),
@@ -226,13 +147,9 @@ namespace SlnGen.Xamarin.Projects
                                         GetOtherFileItemGroup(),
                                         GetContentFilesItemGroup(),
                                         GetNoneFilesItemGroup(),
-                                        GetAndroidResourceFilesItemGroup(),
+                                        //GetImageAssetFilesItemGroup(),
                                         GetProjectFoldersItemGroup(),
-                                        //GetCustomFilesItemGroups(xNamespace),
                                         GetImportProjectItems(xNamespace)
-                                        //GetTargetItems(xNamespace),
-                                        //GetPreBuildEventPropertyGroups(xNamespace),
-                                        //GetPostBuildEventPropertyGroups(xNamespace)
                                     ); // END PROJECT
             string csprojFilePath = Path.Combine(csprojDirectoryPath, String.Concat(AssemblyName, ".csproj"));
             xmlNode.Save(csprojFilePath);
@@ -260,13 +177,224 @@ namespace SlnGen.Xamarin.Projects
 
         protected virtual XElement ConstructBuildConfigurationPropertyGroup(XNamespace xNamespace, SupportedBuildConfiguration config)
         {
-            if (config.Platform.Equals("Any CPU") && config.Configuration.Equals("Debug"))
+            if (config.Platform.Equals("iPhoneSimulator") && config.Configuration.Equals("Debug"))
             {
-                return GetDebugAnyCPUPropertyGroup();
+                return
+                new XElement(xNamespace + "PropertyGroup",
+                    new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' "),
+                    new XElement(xNamespace + "DebugSymbols",
+                        new XText("true")
+                        ),
+                    new XElement(xNamespace + "DebugType",
+                        new XText("full")
+                        ),
+                    new XElement(xNamespace + "Optimize",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "OutputPath",
+                        new XText(@"bin\iPhoneSimulator\Debug")
+                        ),
+                    new XElement(xNamespace + "DefineConstants",
+                        new XText("DEBUG")
+                        ),
+                    new XElement(xNamespace + "ErrorReport",
+                        new XText("prompt")
+                        ),
+                    new XElement(xNamespace + "WarningLevel",
+                        new XText("4")
+                        ),
+                    new XElement(xNamespace + "ConsolePause",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "MtouchArch",
+                        new XText("x86_64")
+                        ),
+                    new XElement(xNamespace + "MtouchLink",
+                        new XText("None")
+                        ),
+                    new XElement(xNamespace + "MtouchDebug",
+                        new XText("true")
+                        )
+                    );
             }
-            else if (config.Platform.Equals("Any CPU") && config.Configuration.Equals("Release"))
+            else if (config.Platform.Equals("iPhoneSimulator") && config.Configuration.Equals("Release"))
             {
-                return GetReleaseAnyCPUPropertyGroup();
+                return
+                new XElement(xNamespace + "PropertyGroup",
+                    new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' "),
+                    new XElement(xNamespace + "DebugType",
+                        new XText("none")
+                        ),
+                    new XElement(xNamespace + "Optimize",
+                        new XText("true")
+                        ),
+                    new XElement(xNamespace + "OutputPath",
+                        new XText(@"bin\iPhoneSimulator\Release")
+                        ),
+                    new XElement(xNamespace + "ErrorReport",
+                        new XText("prompt")
+                        ),
+                    new XElement(xNamespace + "WarningLevel",
+                        new XText("4")
+                        ),
+                    new XElement(xNamespace + "ConsolePause",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "MtouchArch",
+                        new XText("x86_64")
+                        ),
+                    new XElement(xNamespace + "MtouchLink",
+                        new XText("None")
+                        )
+                    );
+            }
+            else if (config.Platform.Equals("iPhone") && config.Configuration.Equals("Debug"))
+            {
+                return
+                new XElement(xNamespace + "PropertyGroup",
+                    new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Debug|iPhone' "),
+                    new XElement(xNamespace + "DebugSymbols",
+                        new XText("true")
+                        ),
+                    new XElement(xNamespace + "DebugType",
+                        new XText("full")
+                        ),
+                    new XElement(xNamespace + "Optimize",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "OutputPath",
+                        new XText(@"bin\iPhone\Debug")
+                        ),
+                    new XElement(xNamespace + "DefineConstants",
+                        new XText("DEBUG")
+                        ),
+                    new XElement(xNamespace + "ErrorReport",
+                        new XText("prompt")
+                        ),
+                    new XElement(xNamespace + "WarningLevel",
+                        new XText("4")
+                        ),
+                    new XElement(xNamespace + "ConsolePause",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "MtouchArch",
+                        new XText("ARM64")
+                        ),
+                    new XElement(xNamespace + "CodesignKey",
+                        new XText("iPhone Developer")
+                        ),
+                    new XElement(xNamespace + "MtouchDebug",
+                        new XText("true")
+                        ),
+                    new XElement(xNamespace + "CodesignEntitlements",
+                        new XText("Entitlements.plist")
+                        )
+                    );
+            }
+            else if (config.Platform.Equals("iPhone") && config.Configuration.Equals("Release"))
+            {
+                return
+                new XElement(xNamespace + "PropertyGroup",
+                    new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Release|iPhone' "),
+                    new XElement(xNamespace + "DebugType",
+                        new XText("none")
+                        ),
+                    new XElement(xNamespace + "Optimize",
+                        new XText("true")
+                        ),
+                    new XElement(xNamespace + "OutputPath",
+                        new XText(@"bin\iPhone\Release")
+                        ),
+                    new XElement(xNamespace + "ErrorReport",
+                        new XText("prompt")
+                        ),
+                    new XElement(xNamespace + "WarningLevel",
+                        new XText("4")
+                        ),
+                    new XElement(xNamespace + "MtouchArch",
+                        new XText("ARM64")
+                        ),
+                    new XElement(xNamespace + "ConsolePause",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "CodesignKey",
+                        new XText("iPhone Developer")
+                        ),
+                    new XElement(xNamespace + "CodesignEntitlements",
+                        new XText("Entitlements.plist")
+                        )
+                    );
+            }
+            else if (config.Platform.Equals("iPhone") && config.Configuration.Equals("Ad-Hoc"))
+            {
+                return
+                new XElement(xNamespace + "PropertyGroup",
+                    new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' "),
+                    new XElement(xNamespace + "DebugType",
+                        new XText("none")
+                        ),
+                    new XElement(xNamespace + "Optimize",
+                        new XText("True")
+                        ),
+                    new XElement(xNamespace + "OutputPath",
+                        new XText(@"bin\iPhone\Ad-Hoc")
+                        ),
+                    new XElement(xNamespace + "ErrorReport",
+                        new XText("prompt")
+                        ),
+                    new XElement(xNamespace + "WarningLevel",
+                        new XText("4")
+                        ),
+                    new XElement(xNamespace + "MtouchArch",
+                        new XText("ARM64")
+                        ),
+                    new XElement(xNamespace + "ConsolePause",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "CodesignKey",
+                        new XText("iPhone Distribution")
+                        ),
+                    new XElement(xNamespace + "CodesignEntitlements",
+                        new XText("Entitlements.plist")
+                        )
+                    );
+            }
+            else if (config.Platform.Equals("iPhone") && config.Configuration.Equals("AppStore"))
+            {
+                return
+                new XElement(xNamespace + "PropertyGroup",
+                    new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'AppStore|iPhone' "),
+                    new XElement(xNamespace + "DebugType",
+                        new XText("none")
+                        ),
+                    new XElement(xNamespace + "Optimize",
+                        new XText("True")
+                        ),
+                    new XElement(xNamespace + "OutputPath",
+                        new XText(@"bin\iPhone\AppStore")
+                        ),
+                    new XElement(xNamespace + "ErrorReport",
+                        new XText("prompt")
+                        ),
+                    new XElement(xNamespace + "WarningLevel",
+                        new XText("4")
+                        ),
+                    new XElement(xNamespace + "ConsolePause",
+                        new XText("false")
+                        ),
+                    new XElement(xNamespace + "MtouchArch",
+                        new XText("ARM64")
+                        ),
+                    new XElement(xNamespace + "CodesignProvision",
+                        new XText("Automatic:AppStore")
+                        ),
+                    new XElement(xNamespace + "CodesignKey",
+                        new XText("iPhone Distribution")
+                        ),
+                    new XElement(xNamespace + "CodesignEntitlements",
+                        new XText("Entitlements.plist")
+                        )
+                    );
             }
             else
             {
@@ -391,9 +519,6 @@ namespace SlnGen.Xamarin.Projects
 
         protected XElement GetNoneFilesItemGroup()
         {
-            // TODO WHEN MOONO ANDROID PROJECT?
-            //List<KeyValuePair<ProjectFile, string>> noneTypeFiles = tempFileRelativePathDictionary.Where(x => !x.Key.ShouldCompile && !x.Key.IsContent
-            //    && !(x.Key is EmbeddedResourceProjectFile || x.Key is AndroidResourceProjectFile)).ToList();
             List<KeyValuePair<ProjectFile, string>> noneTypeFiles = _tempFileRelativePathDictionary.Where(x => !x.Key.ShouldCompile && !x.Key.IsContent
                 && !(x.Key is EmbeddedResourceProjectFile)).ToList();
             XElement itemGroup = new XElement(xNamespace + "ItemGroup");
@@ -405,25 +530,6 @@ namespace SlnGen.Xamarin.Projects
                     );
                 itemGroup.Add(noneTypeElement);
             }
-            return itemGroup;
-        }
-
-        protected XElement GetAndroidResourceFilesItemGroup()
-        {
-            XElement itemGroup = new XElement(xNamespace + "ItemGroup");
-
-            List<KeyValuePair<ProjectFile, string>> androidResourceFiles = _tempFileRelativePathDictionary.Where(x => x.Key is AndroidResourceProjectFile).ToList();
-            foreach (KeyValuePair<ProjectFile, string> androidResourceFile in androidResourceFiles)
-            {
-                AndroidResourceProjectFile typeCastedFile = androidResourceFile.Key as AndroidResourceProjectFile;
-
-                XElement resourceElement =
-                    new XElement(xNamespace + "AndroidResource",
-                        new XAttribute("Include", androidResourceFile.Value)
-                    );
-                itemGroup.Add(resourceElement);
-            }
-
             return itemGroup;
         }
 
@@ -450,74 +556,9 @@ namespace SlnGen.Xamarin.Projects
         {
             return new XElement[] {
                 new XElement(xNamespace + "Import",
-                    new XAttribute("Project", @"$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets")
+                    new XAttribute("Project", @"$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets")
                 )
             };
-        }
-
-        protected XElement GetDebugAnyCPUPropertyGroup()
-        {
-            return
-            new XElement(xNamespace + "PropertyGroup",
-                new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "),
-                new XElement(xNamespace + "DebugSymbols",
-                    new XText("true")
-                    ),
-                new XElement(xNamespace + "DebugType",
-                    new XText("portable")
-                    ),
-                new XElement(xNamespace + "Optimize",
-                    new XText("false")
-                    ),
-                new XElement(xNamespace + "OutputPath",
-                    new XText(@"bin\Debug\")
-                    ),
-                new XElement(xNamespace + "DefineConstants",
-                    new XText("DEBUG;")
-                    ),
-                new XElement(xNamespace + "ErrorReport",
-                    new XText("prompt")
-                    ),
-                new XElement(xNamespace + "WarningLevel",
-                    new XText("4")
-                    ),
-                new XElement(xNamespace + "AndroidLinkMode",
-                    new XText("None")
-                    )
-                );
-
-        }
-
-        protected XElement GetReleaseAnyCPUPropertyGroup()
-        {
-            return
-            new XElement(xNamespace + "PropertyGroup",
-                new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "),
-                new XElement(xNamespace + "DebugSymbols",
-                    new XText("true")
-                    ),
-                new XElement(xNamespace + "DebugType",
-                    new XText("pdbonly")
-                    ),
-                new XElement(xNamespace + "Optimize",
-                    new XText("true")
-                    ),
-                new XElement(xNamespace + "OutputPath",
-                    new XText(@"bin\Release\")
-                    ),
-                new XElement(xNamespace + "ErrorReport",
-                    new XText("prompt")
-                    ),
-                new XElement(xNamespace + "WarningLevel",
-                    new XText("4")
-                    ),
-                new XElement(xNamespace + "AndroidManagedSymbols",
-                    new XText("true")
-                    ),
-                new XElement(xNamespace + "AndroidUseSharedRuntime",
-                    new XText("false")
-                    )
-                );
         }
     }
 }
