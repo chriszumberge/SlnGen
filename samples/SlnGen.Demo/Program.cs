@@ -85,7 +85,7 @@ namespace SlnGen.Demo
                                         {
                                             Arguments =
                                             {
-                                                new SGArgument("args", "string[]")
+                                                new SGArgument("string[]", "args")
                                             }
                                         })
                                         {
@@ -144,7 +144,7 @@ namespace SlnGen.Demo
                                         {
                                             Arguments =
                                             {
-                                                new SGArgument("args", "string[]")
+                                                new SGArgument("string[]", "args")
                                             }
                                         })
                                         {
@@ -209,7 +209,7 @@ namespace SlnGen.Demo
                                         {
                                             Arguments =
                                             {
-                                                new SGArgument("args", "string[]")
+                                                new SGArgument("string[]", "args")
                                             }
                                         })
                                         {

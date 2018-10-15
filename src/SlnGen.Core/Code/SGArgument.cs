@@ -53,20 +53,20 @@ namespace SlnGen.Core.Code
         bool _hasDefaultValue => ArgumentDefaultValue != null;
         public string ArgumentDefaultValue { get; set; }
 
-        public SGArgument(string argumentName, string argumentTypeName)
+        public SGArgument(string argumentTypeName, string argumentName)
         {
             ArgumentName = argumentName;
             ArgumentTypeName = argumentTypeName;
         }
 
-        public SGArgument(string argumentname, Type argumentType) : this(argumentname, argumentType?.Name) { }
+        public SGArgument(Type argumentType, string argumentname) : this(argumentType?.Name, argumentname) { }
 
-        public SGArgument(string argumentName, string argumentTypeName, object defaultValue) : this(argumentName, argumentTypeName)
+        public SGArgument(string argumentTypeName, string argumentName, object defaultValue) : this(argumentTypeName, argumentName)
         {
             ArgumentDefaultValue = defaultValue?.ToString();
         }
 
-        public SGArgument(string argumentName, Type argumentType, object defaultValue) : this(argumentName, argumentType?.Name, defaultValue) { }
+        public SGArgument(Type argumentType, string argumentName, object defaultValue) : this(argumentType?.Name, argumentName, defaultValue) { }
 
         public SGArgument WithArgumentName(string newArgName)
         {

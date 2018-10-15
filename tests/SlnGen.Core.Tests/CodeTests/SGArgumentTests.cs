@@ -15,7 +15,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argTypeName = "ArgType";
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Assert
             Assert.AreEqual(argumentName, arg.ArgumentName);
@@ -30,7 +30,7 @@ namespace SlnGen.Core.Tests.CodeTests
             Type argType = typeof(int);
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argType);
+            SGArgument arg = new SGArgument(argType, argumentName);
 
             // Assert
             Assert.AreEqual(argumentName, arg.ArgumentName);
@@ -47,7 +47,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argTypeName = "ArgType";
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace SlnGen.Core.Tests.CodeTests
             Type argType = typeof(int);
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argType);
+            SGArgument arg = new SGArgument(argType, argumentName);
         }
 
         [TestMethod]
@@ -73,7 +73,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argTypeName = "ArgType";
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
         }
 
 
@@ -87,7 +87,7 @@ namespace SlnGen.Core.Tests.CodeTests
             Type argType = typeof(int);
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argType);
+            SGArgument arg = new SGArgument(argType, argumentName);
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace SlnGen.Core.Tests.CodeTests
             Type argType = typeof(int);
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argType);
+            SGArgument arg = new SGArgument(argType, argumentName);
 
             // Assert
             Assert.AreEqual(argumentName.Replace(" ", "_"), arg.ArgumentName);
@@ -114,7 +114,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argTypeName = null;
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
         }
 
         [TestMethod]
@@ -127,7 +127,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argTypeName = String.Empty;
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
         }
 
         [TestMethod]
@@ -140,7 +140,7 @@ namespace SlnGen.Core.Tests.CodeTests
             Type argType = null;
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argType);
+            SGArgument arg = new SGArgument(argType, argumentName);
         }
 
         [TestMethod]
@@ -152,7 +152,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string defaultValue = "3";
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argTypeName, defaultValue);
+            SGArgument arg = new SGArgument(argTypeName, argumentName, defaultValue);
 
             // Assert
             Assert.AreEqual(argumentName, arg.ArgumentName);
@@ -169,7 +169,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string defaultValue = "3";
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argType, defaultValue);
+            SGArgument arg = new SGArgument(argType, argumentName, defaultValue);
 
             // Assert
             Assert.AreEqual(argumentName, arg.ArgumentName);
@@ -184,7 +184,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = "NewArgumentName";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg.ArgumentName = newArgName;
@@ -202,7 +202,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = null;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg.ArgumentName = newArgName;
@@ -217,7 +217,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = String.Empty;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg.ArgumentName = newArgName;
@@ -230,7 +230,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = "New Argument Name";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
             
             // Act
             arg.ArgumentName = newArgName;
@@ -246,7 +246,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = "NewArgumentName";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentName(newArgName);
@@ -264,7 +264,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = null;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentName(newArgName);
@@ -279,7 +279,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = String.Empty;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentName(newArgName);
@@ -292,7 +292,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "ArgType";
             string newArgName = "New Argument Name";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentName(newArgName);
@@ -308,7 +308,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string newArgTypeName = "bool";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg.ArgumentTypeName = newArgTypeName;
@@ -326,7 +326,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string newArgTypeName = null;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg.ArgumentTypeName = newArgTypeName;
@@ -341,7 +341,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string newArgTypeName = String.Empty;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg.ArgumentTypeName = newArgTypeName;
@@ -354,7 +354,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string newArgTypeName = "bool";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentTypeName(newArgTypeName);
@@ -372,7 +372,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string newArgTypeName = null;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentTypeName(newArgTypeName);
@@ -387,7 +387,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string newArgTypeName = String.Empty;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentTypeName(newArgTypeName);
@@ -400,7 +400,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             Type newArgType = typeof(bool);
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentTypeName(newArgType);
@@ -418,7 +418,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             Type newArgType = null;
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithArgumentTypeName(newArgType);
@@ -431,7 +431,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string defaultValue = "3";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg.ArgumentDefaultValue = defaultValue;
@@ -449,7 +449,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string defaultValue = "3";
 
             // Act
-            SGArgument arg = new SGArgument(argumentName, argTypeName)
+            SGArgument arg = new SGArgument(argTypeName, argumentName)
             {
                 ArgumentDefaultValue = defaultValue
             };
@@ -465,7 +465,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string defaultValue = "3";
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             arg = arg.WithDefaultValue(defaultValue);
@@ -480,7 +480,7 @@ namespace SlnGen.Core.Tests.CodeTests
             // Arrange
             string argumentName = "Argument";
             string argTypeName = "int";            
-            SGArgument arg = new SGArgument(argumentName, argTypeName);
+            SGArgument arg = new SGArgument(argTypeName, argumentName);
 
             // Act
             string output = arg.ToString();
@@ -496,7 +496,7 @@ namespace SlnGen.Core.Tests.CodeTests
             string argumentName = "Argument";
             string argTypeName = "int";
             string defaultValue = "3";
-            SGArgument arg = new SGArgument(argumentName, argTypeName, defaultValue);
+            SGArgument arg = new SGArgument(argTypeName, argumentName, defaultValue);
 
             // Act
             string output = arg.ToString();

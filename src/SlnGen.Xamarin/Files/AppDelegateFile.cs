@@ -34,7 +34,14 @@ namespace SlnGen.Xamarin.Files
                                 },
                                 Methods =
                                 {
-                                    new SGMethod(new SGMethodSignature("FinishedLaunching", SGAccessibilityLevel.Public, false, false, true, "bool"))
+                                    new SGMethod(new SGMethodSignature("FinishedLaunching", SGAccessibilityLevel.Public, false, false, true, "bool")
+                                    {
+                                        Arguments =
+                                        {
+                                            new SGArgument("UIApplication", "app"),
+                                            new SGArgument("NSDictionary", "options")
+                                        }
+                                    })
                                     {
                                         //Comments = 
                                         Lines =
