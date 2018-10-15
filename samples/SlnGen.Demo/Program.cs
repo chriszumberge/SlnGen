@@ -1,6 +1,5 @@
 ﻿using SlnGen.Core;
 using SlnGen.Core.Code;
-using SlnGen.Core.Files;
 using SlnGen.Core.Projects;
 using SlnGen.Core.Utils;
 using SlnGen.Core.Wizard;
