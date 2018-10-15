@@ -1,9 +1,4 @@
-﻿using SlnGen.Core.Code;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SlnGen.Core.Wizard
 {
@@ -15,6 +10,8 @@ namespace SlnGen.Core.Wizard
 
         List<Project> _projects = new List<Project>();
 
+        // TODO pass in a target framework version at the solution level, then all added projects use the
+        // NetImplementationSupport util to get compatible framework for project type?
         public SolutionWizard(string solutionName, string solutionPath)
         {
             SolutionName = solutionName;

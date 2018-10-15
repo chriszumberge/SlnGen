@@ -1,9 +1,4 @@
 ﻿using SlnGen.Core.Code;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlnGen.Core.Wizard
 {
@@ -64,7 +59,7 @@ namespace SlnGen.Core.Wizard
                                     {
                                         Arguments =
                                         {
-                                            new SGArgument("args", "string[]")
+                                            new SGArgument("string[]", "args")
                                         }
                                     })
                                 }

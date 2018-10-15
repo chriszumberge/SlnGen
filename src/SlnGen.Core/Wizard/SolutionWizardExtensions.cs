@@ -1,11 +1,6 @@
 ﻿using SlnGen.Core.Files;
 using SlnGen.Core.Projects;
 using SlnGen.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlnGen.Core.Wizard
 {
@@ -15,7 +10,7 @@ namespace SlnGen.Core.Wizard
         {
             Project newProj = new NetFrameworkClassLibraryProject(assemblyName, targetFrameworkVersion);
 
-            newProj.AddFileToFolder(new ProjectFile("Class1.cs", true, false, SolutionWizard.CreateEmpty_NetFramework_ClassFile(assemblyName).ToString()));
+            newProj.AddFileToFolder(new ProjectFile(SolutionWizard.CreateEmpty_NetFramework_ClassFile(assemblyName)));
 
             wizard.WithProject(newProj);
 
@@ -30,6 +25,39 @@ namespace SlnGen.Core.Wizard
             newConsoleApp.AddFileToFolder(new ProjectFile(SolutionWizard.CreateDefault_NetFramework_ConsoleProgram(assemblyName)));
 
             wizard.WithProject(newConsoleApp);
+
+            return wizard;
+        }
+
+        public static SolutionWizard With_NetCoreClassLibrary(this SolutionWizard wizard, string assemblyName, NetCorePlatform targetFrameworkVersion)
+        {
+            Project newProj = new NetCoreClassLibraryProject(assemblyName, targetFrameworkVersion);
+
+            newProj.AddFileToFolder(new ProjectFile(SolutionWizard.CreateEmpty_NetFramework_ClassFile(assemblyName)));
+
+            wizard.WithProject(newProj);
+
+            return wizard;
+        }
+
+        public static SolutionWizard With_NetCoreConsoleApplication(this SolutionWizard wizard, string assemblyName, NetCorePlatform targetFrameworkVersion)
+        {
+            Project newConsoleApp = new NetCoreConsoleApplicationProject(assemblyName, targetFrameworkVersion);
+
+            newConsoleApp.AddFileToFolder(new ProjectFile(SolutionWizard.CreateDefault_NetFramework_ConsoleProgram(assemblyName)));
+
+            wizard.WithProject(newConsoleApp);
+
+            return wizard;
+        }
+
+        public static SolutionWizard With_NetStandardClassLibrary(this SolutionWizard wizard, string assemblyName, NetStandardPlatform targetFrameworkVersion)
+        {
+            Project newProj = new NetStandardClassLibraryProject(assemblyName, targetFrameworkVersion);
+
+            newProj.AddFileToFolder(new ProjectFile(SolutionWizard.CreateEmpty_NetFramework_ClassFile(assemblyName)));
+
+            wizard.WithProject(newProj);
 
             return wizard;
         }

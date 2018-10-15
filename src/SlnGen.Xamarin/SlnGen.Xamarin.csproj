@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="References\Assemblies.cs" />
     <Compile Include="References\Nuget.cs" />
+    <Compile Include="Wizard\SolutionWizardExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -75,7 +76,6 @@
     <Folder Include="Code\" />
     <Folder Include="Factories\" />
     <Folder Include="Utils\" />
-    <Folder Include="Wizard\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Files\Templates\AndroidResourceDesignerTemplate.txt">
