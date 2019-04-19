@@ -15,7 +15,7 @@ namespace SlnGen.Core.Projects
             base(assemblyName, assemblyGuid, outputType, targetFrameworkVersion, rootNamespace)
         { }
 
-        internal override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
+        protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
             string csprojDirectoryPath = Path.Combine(solutionDirectoryPath, AssemblyName);
             DirectoryInfo csprojDirectory = Directory.CreateDirectory(csprojDirectoryPath);

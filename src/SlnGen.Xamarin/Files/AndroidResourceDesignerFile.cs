@@ -26,7 +26,7 @@ namespace SlnGen.Xamarin.Files
             new ProjectFile(
                 new SGFile("Resource.Designer.cs")
                 {
-                    Lines = Properties.Resources.AndroidResourceDesignerTemplate.BreakIntoLines().ToList()
+                    Lines = ZESoft.SlnGen.Xamarin.Properties.Resources.AndroidResourceDesignerTemplate.BreakIntoLines().ToList()
                 }
             )
         );

@@ -1,44 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C14586F-1013-43F7-BD96-58BFDD16F2CB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SlnGen.Xamarin</RootNamespace>
-    <AssemblyName>SlnGen.Xamarin</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+
+    <AssemblyName>ZESoft.SlnGen.Xamarin</AssemblyName>
+    <RootNamespace>ZESoft.SlnGen.Xamarin</RootNamespace>
+    <PackageId>ZESoft.SlnGen.Xamarin</PackageId>
+
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0.0</Version>
+    <PackageVersion>1.0.0.0</PackageVersion>
+    <PackOnBuild>true</PackOnBuild>
+    <NeutralLanguage>en</NeutralLanguage>
+    <LangVersion>default</LangVersion>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <LangVersion>latest</LangVersion>
+
+    <PackageLicenseUrl>https://github.com/chriszumberge/SlnGen/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/chriszumberge/SlnGen/tree/master/src/SlnGen.Xamarin</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/chriszumberge/SlnGen/</RepositoryUrl>
+    <PackageReleaseNotes>See https://github.com/chriszumberge/SlnGen/tree/master/docs</PackageReleaseNotes>
+    <PackageIconUrl></PackageIconUrl>
+
+    <Title>SlnGen.Xamarin</Title>
+    <Summary>SlnGen.Xamarin builds on SlnGen.Core with the templates to create Xamarin projects Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.</Summary>
+    <Description>SlnGen.Xamarin builds on SlnGen.Core with the templates to create Xamarin projects Xamarin.iOS, Xamarin.Android, and Xamarin.Forms.</Description>
+
+    <Owners>Christopher Zumberge</Owners>
+    <Authors>Christopher Zumberge</Authors>
+    <Copyright>Copyright 2019</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Company>Zumberge Enterprises</Company>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+
+    <!--<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>-->
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="Files\AndroidManifestFile.cs" />
     <Compile Include="Files\AndroidResourceDesignerFile.cs" />
@@ -53,10 +56,9 @@
     <Compile Include="Projects\NetStandardXamarinClassLibraryProject.cs" />
     <Compile Include="Projects\XamarinAndroidAppProject.cs" />
     <Compile Include="Projects\XamariniOSAppProject.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="References\Assemblies.cs" />
@@ -65,12 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SlnGen.Core\SlnGen.Core.csproj">
-      <Project>{254312c7-153d-474f-a145-3bd047140b50}</Project>
-      <Name>SlnGen.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Code\" />
@@ -83,17 +79,18 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SlnGen.Core\SlnGen.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <!--<ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  </ItemGroup>-->
 </Project>

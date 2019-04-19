@@ -1,4 +1,6 @@
 version: 1.0.{build}
 image: Visual Studio 2017
+before_build:
+- ps: nuget.exe restore "C:\projects\slngen\src\SlnGen.sln"
 build:
   verbosity: minimal

@@ -177,8 +177,12 @@ namespace SlnGen.Core
         List<ProjectFolder> IFileContainer.GetFolders() => _folders;
 
         void IFileContainer.AddFolder(ProjectFolder folder) => _folders.Add(folder);
-
-        internal abstract string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid);
+        
+        internal string GenerateProjectFilesForSolution(string solutionDirectoryPath, Guid solutionGuid)
+        {
+            return GenerateProjectFiles(solutionDirectoryPath, solutionGuid);
+        }
+        protected abstract string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid);
 
         protected Dictionary<ProjectFile, string> _tempFileRelativePathDictionary = new Dictionary<ProjectFile, string>();
         protected List<string> _emptyFolderRelativePathList = new List<string>();
