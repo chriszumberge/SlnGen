@@ -1,18 +1,27 @@
-﻿namespace SlnGen.Core.Utils
+﻿using System;
+
+namespace SlnGen.Core.Utils
 {
     /// <summary>
     /// Abstract base class for implementing the TypeSafeEnum pattern.
     /// </summary>
-    public abstract class TypeSafeEnum
+    public abstract class TypeSafeEnum : IEquatable<TypeSafeEnum>
     {
         /// <summary>
-        /// The value
+        /// Gets the value of the instance.
         /// </summary>
-        private readonly int _value;
+        /// <value>
+        /// The value.
+        /// </value>
+        public int Value { get; }
+
         /// <summary>
-        /// The name
+        /// Gets the name of the instance.
         /// </summary>
-        private readonly string _name;
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; }
 
         /// <summary>
         /// Initializes a new instance of the TypeSafeEnum class with the specified int value and string name.
@@ -21,30 +30,8 @@
         /// <param name="name">String for the instance's name.</param>
         protected TypeSafeEnum(int value, string name)
         {
-            _value = value;
-            _name = name.Replace("_", " ");
-        }
-
-        /// <summary>
-        /// Gets the value of the instance.
-        /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
-        public int Value
-        {
-            get { return _value; }
-        }
-
-        /// <summary>
-        /// Gets the name of the instance.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name
-        {
-            get { return _name; }
+            Value = value;
+            Name = name.Replace("_", " ");
         }
 
         /// <summary>

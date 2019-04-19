@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlnGen.Core.Utils
 {
@@ -25,10 +22,14 @@ namespace SlnGen.Core.Utils
         new public void Add(TKey key, TValue value)
         {
             if (key == null)
+            {
                 throw new ArgumentNullException(nameof(key));
+            }
 
             if (this.ContainsKey(key))
+            {
                 this.Remove(key);
+            }
 
             base.Add(key, value);
         }
