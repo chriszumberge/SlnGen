@@ -91,7 +91,7 @@ namespace SlnGen.Core
             Dictionary<Project, string> projectWithCsProjFilePath = new Dictionary<Project, string>();
             foreach (Project csproj in Projects)
             {
-                string csProjFilePath = csproj.GenerateProjectFiles(projDirectoryPath, SolutionGuid);
+                string csProjFilePath = csproj.GenerateProjectFilesForSolution(projDirectoryPath, SolutionGuid);
                 projectWithCsProjFilePath.Add(csproj, csProjFilePath);
             }
 

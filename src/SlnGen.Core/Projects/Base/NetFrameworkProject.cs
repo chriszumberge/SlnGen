@@ -54,7 +54,7 @@ namespace SlnGen.Core.Projects
 
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
 
-        internal override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
+        protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
             string csprojDirectoryPath = Path.Combine(solutionDirectoryPath, AssemblyName);
             DirectoryInfo csprojDirectory = Directory.CreateDirectory(csprojDirectoryPath);
