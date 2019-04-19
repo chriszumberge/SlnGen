@@ -152,7 +152,8 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string namespaceName = "SlnGen";
-            SGClass @class = new SGClass();
+            string className = "TestClass";
+            SGClass @class = new SGClass(className);
 
             // Act
             SGNamespace @namespace = new SGNamespace(namespaceName).WithClasses(@class);
@@ -166,8 +167,10 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string namespaceName = "SlnGen";
-            SGClass @class = new SGClass();
-            SGClass class2 = new SGClass();
+            string className1 = "TestClass1";
+            string className2 = "TestClass2";
+            SGClass @class = new SGClass(className1);
+            SGClass class2 = new SGClass(className2);
 
             // Act
             SGNamespace @namespace = new SGNamespace(namespaceName).WithClasses(@class, class2);
@@ -181,8 +184,10 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string namespaceName = "SlnGen";
-            SGClass @class = new SGClass();
-            SGClass class2 = new SGClass();
+            string className1 = "TestClass1";
+            string className2 = "TestClass2";
+            SGClass @class = new SGClass(className1);
+            SGClass class2 = new SGClass(className2);
 
             // Act
             SGNamespace @namespace = new SGNamespace(namespaceName)
