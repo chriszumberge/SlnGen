@@ -429,8 +429,10 @@ namespace SlnGen.Core.Tests.CodeTests
             // Arrange
             string interfaceName = "IInterface";
             SGInterface @interface = new SGInterface(interfaceName);
-            SGAttribute attr1 = new SGAttribute();
-            SGAttribute attr2 = new SGAttribute();
+            string attr1Name = "Attr1";
+            string attr2Name = "Attr2";
+            SGAttribute attr1 = new SGAttribute(attr1Name);
+            SGAttribute attr2 = new SGAttribute(attr2Name);
 
             // Act
             @interface = @interface.WithAttributes(attr1, attr2);
@@ -444,8 +446,10 @@ namespace SlnGen.Core.Tests.CodeTests
         {
             // Arrange
             string interfaceName = "IInterface";
-            SGAttribute attr1 = new SGAttribute();
-            SGAttribute attr2 = new SGAttribute();
+            string attr1Name = "Attr1";
+            string attr2Name = "Attr2";
+            SGAttribute attr1 = new SGAttribute(attr1Name);
+            SGAttribute attr2 = new SGAttribute(attr2Name);
 
             // Act
             SGInterface @interface = new SGInterface(interfaceName)

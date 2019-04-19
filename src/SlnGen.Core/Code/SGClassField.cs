@@ -154,7 +154,7 @@ namespace SlnGen.Core.Code
             sb.Append($"{FieldType} ");
             sb.Append($"{FieldName}");
 
-            if (!(InitializationValue == null))
+            if (InitializationValue != null)
             {
                 sb.Append($" = {InitializationValue}");
             }

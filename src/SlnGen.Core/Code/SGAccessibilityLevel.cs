@@ -15,13 +15,13 @@ namespace SlnGen.Core.Code
     {
         private SGAccessibilityLevel(int value, string name) : base(value, name) { }
 
-        public static readonly SGAccessibilityLevel Public = new SGAccessibilityLevel(AccessibilityLevels.Public, nameof(AccessibilityLevels.Public).ToLower());
-        public static readonly SGAccessibilityLevel Private = new SGAccessibilityLevel(AccessibilityLevels.Private, nameof(AccessibilityLevels.Private).ToLower());
-        public static readonly SGAccessibilityLevel Protected = new SGAccessibilityLevel(AccessibilityLevels.Protected, nameof(AccessibilityLevels.Protected).ToLower());
-        public static readonly SGAccessibilityLevel Internal = new SGAccessibilityLevel(AccessibilityLevels.Internal, nameof(AccessibilityLevels.Internal).ToLower());
+        public static readonly SGAccessibilityLevel Public = new SGAccessibilityLevel(AccessibilityLevels.Public, nameof(AccessibilityLevels.Public).ToLowerInvariant());
+        public static readonly SGAccessibilityLevel Private = new SGAccessibilityLevel(AccessibilityLevels.Private, nameof(AccessibilityLevels.Private).ToLowerInvariant());
+        public static readonly SGAccessibilityLevel Protected = new SGAccessibilityLevel(AccessibilityLevels.Protected, nameof(AccessibilityLevels.Protected).ToLowerInvariant());
+        public static readonly SGAccessibilityLevel Internal = new SGAccessibilityLevel(AccessibilityLevels.Internal, nameof(AccessibilityLevels.Internal).ToLowerInvariant());
         public static readonly SGAccessibilityLevel None = new SGAccessibilityLevel(AccessibilityLevels.None, String.Empty);
 
-        public class AccessibilityLevels
+        public static class AccessibilityLevels
         {
             public const int Public = 1;
             public const int Private = 2;
