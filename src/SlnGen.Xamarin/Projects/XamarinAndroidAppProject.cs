@@ -41,11 +41,13 @@ namespace SlnGen.Xamarin.Projects
 
             WithNugetPackage(xamarinPackage);
 
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Design__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_AppCompat__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v4__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_CardView__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_MediaRouter__27_0_2_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Design__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_AppCompat__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v4__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_CardView__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_MediaRouter__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_CustomTabs__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Core_Utils__28_0_0_1);
 
             AddDefaultAssemblyReferences();
             AddDefaultFoldersAndFiles();
@@ -58,16 +60,18 @@ namespace SlnGen.Xamarin.Projects
 
         private void AddDefaultAssemblyReferences()
         {
+            AssemblyReferences.Add(SlnGen.Xamarin.References.Assemblies.Java_Interop);
             AssemblyReferences.Add(SlnGen.Xamarin.References.Assemblies.Mono_Android);
             AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System);
             AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Core);
-            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml_Linq);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Net_Http);
             AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml_Linq);
         }
 
         private void AddDefaultFoldersAndFiles()
         {
-            Files.Add(new MainActivityFile(_appName, RootNamespace));
+            MainActivity = new MainActivityFile(_appName, RootNamespace);
             Folders.Add(new ProjectFolder("Properties")
             {
                 Files =
@@ -149,10 +153,14 @@ namespace SlnGen.Xamarin.Projects
             }.WithFolders("drawable", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"));
         }
 
+        public MainActivityFile MainActivity { get; private set; }
+
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
 
         protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
+            Files.Add(MainActivity.Build());
+
             string csprojDirectoryPath = Path.Combine(solutionDirectoryPath, AssemblyName);
             DirectoryInfo csprojDirectory = Directory.CreateDirectory(csprojDirectoryPath);
 

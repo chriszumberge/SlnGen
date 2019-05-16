@@ -200,7 +200,7 @@ namespace SlnGen.Core.Code
                 sb.Append(">");
             }
 
-            sb.Append(" (");
+            sb.Append("(");
             sb.Append(String.Join(", ", Arguments.Select(x => x.ToString())));
             sb.Append(")");
 

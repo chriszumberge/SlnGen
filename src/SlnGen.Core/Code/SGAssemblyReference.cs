@@ -7,6 +7,7 @@
 /// 02/06/2018
 /// 
 using System;
+using System.Collections.Generic;
 
 namespace SlnGen.Core.Code
 {
@@ -51,6 +52,18 @@ namespace SlnGen.Core.Code
         public override string ToString()
         {
             return $"using {AssemblyName};";
+        }
+
+        public override bool Equals(object obj)
+        {
+            var reference = obj as SGAssemblyReference;
+            return reference != null &&
+                   AssemblyName == reference.AssemblyName;
+        }
+
+        public override int GetHashCode()
+        {
+            return -1184256330 + EqualityComparer<string>.Default.GetHashCode(AssemblyName);
         }
     }
 }

@@ -23,8 +23,8 @@ namespace SlnGen.Xamarin.Files
                         new XComment("Place new controls here"),
                         new XElement(@namespace + "Label",
                             new XAttribute("Text", "Welcome to Xamarin Forms!"),
-                            new XAttribute("VerticalOptions", "Center"),
-                            new XAttribute("HorizontalOptions", "CenterAndExpand")
+                            new XAttribute("VerticalOptions", "CenterAndExpand"),
+                            new XAttribute("HorizontalOptions", "Center")
                         )
                     )
                 );
