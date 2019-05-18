@@ -49,12 +49,21 @@ namespace SlnGen.Xamarin.Files
             return this;
         }
 
+        public SGMethodSignature OnCreateMethodSignature { get; } =
+            new SGMethodSignature("OnCreate", SGAccessibilityLevel.Protected, false, false, true, "void")
+            {
+                Arguments =
+                {
+                    new SGArgument("Bundle", "savedInstanceState")
+                }
+            };
+
         public MainActivityFile Build()
         {
             List<string> methodLines = new List<string>
             {
                 "TabLayoutResource = Resource.Layout.Tabbar;",
-                "ToolbarResrouce = Resource.Layout.Toolbar;",
+                "ToolbarResource = Resource.Layout.Toolbar;",
                 "",
                 "base.OnCreate(savedInstanceState);",
                 "global::Xamarin.Forms.Forms.Init(this, savedInstanceState);",
@@ -69,13 +78,7 @@ namespace SlnGen.Xamarin.Files
 
             List<SGMethod> methods = new List<SGMethod>
             {
-                new SGMethod(new SGMethodSignature("OnCreate", SGAccessibilityLevel.Protected, false, false, true, "void")
-                {
-                    Arguments =
-                    {
-                        new SGArgument("Bundle", "savedInstanceState")
-                    }
-                })
+                new SGMethod(OnCreateMethodSignature)
                 {
                     Lines = methodLines
                 }
@@ -93,6 +96,7 @@ namespace SlnGen.Xamarin.Files
                         {
                             new SGClass("MainActivity", SGAccessibilityLevel.Public)
                             {
+                                BaseClass = "global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity",
                                 Attributes =
                                 {
                                     new SGAttribute("Activity", $"Label = \"{_appName}\"", "Icon = \"@mipmap/icon\"", "Theme = \"@style/MainTheme\"",

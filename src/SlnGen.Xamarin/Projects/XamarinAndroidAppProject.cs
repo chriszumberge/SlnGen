@@ -72,12 +72,13 @@ namespace SlnGen.Xamarin.Projects
         private void AddDefaultFoldersAndFiles()
         {
             MainActivity = new MainActivityFile(_appName, RootNamespace);
+            AndroidManifest = new AndroidManifestFile(AssemblyName, _packageName, _minSdkVersion, _targetSdkVersion);
+
             Folders.Add(new ProjectFolder("Properties")
             {
                 Files =
                 {
-                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0)),
-                    new AndroidManifestFile(AssemblyName, _packageName, _minSdkVersion, _targetSdkVersion)
+                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0))
                 }
             });
             Folders.Add(new ProjectFolder("Assets")
@@ -154,12 +155,14 @@ namespace SlnGen.Xamarin.Projects
         }
 
         public MainActivityFile MainActivity { get; private set; }
+        public AndroidManifestFile AndroidManifest { get; private set; }
 
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
 
         protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
             Files.Add(MainActivity.Build());
+            Folders.First(x => x.FolderName.Equals("Properties")).Files.Add(AndroidManifest);
 
             string csprojDirectoryPath = Path.Combine(solutionDirectoryPath, AssemblyName);
             DirectoryInfo csprojDirectory = Directory.CreateDirectory(csprojDirectoryPath);
