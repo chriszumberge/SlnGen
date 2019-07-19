@@ -141,6 +141,11 @@ namespace SlnGen.Core
             return this;
         }
 
+        public Project WithFile(ProjectFile file, params string[] folderNameHierarchy)
+        {
+            AddFileToFolder(file, folderNameHierarchy);
+            return this;
+        }
         public void AddFileToFolder(ProjectFile file, params string[] folderNameHierarchy)
         {
             List<string> folderNames = folderNameHierarchy.ToList();
@@ -164,10 +169,43 @@ namespace SlnGen.Core
             fileContainer.AddFile(file);
         }
 
+        public Project WithFile(XamlProjectFile file, params string[] folderNameHierarchy)
+        {
+            AddFileToFolder(file, folderNameHierarchy);
+            return this;
+        }
         public void AddFileToFolder(XamlProjectFile file, params string[] folderNameHierarchy)
         {
             this.AddFileToFolder(file.XamlCsFile, folderNameHierarchy);
             this.AddFileToFolder(file.XamlFile, folderNameHierarchy);
+        }
+
+        public Project WithFolder(ProjectFolder folder, params string[] folderNameHierarchy)
+        {
+            AddFolder(folder, folderNameHierarchy);
+            return this;
+        }
+        public void AddFolder(ProjectFolder folder, params string[] folderNameHierarchy)
+        {
+            List<string> folderNames = folderNameHierarchy.ToList();
+            IFileContainer fileContainer = this;
+            foreach (string folderName in folderNames)
+            {
+                IFileContainer fileContainerFolder = fileContainer.GetFolders().FirstOrDefault(f => f.FolderName.Equals(folderName));
+                // if this file container does not have the folder, create it
+                if (fileContainerFolder == null)
+                {
+                    ProjectFolder newFolder = new ProjectFolder(folderName);
+
+                    fileContainer.AddFolder(newFolder);
+
+                    fileContainerFolder = newFolder;
+                }
+
+                // Then, enter it whether it existed previously or not
+                fileContainer = fileContainerFolder;
+            }
+            fileContainer.AddFolder(folder);
         }
 
         List<ProjectFile> IFileContainer.GetFiles() => _files;
@@ -208,7 +246,10 @@ namespace SlnGen.Core
             }
             else
             {
-                _emptyFolderRelativePathList.Add(currentPath.Replace(String.Concat(tempCsProjDirectoryPath, @"\"), String.Empty));
+                if (!currentPath.Equals(tempCsProjDirectoryPath))
+                {
+                    _emptyFolderRelativePathList.Add(currentPath.Replace(String.Concat(tempCsProjDirectoryPath, @"\"), String.Empty));
+                }
             }
             // Go into each folder recursively down the chain creating files and folders
             foreach (ProjectFolder folder in container.GetFolders())

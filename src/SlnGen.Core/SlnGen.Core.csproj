@@ -82,6 +82,7 @@
     <Compile Include="References\Nuget.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="SupportedBuildConfiguration.cs" />
+    <Compile Include="Utils\ColorExtensions.cs" />
     <Compile Include="Utils\FileTemplate.cs" />
     <Compile Include="Utils\Framework\NetPlatform.cs" />
     <Compile Include="Utils\Framework\XamarinAndroidPlatform.cs" />

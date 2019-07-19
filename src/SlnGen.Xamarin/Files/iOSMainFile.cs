@@ -6,7 +6,13 @@ namespace SlnGen.Xamarin.Files
     public class iOSMainFile : ProjectFile
     {
         static string s_fileName = "Main.cs";
+        string _rootNamespace;
         public iOSMainFile(string rootNamespace) : base(s_fileName, true, false)
+        {
+            _rootNamespace = rootNamespace;
+        }
+
+        public iOSMainFile Build()
         {
             FileContents = new SGFile(s_fileName)
             {
@@ -16,11 +22,11 @@ namespace SlnGen.Xamarin.Files
                     new SGAssemblyReference("System", "Collections", "Generic"),
                     new SGAssemblyReference("System.Linq"),
                     new SGAssemblyReference("Foundation"),
-                    new SGAssemblyReference("UIKit")                     
+                    new SGAssemblyReference("UIKit")
                 },
                 Namespaces =
                 {
-                    new SGNamespace(rootNamespace)
+                    new SGNamespace(_rootNamespace)
                     {
                         Classes =
                         {
@@ -28,7 +34,13 @@ namespace SlnGen.Xamarin.Files
                             {
                                 Methods =
                                 {
-                                    new SGMethod(new SGMethodSignature("Main", SGAccessibilityLevel.None, true))
+                                    new SGMethod(new SGMethodSignature("Main", SGAccessibilityLevel.None, true)
+                                    {
+                                        Arguments =
+                                        {
+                                            new SGArgument(typeof(string[]), "args")
+                                        }
+                                    })
                                     {
                                         //Comments = { }
                                         Lines =
@@ -44,6 +56,8 @@ namespace SlnGen.Xamarin.Files
                     }
                 }
             }.ToString();
+
+            return this;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using SlnGen.Core.Utils;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace SlnGen.Core.Projects
@@ -35,7 +37,8 @@ namespace SlnGen.Core.Projects
                                                 )
                                             ), // END PROPERTY GROUP
                                             GetAssemblyReferenceItemGroup(),
-                                            GetProjectReferenceItemGroup()
+                                            GetProjectReferenceItemGroup(),
+                                            GetProjectFoldersItemGroup()
                                         ); // END PROJECT
             string csprojFilePath = Path.Combine(csprojDirectoryPath, String.Concat(AssemblyName, ".csproj"));
             xmlNode.Save(csprojFilePath);
@@ -70,6 +73,22 @@ namespace SlnGen.Core.Projects
                     );
                 itemGroup.Add(projectElement);
             }
+            return itemGroup;
+        }
+
+        protected XElement GetProjectFoldersItemGroup()
+        {
+            XElement itemGroup = new XElement("ItemGroup");
+
+            foreach (var emptyFolderPath in _emptyFolderRelativePathList)
+            {
+                XElement folderElement =
+                    new XElement("Folder",
+                        new XAttribute("Include", emptyFolderPath)
+                    );
+                itemGroup.Add(folderElement);
+            }
+
             return itemGroup;
         }
     }

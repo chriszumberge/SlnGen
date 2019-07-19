@@ -12,12 +12,12 @@ namespace SlnGen.Xamarin.Projects
 {
     public class XamarinAndroidAppProject : Project
     {
-        public XamarinAndroidAppProject(string assemblyName, string appName, string packageName, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion, 
+        public XamarinAndroidAppProject(string assemblyName, string appName, string packageName, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion,
             NugetPackage xamarinPackage, string rootNamespace = "") :
             this(assemblyName, appName, packageName, Guid.NewGuid(), targetFrameworkVersion, minSdkVersion, targetSdkVersion, xamarinPackage, rootNamespace)
         { }
 
-        public XamarinAndroidAppProject(string assemblyName, string appName, string packageName, Guid assemblyGuid, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion, 
+        public XamarinAndroidAppProject(string assemblyName, string appName, string packageName, Guid assemblyGuid, XamarinAndroidPlatform targetFrameworkVersion, int minSdkVersion, int targetSdkVersion,
             NugetPackage xamarinPackage, string rootNamespace = "") :
             base(assemblyName, assemblyGuid, "Library", targetFrameworkVersion, rootNamespace)
         {
@@ -41,11 +41,13 @@ namespace SlnGen.Xamarin.Projects
 
             WithNugetPackage(xamarinPackage);
 
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Design__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_AppCompat__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v4__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_CardView__27_0_2_1);
-            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_MediaRouter__27_0_2_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Design__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_AppCompat__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v4__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_CardView__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_v7_MediaRouter__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_CustomTabs__28_0_0_1);
+            WithNugetPackage(References.Nuget.Xamarin_Android_Support_Core_Utils__28_0_0_1);
 
             AddDefaultAssemblyReferences();
             AddDefaultFoldersAndFiles();
@@ -58,50 +60,34 @@ namespace SlnGen.Xamarin.Projects
 
         private void AddDefaultAssemblyReferences()
         {
+            AssemblyReferences.Add(SlnGen.Xamarin.References.Assemblies.Java_Interop);
             AssemblyReferences.Add(SlnGen.Xamarin.References.Assemblies.Mono_Android);
             AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System);
             AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Core);
-            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml_Linq);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Net_Http);
             AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml);
+            AssemblyReferences.Add(SlnGen.Core.References.Assemblies.System_Xml_Linq);
         }
 
         private void AddDefaultFoldersAndFiles()
         {
-            Files.Add(new MainActivityFile(_appName, RootNamespace));
+            MainActivity = new MainActivityFile(_appName, RootNamespace);
+            AndroidManifest = new AndroidManifestFile(AssemblyName, _packageName, _minSdkVersion, _targetSdkVersion);
+            AndroidColors = new AndroidColorsFile();
+            AndroidStyles = new AndroidStylesFile();
+
             Folders.Add(new ProjectFolder("Properties")
             {
                 Files =
                 {
-                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0)),
-                    new AndroidManifestFile(AssemblyName, _packageName, _minSdkVersion, _targetSdkVersion)
+                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0))
                 }
             });
             Folders.Add(new ProjectFolder("Assets")
             {
                 Files =
                 {
-                    new ProjectFile("AboutAssets.txt", false, false,
-                    String.Join(Environment.NewLine,
-                    "Any raw assets you want to be deployed with your application can be placed in",
-                    "this directory (and child directories) is given a Build Action of \"AndroidAsset\".",
-                    "",
-                    "These files will be deployed with your package and will be accessible using Android's",
-                    "AssetManager, like this:",
-                    "",
-                    "public class ReadAsset : Activity",
-                    "{",
-                    "\tprotected override void OnCreate (Bundle bundle)",
-                    "\t{",
-                    "\t\tbase.OnCreate (bundle);",
-                    "",
-                    "\t\tInputStream input = Assets.Open (\"my_asset.txt\");",
-                    "\t}",
-                    "}",
-                    "",
-                    "Additionally, some Android functions will automatically load asset files:",
-                    "",
-                    "Typeface tf = Typeface.CreateFromAsset (Context.Assets, \"fonts/samplefont.tff\");"
-                    ))
+                    new AndroidAboutAssetsFile()
                 }
             });
             Folders.Add(new ProjectFolder("Resources")
@@ -110,7 +96,11 @@ namespace SlnGen.Xamarin.Projects
                 {
                     new ProjectFolder("layout")
                     {
-                        Files = { }
+                        Files =
+                        {
+                            new AndroidTabbarAxmlResourceFile(),
+                            new AndroidToolbarAxmlResourceFile()
+                        }
                     },
                     new ProjectFolder("mipmap-anydpi-v26")
                     {
@@ -139,6 +129,10 @@ namespace SlnGen.Xamarin.Projects
                     new ProjectFolder("values")
                     {
                         Files = { }
+                    },
+                    new ProjectFolder("xml")
+                    {
+                        Files = {}
                     }
                 },
                 Files =
@@ -149,10 +143,20 @@ namespace SlnGen.Xamarin.Projects
             }.WithFolders("drawable", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"));
         }
 
+        public MainActivityFile MainActivity { get; private set; }
+        public AndroidManifestFile AndroidManifest { get; private set; }
+        public AndroidColorsFile AndroidColors { get; private set; }
+        public AndroidStylesFile AndroidStyles { get; private set; }
+
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
 
         protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
+            Files.Add(MainActivity.Build());
+            Folders.First(x => x.FolderName.Equals("Properties")).Files.Add(AndroidManifest);
+            Folders.First(x => x.FolderName.Equals("Resources")).Folders.First(x => x.FolderName.Equals("values")).Files
+                .AddRange(new List<AndroidResourceProjectFile> { AndroidColors.Build(), AndroidStyles.Build() });
+
             string csprojDirectoryPath = Path.Combine(solutionDirectoryPath, AssemblyName);
             DirectoryInfo csprojDirectory = Directory.CreateDirectory(csprojDirectoryPath);
 
@@ -230,9 +234,9 @@ namespace SlnGen.Xamarin.Projects
                                         GetProjectFoldersItemGroup(),
                                         //GetCustomFilesItemGroups(xNamespace),
                                         GetImportProjectItems(xNamespace)
-                                        //GetTargetItems(xNamespace),
-                                        //GetPreBuildEventPropertyGroups(xNamespace),
-                                        //GetPostBuildEventPropertyGroups(xNamespace)
+                                    //GetTargetItems(xNamespace),
+                                    //GetPreBuildEventPropertyGroups(xNamespace),
+                                    //GetPostBuildEventPropertyGroups(xNamespace)
                                     ); // END PROJECT
             string csprojFilePath = Path.Combine(csprojDirectoryPath, String.Concat(AssemblyName, ".csproj"));
             xmlNode.Save(csprojFilePath);
@@ -395,7 +399,7 @@ namespace SlnGen.Xamarin.Projects
             //List<KeyValuePair<ProjectFile, string>> noneTypeFiles = tempFileRelativePathDictionary.Where(x => !x.Key.ShouldCompile && !x.Key.IsContent
             //    && !(x.Key is EmbeddedResourceProjectFile || x.Key is AndroidResourceProjectFile)).ToList();
             List<KeyValuePair<ProjectFile, string>> noneTypeFiles = _tempFileRelativePathDictionary.Where(x => !x.Key.ShouldCompile && !x.Key.IsContent
-                && !(x.Key is EmbeddedResourceProjectFile)).ToList();
+                && !(x.Key is EmbeddedResourceProjectFile || x.Key is AndroidResourceProjectFile)).ToList();
             XElement itemGroup = new XElement(xNamespace + "ItemGroup");
             foreach (KeyValuePair<ProjectFile, string> noneTypeFile in noneTypeFiles)
             {

@@ -48,8 +48,10 @@ namespace SlnGen.Xamarin.Projects
         private void AddDefaultAssemblyReferences()
         {
             AssemblyReferences.Add(Core.References.Assemblies.System);
-            AssemblyReferences.Add(Core.References.Assemblies.System_Xml);
             AssemblyReferences.Add(Core.References.Assemblies.System_Core);
+            AssemblyReferences.Add(Core.References.Assemblies.System_Net_Http);
+            AssemblyReferences.Add(Core.References.Assemblies.System_Xml);
+            AssemblyReferences.Add(Core.References.Assemblies.System_Xml_Linq);
             AssemblyReferences.Add(Xamarin.References.Assemblies.Xamarin_iOS);
         }
 
@@ -79,16 +81,27 @@ namespace SlnGen.Xamarin.Projects
 
                 }
             });
-            Files.Add(new AppDelegateFile(RootNamespace));
-            Files.Add(new EntitlementsPListFile());
-            Files.Add(new InfoPListFile(_appName, _bundleIdentifier));
-            Files.Add(new iOSMainFile(RootNamespace));
+
+            Entitlements = new EntitlementsPListFile();
+            InfoPList = new InfoPListFile(_appName, _bundleIdentifier);
+            AppDelegate = new AppDelegateFile(RootNamespace);
+            Main = new iOSMainFile(RootNamespace);
         }
+
+        public EntitlementsPListFile Entitlements { get; private set; }
+        public InfoPListFile InfoPList { get; private set; }
+        public AppDelegateFile AppDelegate { get; private set; }
+        public iOSMainFile Main { get; private set; }
 
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
 
         protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
+            Files.Add(Entitlements.Build());
+            Files.Add(InfoPList.Build());
+            Files.Add(AppDelegate.Build());
+            Files.Add(Main.Build());
+
             string csprojDirectoryPath = Path.Combine(solutionDirectoryPath, AssemblyName);
             DirectoryInfo csprojDirectory = Directory.CreateDirectory(csprojDirectoryPath);
 

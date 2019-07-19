@@ -66,6 +66,7 @@ namespace SlnGen.Core.Code
         }
 
         public bool IsStatic { get; set; }
+        public bool IsReadonly { get; set; }
 
         SGAccessibilityLevel _getterAccessibilityLevel;
         public SGAccessibilityLevel GetterAccessibilityLevel
@@ -103,12 +104,12 @@ namespace SlnGen.Core.Code
 
         public string InitializationValue { get; set; }
 
-        public SGClassProperty(string propertyName, Type propertyType, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false,
+        public SGClassProperty(string propertyName, Type propertyType, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isReadonly = false,
             SGAccessibilityLevel getterAccessibilityLevel = null, SGAccessibilityLevel setterAccessibilityLevel = null) :
-            this(propertyName, propertyType?.Name ?? throw new ArgumentNullException(nameof(propertyType)), accessibilityLevel, isStatic, getterAccessibilityLevel, setterAccessibilityLevel)
+            this(propertyName, propertyType?.Name ?? throw new ArgumentNullException(nameof(propertyType)), accessibilityLevel, isStatic, isReadonly, getterAccessibilityLevel, setterAccessibilityLevel)
         { }
 
-        public SGClassProperty(string propertyName, string propertyTypeName, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false,
+        public SGClassProperty(string propertyName, string propertyTypeName, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isReadonly = false,
             SGAccessibilityLevel getterAccessibilityLevel = null, SGAccessibilityLevel setterAccessibilityLevel = null)
         {
             PropertyName = propertyName;
@@ -146,6 +147,12 @@ namespace SlnGen.Core.Code
         public SGClassProperty WithIsStatic(bool isStatic)
         {
             IsStatic = isStatic;
+            return this;
+        }
+
+        public SGClassProperty WithIsReadonly(bool isReadonly)
+        {
+            IsReadonly = isReadonly;
             return this;
         }
 
@@ -187,6 +194,7 @@ namespace SlnGen.Core.Code
             if (IsStatic) { sb.Append("static "); }
             sb.Append($"{PropertyType} ");
             sb.AppendLine(PropertyName);
+
             sb.AppendLine("{");
 
             sb.Append("\t");
@@ -208,23 +216,26 @@ namespace SlnGen.Core.Code
                 sb.AppendLine("\t}");
             }
 
-            sb.Append("\t");
-            if (!SetterAccessibilityLevel.Equals(AccessibilityLevel))
+            if (!IsReadonly)
             {
-                sb.Append($"{SetterAccessibilityLevel} ");
-            }
-            sb.Append("set");
-
-            if (SetterText.Length == 0) { sb.AppendLine(";"); }
-            else
-            {
-                sb.AppendLine();
-                sb.AppendLine("\t{");
-                foreach (string setterTextLine in SetterText.BreakIntoLines())
+                sb.Append("\t");
+                if (!SetterAccessibilityLevel.Equals(AccessibilityLevel))
                 {
-                    sb.AppendLine($"\t\t{setterTextLine}");
+                    sb.Append($"{SetterAccessibilityLevel} ");
                 }
-                sb.AppendLine("\t}");
+                sb.Append("set");
+
+                if (SetterText.Length == 0) { sb.AppendLine(";"); }
+                else
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("\t{");
+                    foreach (string setterTextLine in SetterText.BreakIntoLines())
+                    {
+                        sb.AppendLine($"\t\t{setterTextLine}");
+                    }
+                    sb.AppendLine("\t}");
+                }
             }
 
             sb.AppendLine("}");

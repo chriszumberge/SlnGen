@@ -11,7 +11,7 @@ namespace SlnGen.Xamarin.Files
 {
     public class AndroidResourceDesignerFile : ProjectFile
     {
-        public AndroidResourceDesignerFile(string rootNamespace) : base("Resource.Designer.cs", true, false)
+        public AndroidResourceDesignerFile(string rootNamespace) : base("Resource.designer.cs", true, false)
         {
             FileContents = ResourceDesignerTemplate.CompileTemplateWithReplacers(
                 new List<TemplateFieldReplacer>
