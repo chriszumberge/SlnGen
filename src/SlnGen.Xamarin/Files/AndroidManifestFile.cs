@@ -6,28 +6,69 @@ namespace SlnGen.Xamarin.Files
 {
     public class AndroidManifestFile : ProjectFile
     {
+        public XNamespace AndroidNamespace => "http://schemas.android.com/apk/res/android";
+        XElement _manifestNode;
+
+        public XElement ApplicationNode { get; }
+
         public AndroidManifestFile(string assemblyName, string packageName, int minSdkVersion, int targetSdkVersion) : base("AndroidManifest.xml", false, false)
         {
-            //XNamespace xNamespace = "android";
-            XNamespace xNamespace = "http://schemas.android.com/apk/res/android";
-            var manifestNode = new XElement("manifest",
-                //new XAttribute("xlmns" + xNamespace, "http://schemas.android.com/apk/res/android"),
-                //new XAttribute(xNamespace.ToString(), "http://schemas.android.com/apk/res/android"),
-                new XAttribute(xNamespace + "versionCode", "1"),
-                new XAttribute(xNamespace + "versionName", "1.0"),
-                new XAttribute(xNamespace + "package", packageName),
+            _manifestNode = new XElement("manifest",
+                new XAttribute(AndroidNamespace + "versionCode", "1"),
+                new XAttribute(AndroidNamespace + "versionName", "1.0"),
+                new XAttribute(AndroidNamespace + "package", packageName),
                 new XElement("uses-sdk",
-                    new XAttribute(xNamespace + "minSdkVersion", minSdkVersion.ToString()),
-                    new XAttribute(xNamespace + "targetSdkVersion", targetSdkVersion.ToString())
-                ),
-                new XElement("application",
-                    new XAttribute(xNamespace + "label", assemblyName)
+                    new XAttribute(AndroidNamespace + "minSdkVersion", minSdkVersion.ToString()),
+                    new XAttribute(AndroidNamespace + "targetSdkVersion", targetSdkVersion.ToString())
                 )
             );
+            ApplicationNode = new XElement("application",
+                    new XAttribute(AndroidNamespace + "label", assemblyName)
+                );
+            _manifestNode.Add(ApplicationNode);
+        }
 
+        public bool AccessNetworkStateEnabled { get; private set; } = false;
+        public AndroidManifestFile EnableAccessNetworkState()
+        {
+            if (!AccessNetworkStateEnabled)
+            {
+                _manifestNode.Add(new XElement("uses-permission",
+                    new XAttribute(AndroidNamespace + "name", "android.permission.ACCESS_NETWORK_STATE")));
+                AccessNetworkStateEnabled = true;
+            }
+            return this;
+        }
+
+        public bool ReadExternalStorageEnabled { get; private set; } = false;
+        public AndroidManifestFile EnableReadExternalStorage()
+        {
+            if (!ReadExternalStorageEnabled)
+            {
+                _manifestNode.Add(new XElement("uses-permission",
+                    new XAttribute(AndroidNamespace + "name", "android.permission.READ_EXTERNAL_STORAGE")));
+                ReadExternalStorageEnabled = true;
+            }
+            return this;
+        }
+
+        public bool WriteExternalStorageEnabled { get; private set; } = false;
+        public AndroidManifestFile EnableWriteExternalStorage()
+        {
+            if (!WriteExternalStorageEnabled)
+            {
+                _manifestNode.Add(new XElement("uses-permission",
+                    new XAttribute(AndroidNamespace + "name", "android.permission.WRITE_EXTERNAL_STORAGE")));
+                WriteExternalStorageEnabled = true;
+            }
+            return this;
+        }
+
+        public AndroidManifestFile Build()
+        {
             using (var memoryStream = new MemoryStream())
             {
-                manifestNode.Save(memoryStream);
+                _manifestNode.Save(memoryStream);
 
                 memoryStream.Position = 0;
                 using (var streamReader = new StreamReader(memoryStream))
@@ -35,6 +76,8 @@ namespace SlnGen.Xamarin.Files
                     FileContents = streamReader.ReadToEnd();
                 }
             }
+
+            return this;
         }
     }
 }

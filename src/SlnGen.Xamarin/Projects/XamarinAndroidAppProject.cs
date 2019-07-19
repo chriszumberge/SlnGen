@@ -71,6 +71,7 @@ namespace SlnGen.Xamarin.Projects
 
         private void AddDefaultFoldersAndFiles()
         {
+            AssemblyInfo = new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0));
             MainActivity = new MainActivityFile(_appName, RootNamespace);
             AndroidManifest = new AndroidManifestFile(AssemblyName, _packageName, _minSdkVersion, _targetSdkVersion);
             AndroidColors = new AndroidColorsFile();
@@ -78,10 +79,7 @@ namespace SlnGen.Xamarin.Projects
 
             Folders.Add(new ProjectFolder("Properties")
             {
-                Files =
-                {
-                    new AssemblyInfoFile(AssemblyName, AssemblyGuid, new Version(1, 0, 0, 0), new Version(1, 0, 0, 0))
-                }
+                Files = { }
             });
             Folders.Add(new ProjectFolder("Assets")
             {
@@ -143,6 +141,7 @@ namespace SlnGen.Xamarin.Projects
             }.WithFolders("drawable", "drawable-hdpi", "drawable-xhdpi", "drawable-xxhdpi", "drawable-xxxhdpi"));
         }
 
+        public AssemblyInfoFile AssemblyInfo { get; private set; }
         public MainActivityFile MainActivity { get; private set; }
         public AndroidManifestFile AndroidManifest { get; private set; }
         public AndroidColorsFile AndroidColors { get; private set; }
@@ -153,7 +152,8 @@ namespace SlnGen.Xamarin.Projects
         protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
             Files.Add(MainActivity.Build());
-            Folders.First(x => x.FolderName.Equals("Properties")).Files.Add(AndroidManifest);
+            Folders.First(x => x.FolderName.EndsWith("Properties")).Files.Add(AssemblyInfo);
+            Folders.First(x => x.FolderName.Equals("Properties")).Files.Add(AndroidManifest.Build());
             Folders.First(x => x.FolderName.Equals("Resources")).Folders.First(x => x.FolderName.Equals("values")).Files
                 .AddRange(new List<AndroidResourceProjectFile> { AndroidColors.Build(), AndroidStyles.Build() });
 

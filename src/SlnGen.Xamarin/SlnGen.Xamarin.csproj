@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Files\AndroidAboutAssetsFile.cs" />
     <Compile Include="Files\AndroidColorsFile.cs" />
+    <Compile Include="Files\AndroidFilePathsXmlFile.cs" />
     <Compile Include="Files\AndroidManifestFile.cs" />
     <Compile Include="Files\AndroidResourceDesignerFile.cs" />
     <Compile Include="Files\AndroidResourceProjectFile.cs" />

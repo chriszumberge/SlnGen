@@ -136,6 +136,13 @@ namespace SlnGen.Xamarin.Files
             );   
         }
 
+        public InfoPListFile WithKey(string key, XElement value)
+        {
+            _plistRoot.Add(new XElement("key", new XText(key)));
+            _plistRoot.Add(value);
+            return this;
+        }
+
         public InfoPListFile Build()
         {
             XDocument plistDoc = new XDocument(

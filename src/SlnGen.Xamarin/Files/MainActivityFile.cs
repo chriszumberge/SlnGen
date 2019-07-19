@@ -58,9 +58,27 @@ namespace SlnGen.Xamarin.Files
                 }
             };
 
+        List<string> _onRequestPermissionLines = new List<string>();
+        public MainActivityFile WithOnRequestPermissionResultCode(params string[] codeLines)
+        {
+            _onRequestPermissionLines.AddRange(codeLines);
+            return this;
+        }
+
+        public SGMethodSignature OnRequestPermissionsResultMethodSignature { get; } =
+            new SGMethodSignature("OnRequestPermissionsResult", SGAccessibilityLevel.Public, isOverride: true, returnType: "void")
+            {
+                Arguments =
+                {
+                    new SGArgument("int", "requestCode"),
+                    new SGArgument("string[]", "permissions"),
+                    new SGArgument("[GeneratedEnum] Permission[]", "grantResults")
+                }
+            };
+
         public MainActivityFile Build()
         {
-            List<string> methodLines = new List<string>
+            List<string> onCreateMethodLines = new List<string>
             {
                 "TabLayoutResource = Resource.Layout.Tabbar;",
                 "ToolbarResource = Resource.Layout.Toolbar;",
@@ -69,18 +87,30 @@ namespace SlnGen.Xamarin.Files
                 "global::Xamarin.Forms.Forms.Init(this, savedInstanceState);",
                 ""
             };
-            methodLines.AddRange(_initializationCode);
-            methodLines.AddRange(new List<string>
+            onCreateMethodLines.AddRange(_initializationCode);
+            onCreateMethodLines.AddRange(new List<string>
             {
                 "",
                 "LoadApplication(new App());"
+            });
+
+            List<string> onRequestPermissionResultMethodLines = new List<string>();
+            onRequestPermissionResultMethodLines.AddRange(_onRequestPermissionLines);
+            onRequestPermissionResultMethodLines.AddRange(new List<string>
+            {
+                "",
+                "base.OnRequestPermissionsResult(requestCode, permissions, grantResults);"
             });
 
             List<SGMethod> methods = new List<SGMethod>
             {
                 new SGMethod(OnCreateMethodSignature)
                 {
-                    Lines = methodLines
+                    Lines = onCreateMethodLines
+                },
+                new SGMethod(OnRequestPermissionsResultMethodSignature)
+                {
+                    Lines = onRequestPermissionResultMethodLines
                 }
             };
             methods.AddRange(_additionalMethods);
