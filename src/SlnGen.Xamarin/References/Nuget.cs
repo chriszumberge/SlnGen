@@ -22,5 +22,7 @@ namespace SlnGen.Xamarin.References
 
         public static readonly NugetPackage Xamarin_Essentials__1_1_0 = new NugetPackage("Xamarin.Essentials", "1.1.0");
         public static readonly NugetPackage Xamarin_Forms_Visual_Material__3_6_0_264807 = new NugetPackage("Xamarin.Forms.Visual.Material", "3.6.0.264807");
+
+        public static readonly NugetPackage Plugin_CurrentActivity__2_1_0_4 = new NugetPackage("Plugin.CurrentActivity", "2.1.0.4");
     }
 }

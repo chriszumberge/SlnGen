@@ -43,9 +43,14 @@
     <!--<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>-->
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Files\AndroidAboutAssetsFile.cs" />
+    <Compile Include="Files\AndroidColorsFile.cs" />
     <Compile Include="Files\AndroidManifestFile.cs" />
     <Compile Include="Files\AndroidResourceDesignerFile.cs" />
     <Compile Include="Files\AndroidResourceProjectFile.cs" />
+    <Compile Include="Files\AndroidStylesFile.cs" />
+    <Compile Include="Files\AndroidTabbarAxmlResourceFile.cs" />
+    <Compile Include="Files\AndroidToolbarAxmlResourceFile.cs" />
     <Compile Include="Files\AppDelegateFile.cs" />
     <Compile Include="Files\DefaultAppXamlFile.cs" />
     <Compile Include="Files\DefaultMainPageXamlFile.cs" />

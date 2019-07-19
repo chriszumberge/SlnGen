@@ -49,6 +49,7 @@ namespace SlnGen.Core.Code
         public bool IsAbstract { get; set; }
         public bool IsStatic { get; set; }
         public bool IsPartial { get; set; }
+        public bool IsSealed { get; set; }
 
         public List<string> InterfaceImplementations { get; set; } = new List<string>();
 
@@ -88,13 +89,14 @@ namespace SlnGen.Core.Code
 
         public List<SGEnum> NestedEnums { get; set; } = new List<SGEnum>();
 
-        public SGClass(string className, SGAccessibilityLevel accessibilityLevel = null, bool isAbstract = false, bool isStatic = false, bool isPartial = false)
+        public SGClass(string className, SGAccessibilityLevel accessibilityLevel = null, bool isAbstract = false, bool isStatic = false, bool isPartial = false, bool isSealed = false)
         {
             ClassName = className;
             AccessibilityLevel = accessibilityLevel ?? SGAccessibilityLevel.Private;
             IsAbstract = isAbstract;
             IsStatic = isStatic;
             IsPartial = isPartial;
+            isSealed = isSealed;
         }
 
         public SGClass WithAccessibilityLevel(SGAccessibilityLevel newAccessibilityLevel)
@@ -118,6 +120,12 @@ namespace SlnGen.Core.Code
         public SGClass WithIsPartial(bool newPartialValue)
         {
             IsPartial = newPartialValue;
+            return this;
+        }
+
+        public SGClass WithIsSealed(bool newSealedValue)
+        {
+            IsSealed = newSealedValue;
             return this;
         }
 
@@ -271,6 +279,7 @@ namespace SlnGen.Core.Code
             if (IsStatic) { sb.Append("static "); }
             if (IsAbstract) { sb.Append("abstract "); }
             if (IsPartial) { sb.Append("partial "); }
+            if (IsSealed) { sb.Append("sealed "); }
             sb.Append($"class {ClassName}");
 
             if (IsGeneric)
