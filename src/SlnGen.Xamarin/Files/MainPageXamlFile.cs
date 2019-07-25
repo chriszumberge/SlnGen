@@ -6,18 +6,15 @@ using System.Xml.Linq;
 
 namespace SlnGen.Xamarin.Files
 {
-    public class DefaultMainPageXamlFile : XamlProjectFile
+    public class MainPageXamlFile : XamlProjectFile
     {
-        public DefaultMainPageXamlFile(string namespaceName) : base("MainPage")
+        public MainPageXamlFile(string namespaceName) : base("MainPage")
         {
             XNamespace @namespace = "http://xamarin.com/schemas/2014/forms";
             XNamespace xNamespace = "http://schemas.microsoft.com/winfx/2009/xaml";
             XNamespace localNamespace = $"clr-namespace:{namespaceName}";
 
-            XElement rootNode = new XElement(@namespace + "ContentPage",
-                    //new XAttribute(@namespace+"xmlns", "http://xamarin.com/schemas/2014/forms"),
-                    //new XAttribute(xNamespace+"xmlns", "http://schemas.microsoft.com/winfx/2009/xaml"),
-                    //new XAttribute(localNamespace+"xmlns", $"clr-namespace:{assemblyName}"),
+            _rootXamlNode = new XElement(@namespace + "ContentPage",
                     new XAttribute(xNamespace + "Class", $"{namespaceName}.MainPage"),
                     new XElement(@namespace + "StackLayout",
                         new XComment("Place new controls here"),
@@ -29,18 +26,7 @@ namespace SlnGen.Xamarin.Files
                     )
                 );
 
-            using (var memoryStream = new MemoryStream())
-            {
-                rootNode.Save(memoryStream);
-
-                memoryStream.Position = 0;
-                using (var streamReader = new StreamReader(memoryStream))
-                {
-                    XamlFileContents = streamReader.ReadToEnd();
-                }
-            }
-
-            SGFile file = new SGFile("App.xaml.cs")
+            _file = new SGFile("App.xaml.cs")
             {
                 AssemblyReferences =
                 {
@@ -71,8 +57,27 @@ namespace SlnGen.Xamarin.Files
                     }
                 }
             };
+        }
 
-            XamlCsFileContents = file.ToString();
+        XElement _rootXamlNode;
+        SGFile _file;
+
+        public MainPageXamlFile Build()
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                _rootXamlNode.Save(memoryStream);
+
+                memoryStream.Position = 0;
+                using (var streamReader = new StreamReader(memoryStream))
+                {
+                    XamlFileContents = streamReader.ReadToEnd();
+                }
+            }
+
+            XamlCsFileContents = _file.ToString();
+
+            return this;
         }
     }
 }

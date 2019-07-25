@@ -9,6 +9,8 @@ namespace SlnGen.Core.Code
 
         public List<string> Lines { get; set; } = new List<string>();
 
+        public List<string> Comments { get; set; } = new List<string>();
+
         public SGMethod(SGMethodSignature methodSignature)
         {
             _methodSignature = methodSignature;
@@ -23,6 +25,7 @@ namespace SlnGen.Core.Code
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            Comments.ForEach((c) => sb.AppendLine($"// {c}"));
             sb.AppendLine(_methodSignature.ToString());
             sb.AppendLine("{");
             Lines.ForEach((l) => sb.AppendLine($"\t{l}"));

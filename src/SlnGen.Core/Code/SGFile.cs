@@ -8,6 +8,7 @@
 /// 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SlnGen.Core.Code
@@ -111,7 +112,7 @@ namespace SlnGen.Core.Code
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (var assemblyReference in AssemblyReferences)
+            foreach (var assemblyReference in AssemblyReferences.OrderBy(x => x.AssemblyName))
             {
                 sb.AppendLine(assemblyReference.ToString());
             }

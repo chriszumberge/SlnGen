@@ -96,7 +96,7 @@ namespace SlnGen.Core.Code
             IsAbstract = isAbstract;
             IsStatic = isStatic;
             IsPartial = isPartial;
-            isSealed = isSealed;
+            IsSealed = isSealed;
         }
 
         public SGClass WithAccessibilityLevel(SGAccessibilityLevel newAccessibilityLevel)

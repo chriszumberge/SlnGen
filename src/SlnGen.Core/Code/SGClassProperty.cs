@@ -116,6 +116,7 @@ namespace SlnGen.Core.Code
             PropertyType = propertyTypeName;
             AccessibilityLevel = accessibilityLevel ?? SGAccessibilityLevel.Private;
             IsStatic = isStatic;
+            IsReadonly = isReadonly;
             GetterAccessibilityLevel = getterAccessibilityLevel ?? SGAccessibilityLevel.None;
             SetterAccessibilityLevel = setterAccessibilityLevel ?? SGAccessibilityLevel.None;
         }

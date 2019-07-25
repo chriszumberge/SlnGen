@@ -1,4 +1,5 @@
-﻿using SlnGen.Core;
+﻿using System;
+using SlnGen.Core;
 using SlnGen.Core.Projects;
 using SlnGen.Core.Utils;
 using SlnGen.Xamarin.Files;
@@ -23,8 +24,19 @@ namespace SlnGen.Xamarin.Projects
 
             WithNugetPackage(xamarinPackage);
 
-            AddFileToFolder(new DefaultAppXamlFile(RootNamespace));
-            AddFileToFolder(new DefaultMainPageXamlFile(RootNamespace));
+            AppFile = new AppXamlFile(RootNamespace);
+            MainPage = new MainPageXamlFile(RootNamespace);
+        }
+
+        public AppXamlFile AppFile { get; private set; }
+        public MainPageXamlFile MainPage { get; private set; }
+
+        protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
+        {
+            AddFileToFolder(AppFile.Build());
+            AddFileToFolder(MainPage.Build());
+
+            return base.GenerateProjectFiles(solutionDirectoryPath, solutionGuid);
         }
     }
 }

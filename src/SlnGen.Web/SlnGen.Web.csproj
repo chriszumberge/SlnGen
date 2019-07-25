@@ -42,16 +42,20 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Compile Include="Files\NetCoreAPIAppSettingsDevelopmentJsonFile.cs" />
+    <Compile Include="Files\NetCoreAPIAppSettingsJsonFile.cs" />
+    <Compile Include="Files\NetCoreAPILaunchSettingsJsonFile.cs" />
+    <Compile Include="Files\NetCoreAPIStartupFile.cs" />
     <Compile Include="Files\WebConfigFile.cs" />
+    <Compile Include="Projects\NetCoreAPIProject.cs" />
+    <Compile Include="References\Nuget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Factories\" />
-    <Folder Include="Projects\" />
     <Folder Include="Properties\" />
-    <Folder Include="References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SlnGen.Core\SlnGen.Core.csproj" />

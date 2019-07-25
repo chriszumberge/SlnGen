@@ -7,13 +7,20 @@ namespace SlnGen.Core.Projects
 {
     public abstract class NetCoreProject : Project
     {
-        public NetCoreProject(string assemblyName, string outputType, NetCorePlatform targetFrameworkVersion, string rootNamespace = "") :
+        public NetCoreProject(string assemblyName, string outputType, NetCorePlatform targetFrameworkVersion, string rootNamespace = "", string sdk = "") :
             this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion, rootNamespace)
         { }
 
-        public NetCoreProject(string assemblyName, Guid assemblyGuid, string outputType, NetCorePlatform targetFrameworkVersion, string rootNamespace = "") :
+        public NetCoreProject(string assemblyName, Guid assemblyGuid, string outputType, NetCorePlatform targetFrameworkVersion, string rootNamespace = "", string sdk = "") :
             base(assemblyName, assemblyGuid, outputType, targetFrameworkVersion, rootNamespace)
-        { }
+        {
+            if (!String.IsNullOrEmpty(sdk))
+            {
+                SDK = sdk;
+            }
+        }
+
+        protected string SDK = "Microsoft.NET.Sdk";
 
         protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
         {
@@ -25,7 +32,7 @@ namespace SlnGen.Core.Projects
             AddProjectFilesAndFolders(this, csprojDirectoryPath);
 
             var xmlNode = new XElement("Project",
-                                            new XAttribute("Sdk", "Microsoft.NET.Sdk"),
+                                            new XAttribute("Sdk", SDK),
                                             new XElement("PropertyGroup",
                                                 new XElement("OutputType",
                                                     new XText(OutputType)
@@ -35,7 +42,8 @@ namespace SlnGen.Core.Projects
                                                 )
                                             ), // END PROPERTY GROUP
                                             GetAssemblyReferenceItemGroup(),
-                                            GetProjectReferenceItemGroup()
+                                            GetProjectReferenceItemGroup(),
+                                            GetProjectFoldersItemGroup()
                                         ); // END PROJECT
             string csprojFilePath = Path.Combine(csprojDirectoryPath, String.Concat(AssemblyName, ".csproj"));
             xmlNode.Save(csprojFilePath);
@@ -70,6 +78,22 @@ namespace SlnGen.Core.Projects
                     );
                 itemGroup.Add(projectElement);
             }
+            return itemGroup;
+        }
+
+        protected XElement GetProjectFoldersItemGroup()
+        {
+            XElement itemGroup = new XElement("ItemGroup");
+
+            foreach (var emptyFolderPath in _emptyFolderRelativePathList)
+            {
+                XElement folderElement =
+                    new XElement("Folder",
+                        new XAttribute("Include", emptyFolderPath)
+                    );
+                itemGroup.Add(folderElement);
+            }
+
             return itemGroup;
         }
     }

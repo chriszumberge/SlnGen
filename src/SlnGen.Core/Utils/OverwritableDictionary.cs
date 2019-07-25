@@ -33,5 +33,23 @@ namespace SlnGen.Core.Utils
 
             base.Add(key, value);
         }
+
+        public void Add(KeyValuePair<TKey, TValue> keyValuePair)
+        {
+            this.Add(keyValuePair.Key, keyValuePair.Value);
+        }
+
+        public OverwritableDictionary() : base() { }
+
+        public OverwritableDictionary(Dictionary<TKey, TValue> dict) : base()
+        {
+            if (dict != null)
+            {
+                foreach (var kvp in dict)
+                {
+                    Add(kvp);
+                }
+            }
+        }
     }
 }

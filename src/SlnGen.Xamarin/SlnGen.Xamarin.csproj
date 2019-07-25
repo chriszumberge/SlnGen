@@ -53,8 +53,8 @@
     <Compile Include="Files\AndroidTabbarAxmlResourceFile.cs" />
     <Compile Include="Files\AndroidToolbarAxmlResourceFile.cs" />
     <Compile Include="Files\AppDelegateFile.cs" />
-    <Compile Include="Files\DefaultAppXamlFile.cs" />
-    <Compile Include="Files\DefaultMainPageXamlFile.cs" />
+    <Compile Include="Files\AppXamlFile.cs" />
+    <Compile Include="Files\MainPageXamlFile.cs" />
     <Compile Include="Files\EntitlementsPListFile.cs" />
     <Compile Include="Files\InfoPListFile.cs" />
     <Compile Include="Files\iOSMainFile.cs" />
