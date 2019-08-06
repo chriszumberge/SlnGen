@@ -13,7 +13,7 @@ namespace ZESoft.SlnGen.Web.Files
         string[] s_DefaultAppUrls = new string[] { "https://localhost:5001", "http://localhost:5000" };
 
         readonly string _projectName;
-        public NetCoreAPILaunchSettingsJsonFile(string projectName, string applicationUrls = null, string sslPort = "44371",
+        public NetCoreAPILaunchSettingsJsonFile(string projectName, string applicationUrls = null, int sslPort = 44371,
                                                 string launchUrl = "api/values", bool windowsAuth = false, bool anonymousAuth = true)
             : base("launchSettings.json", s_DefaultValues)
         {
