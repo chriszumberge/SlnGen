@@ -50,6 +50,24 @@ namespace SlnGen.Core.Code
         bool _hasDefaultValue => ArgumentDefaultValue != null;
         public string ArgumentDefaultValue { get; set; }
 
+        SGAttribute _attribute;
+        public SGAttribute Attribute
+        {
+            get { return _attribute; }
+            set
+            {
+                _attribute = value;
+                //if (value == null)
+                //{
+                //    throw new ArgumentNullException(nameof(Attribute), "Cannot set Att")
+                //}
+                //else
+                //{
+                    
+                //}
+            }
+        }
+
         public SGArgument(string argumentTypeName, string argumentName)
         {
             ArgumentName = argumentName;
@@ -89,9 +107,21 @@ namespace SlnGen.Core.Code
             return this;
         }
 
+        public SGArgument WithAttribute(SGAttribute attribute)
+        {
+            Attribute = attribute;
+            return this;
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+
+            if (_attribute != null)
+            {
+                sb.Append($"{_attribute.ToString()} ");
+            }
+
             sb.Append($"{ArgumentTypeName} {ArgumentName}");
 
             if (_hasDefaultValue)

@@ -62,15 +62,15 @@ namespace SlnGen.Core.Code
             }
         }
 
-        List<SGArgument> _baseArguments = new List<SGArgument>();
-        public List<SGArgument> BaseArguments
+        List<string> _baseArguments = new List<string>();
+        public List<string> BaseArguments
         {
             get { return _baseArguments; }
             set
             {
                 if (value == null)
                 {
-                    _baseArguments = new List<SGArgument>();
+                    _baseArguments = new List<string>();
                 }
                 else
                 {
@@ -79,15 +79,15 @@ namespace SlnGen.Core.Code
             }
         }
 
-        List<SGArgument> _thisArguments = new List<SGArgument>();
-        public List<SGArgument> ThisArguments
+        List<string> _thisArguments = new List<string>();
+        public List<string> ThisArguments
         {
             get { return _thisArguments; }
             set
             {
                 if (value == null)
                 {
-                    _thisArguments = new List<SGArgument>();
+                    _thisArguments = new List<string>();
                 }
                 else
                 {
@@ -110,7 +110,17 @@ namespace SlnGen.Core.Code
             return this;
         }
 
-        public SGClassConstructor WithBaseConstructorArguments(params SGArgument[] baseCtorArgs)
+        public SGClassConstructor WithConstructorArguments(params SGArgument[] ctorArgs)
+        {
+            if (ctorArgs.Any(x => x == null))
+            {
+                throw new ArgumentException("Constructor Arguments cannot be null.");
+            }
+            Arguments.AddRange(ctorArgs);
+            return this;
+        }
+
+        public SGClassConstructor WithBaseConstructorArguments(params string[] baseCtorArgs)
         {
             if (baseCtorArgs.Any(x => x == null))
             {
@@ -126,7 +136,7 @@ namespace SlnGen.Core.Code
             return this;
         }
 
-        public SGClassConstructor WithThisContstructorArguments(params SGArgument[] thisCtorArgs)
+        public SGClassConstructor WithThisContstructorArguments(params string[] thisCtorArgs)
         {
             if (thisCtorArgs.Any(x => x == null))
             {
@@ -152,13 +162,13 @@ namespace SlnGen.Core.Code
             if (BaseArguments.Count > 0)
             {
                 sb.Append(" : base(");
-                sb.Append(String.Join(", ", BaseArguments.Select(x => x.ArgumentName)));
+                sb.Append(String.Join(", ", BaseArguments.Select(x => x)));
                 sb.Append(")");
             }
             else if (ThisArguments.Count > 0)
             {
                 sb.Append(" : this(");
-                sb.Append(String.Join(", ", ThisArguments.Select(x => x.ArgumentName)));
+                sb.Append(String.Join(", ", ThisArguments.Select(x => x)));
                 sb.Append(")");
             }
             sb.AppendLine();

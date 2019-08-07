@@ -101,6 +101,13 @@ namespace SlnGen.Core.Code
             }
         }
 
+        string _constraint;
+        public string Constraint
+        {
+            get { return _constraint; }
+            set { _constraint = value; }
+        }
+
         public SGMethodSignature(string methodName, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isAsync = false, bool isOverride = false, string returnType = null)
         {
             MethodName = methodName;
@@ -180,6 +187,12 @@ namespace SlnGen.Core.Code
             return this;
         }
 
+        public SGMethodSignature WithConstraint(string constraint)
+        {
+            Constraint = constraint;
+            return this;
+        }
+
         public override string ToString()
         {
             // TODO ADD TESTS FOR MULTIPLE TO STRING SCENARIOS
@@ -203,6 +216,11 @@ namespace SlnGen.Core.Code
             sb.Append("(");
             sb.Append(String.Join(", ", Arguments.Select(x => x.ToString())));
             sb.Append(")");
+
+            if (!String.IsNullOrEmpty(Constraint))
+            {
+                sb.Append($" where {Constraint}");
+            }
 
             return sb.ToString();
         }

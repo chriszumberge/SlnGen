@@ -1,4 +1,5 @@
-﻿using SlnGen.Core;
+﻿using System;
+using SlnGen.Core;
 using SlnGen.Core.Code;
 using SlnGen.Core.Projects;
 using SlnGen.Core.Utils;
@@ -22,11 +23,12 @@ namespace ZESoft.SlnGen.Web.Projects
             WithFolder(new ProjectFolder("Controllers"));
             
             WithFile(new NetCoreAPILaunchSettingsJsonFile(assemblyName), "Properties");
-            WithFile(new NetCoreAPIAppSettingsJsonFile());
-            WithFile(new NetCoreAPIAppSettingsDevelopmentJsonFile());
+            
+            AppSettings = new NetCoreAPIAppSettingsJsonFile();
+            DevelopmentAppSettings = new NetCoreAPIAppSettingsDevelopmentJsonFile();
 
             // Configurable
-            WithFile(new NetCoreAPIStartupFile(RootNamespace).Build());
+            StartupFile = new NetCoreAPIStartupFile(RootNamespace);
 
             WithFile(new ProjectFile(new SGFile("Program.cs")
             {
@@ -67,6 +69,19 @@ namespace ZESoft.SlnGen.Web.Projects
                 }
             }));
             
+        }
+
+        public NetCoreAPIAppSettingsJsonFile AppSettings { get; private set; }
+        public NetCoreAPIAppSettingsDevelopmentJsonFile DevelopmentAppSettings { get; private set; }
+        public NetCoreAPIStartupFile StartupFile { get; private set; }
+
+        protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)
+        {
+            WithFile(DevelopmentAppSettings);
+            WithFile(AppSettings);
+            WithFile(StartupFile.Build());
+
+            return base.GenerateProjectFiles(solutionDirectoryPath, solutionGuid);
         }
 
     }

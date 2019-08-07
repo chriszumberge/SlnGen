@@ -20,32 +20,53 @@ namespace ZESoft.SlnGen.Core.Files
             Build();
         }
 
-        public JsonFile WithProperty(string key, object value)
+        public JsonFile WithProperty(string key, object value, params string[] path)
         {
-            return WithProperty(new KeyValuePair<string, object>(key, value));
+            return WithProperty(new KeyValuePair<string, object>(key, value), path);
         }
 
-        public JsonFile WithProperty(KeyValuePair<string, object> property)
+        public JsonFile WithProperty(KeyValuePair<string, object> property, params string[] path)
         {
-            return WithProperties(new List<KeyValuePair<string, object>> { property });
+            return WithProperties(new List<KeyValuePair<string, object>> { property }, path);
         }
 
-        public JsonFile WithProperties(Dictionary<string, object> properties)
+        public JsonFile WithProperties(Dictionary<string, object> properties, params string[] path)
         {
+            var root = _contents;
+            foreach (var pathPart in path)
+            {
+                if (!root.ContainsKey(pathPart))
+                {
+                    root.Add(pathPart, new OverwritableDictionary<string, object>());
+                }
+                root = (OverwritableDictionary<string, object>)root[pathPart];
+            }
+
             foreach (var kvp in properties)
             {
-                _contents.Add(kvp);
+                root.Add(kvp);
             }
 
             Build();
             return this;
         }
 
-        public JsonFile WithProperties(ICollection<KeyValuePair<string, object>> properties)
+        public JsonFile WithProperties(ICollection<KeyValuePair<string, object>> properties, params string[] path)
         {
+            var root = _contents;
+            foreach (var pathPart in path)
+            {
+                if (!root.ContainsKey(pathPart))
+                {
+                    root.Add(pathPart, new OverwritableDictionary<string, object>());
+                }
+                root = (OverwritableDictionary<string, object>)root[pathPart];
+            }
+
+
             foreach (var kvp in properties)
             {
-                _contents.Add(kvp);
+                root.Add(kvp);
             }
 
             Build();
