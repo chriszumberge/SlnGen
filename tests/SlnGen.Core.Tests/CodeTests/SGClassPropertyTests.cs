@@ -15,17 +15,19 @@ namespace SlnGen.Core.Tests.CodeTests
             string propertyType = "int";
             SGAccessibilityLevel accessibilityLevel = SGAccessibilityLevel.Public;
             bool @static = true;
+            bool isReadOnly = true;
             SGAccessibilityLevel getterAccessibilityLevel = SGAccessibilityLevel.Protected;
             SGAccessibilityLevel setterAccessibilityLevel = SGAccessibilityLevel.Internal;
 
             // Act
-            SGClassProperty property = new SGClassProperty(propertyName, propertyType, accessibilityLevel, @static, getterAccessibilityLevel, setterAccessibilityLevel);
+            SGClassProperty property = new SGClassProperty(propertyName, propertyType, accessibilityLevel, @static, isReadOnly, getterAccessibilityLevel, setterAccessibilityLevel);
 
             // Assert
             Assert.AreEqual(propertyName, property.PropertyName);
             Assert.AreEqual(propertyType, property.PropertyType);
             Assert.AreEqual(accessibilityLevel, property.AccessibilityLevel);
             Assert.AreEqual(@static, property.IsStatic);
+            Assert.AreEqual(isReadOnly, property.IsReadonly);
             Assert.AreEqual(getterAccessibilityLevel, property.GetterAccessibilityLevel);
             Assert.AreEqual(setterAccessibilityLevel, property.SetterAccessibilityLevel);
         }
