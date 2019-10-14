@@ -21,6 +21,8 @@ namespace SlnGen.Core.Projects
             AddDefaultFoldersAndFiles();
         }
 
+        public override Guid TypeGuid => new Guid("FAE04EC0-301F-11D3-BF4B-00C04F79EFBC");
+
         /// <summary>
         /// Adds the default assembly references.
         /// This method is called in the project constructor. Override to customize.

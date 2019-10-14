@@ -17,6 +17,17 @@ namespace SlnGen.Core
         protected const string DEFAULT_BUILD_PLATFORM = "AnyCPU";
 
         /// <summary>
+        /// Gets the type unique identifier.
+        /// </summary>
+        /// <value>
+        /// The type unique identifier.
+        /// </value>
+        /// <remarks>
+        /// https://www.codeproject.com/Reference/720512/List-of-Visual-Studio-Project-Type-GUIDs
+        /// </remarks>
+        public abstract Guid TypeGuid { get; }
+
+        /// <summary>
         /// Gets the name of the assembly.
         /// </summary>
         /// <value>
@@ -112,7 +123,8 @@ namespace SlnGen.Core
         protected List<SupportedBuildConfiguration> _supportedBuildConfigurations = new List<SupportedBuildConfiguration>();
 
         public Project(string assemblyName, string outputType, NetPlatform targetFrameworkVersion, string rootNamespace = "") :
-            this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion, rootNamespace) { }
+            this(assemblyName, Guid.NewGuid(), outputType, targetFrameworkVersion, rootNamespace)
+        { }
 
         public Project(string assemblyName, Guid assemblyGuid, string outputType, NetPlatform targetFrameworkVersion, string rootNamespace = "")
         {
@@ -215,7 +227,7 @@ namespace SlnGen.Core
         List<ProjectFolder> IFileContainer.GetFolders() => _folders;
 
         void IFileContainer.AddFolder(ProjectFolder folder) => _folders.Add(folder);
-        
+
         internal string GenerateProjectFilesForSolution(string solutionDirectoryPath, Guid solutionGuid)
         {
             return GenerateProjectFiles(solutionDirectoryPath, solutionGuid);

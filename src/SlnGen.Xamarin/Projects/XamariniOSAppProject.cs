@@ -93,6 +93,8 @@ namespace SlnGen.Xamarin.Projects
         public AppDelegateFile AppDelegate { get; private set; }
         public iOSMainFile Main { get; private set; }
 
+        public override Guid TypeGuid => new Guid("FAE04EC0-301F-11D3-BF4B-00C04F79EFBC");
+
         protected XNamespace xNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
 
         protected override string GenerateProjectFiles(string solutionDirectoryPath, Guid solutionGuid)

@@ -11,8 +11,8 @@ namespace SlnGen.Core
     {
         // TODO, either subclasses or factory (pass in enum version you want)
         const string DEFAULT_VISUAL_STUDIO_SOLUTION_HEADER = "Microsoft Visual Studio Solution File, Format Version 12.00";
-        const string DEFAULT_VISUAL_STUDIO = "# Visual Studio 14";
-        const string DEFAULT_VISUAL_STUDIO_VERSION = "VisualStudioVersion = 14.0.25420.1";
+        const string DEFAULT_VISUAL_STUDIO = "# Visual Studio 15";
+        const string DEFAULT_VISUAL_STUDIO_VERSION = "VisualStudioVersion = 15.0.28306.52";
         const string DEFAULT_VISUAL_STUDIO_MINIMUM_VERSION = "MinimumVisualStudioVersion = 10.0.40219.1";
 
         /// <summary>
@@ -29,8 +29,8 @@ namespace SlnGen.Core
         /// <value>
         /// The projects in the solution.
         /// </value>
-        public IReadOnlyList<Project> Projects => _projects.AsReadOnly();
-        List<Project> _projects = new List<Project>();
+        public IReadOnlyList<Project> Projects => _projects.Select(x => x.Key).ToList().AsReadOnly();
+        Dictionary<Project, string> _projects = new Dictionary<Project, string>();
 
         /// <summary>
         /// Gets the solution unique identifier.
@@ -62,14 +62,29 @@ namespace SlnGen.Core
             SolutionGuid = solutionGuid;
         }
 
+        Dictionary<string, string> _solutionFolders = new Dictionary<string, string>();
         /// <summary>
         /// Adds the given project to the solution.
         /// </summary>
         /// <param name="project">The project to add.</param>
         /// <returns>The solution.</returns>
-        public Solution WithProject(Project project)
+        public Solution WithProject(Project project, string folderName = null)
         {
-            _projects.Add(project);
+            string folderGuid = null;
+            if (!String.IsNullOrWhiteSpace(folderName))
+            {
+                if (_solutionFolders.Keys.Contains(folderName))
+                {
+                    folderGuid = _solutionFolders.FirstOrDefault(x => x.Key.Equals(folderName)).Value;
+                }
+                else
+                {
+                    folderGuid = Guid.NewGuid().ToString();
+                    _solutionFolders.Add(folderName, folderGuid);
+                }
+            }
+
+            _projects.Add(project, folderGuid);
             return this;
         }
 
@@ -107,8 +122,14 @@ namespace SlnGen.Core
                 Project project = projectAndCsProjFilePath.Key;
                 string relativeDirectory = projectAndCsProjFilePath.Value.Replace(String.Concat(@"\", projDirectoryPath), String.Empty);
 
-                slnTextBuilder.AppendLine($"Project(\"{{{SolutionGuid.ToString()}}}\") = \"{project.AssemblyName}\", \"{relativeDirectory}\", \"{{{project.AssemblyGuid.ToString()}}}");
+                slnTextBuilder.AppendLine($"Project(\"{{{project.TypeGuid.ToString()}}}\") = \"{project.AssemblyName}\", \"{relativeDirectory}\", \"{{{project.AssemblyGuid.ToString()}}}\"");
                 slnTextBuilder.AppendLine("EndProject");
+            }
+            foreach (KeyValuePair<string, string> folderAndGuid in _solutionFolders)
+            {
+                string folderGuid = folderAndGuid.Value;
+                string folderName = folderAndGuid.Key;
+                slnTextBuilder.AppendLine($"Project(\"{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}\") = \"{folderName}\", \"{folderName}\", \"{{{folderGuid}}}\"");
             }
 
             slnTextBuilder.AppendLine("Global");
@@ -118,6 +139,7 @@ namespace SlnGen.Core
                 slnTextBuilder.AppendLine($"\t\t{supportedConfig.Configuration}|{supportedConfig.Platform} = {supportedConfig.Configuration}|{supportedConfig.Platform}");
             }
             slnTextBuilder.AppendLine("\tEndGlobalSection");
+
             slnTextBuilder.AppendLine("\tGlobalSection(ProjectConfigurationPlatforms) = postSolution");
             foreach (Project csproj in Projects)
             {
@@ -135,9 +157,21 @@ namespace SlnGen.Core
                 }
             }
             slnTextBuilder.AppendLine("\tEndGlobalSection");
+
             slnTextBuilder.AppendLine("\tGlobalSection(SolutionProperties) = preSolution");
             slnTextBuilder.AppendLine("\t\tHideSolutionNode = FALSE");
             slnTextBuilder.AppendLine("\tEndGlobalSection");
+
+            slnTextBuilder.AppendLine("\tGlobalSection(NestedProjects) = preSolution");
+            foreach (var projectWithFolderGuid in _projects)
+            {
+                if (!String.IsNullOrWhiteSpace(projectWithFolderGuid.Value))
+                {
+                    slnTextBuilder.AppendLine($"\t\t{{{projectWithFolderGuid.Key.AssemblyGuid.ToString()}}} = {{{projectWithFolderGuid.Value}}}");
+                }
+            }
+            slnTextBuilder.AppendLine("\tEndGlobalSection");
+
             slnTextBuilder.AppendLine("EndGlobal");
 
             File.WriteAllText(Path.Combine(slnDirectoryPath, String.Concat(SolutionName, ".sln")), slnTextBuilder.ToString());

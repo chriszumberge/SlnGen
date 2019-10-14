@@ -21,7 +21,6 @@ namespace SlnGen.Core.Wizard
         {
             Project newConsoleApp = new NetFrameworkConsoleApplicationCsProj(assemblyName, targetFrameworkVersion);
 
-            newConsoleApp.AddFileToFolder(new AppConfigFile(targetFrameworkVersion));
             newConsoleApp.AddFileToFolder(new ProjectFile(SolutionWizard.CreateDefault_NetFramework_ConsoleProgram(assemblyName)));
 
             wizard.WithProject(newConsoleApp);

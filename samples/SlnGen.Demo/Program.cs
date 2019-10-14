@@ -226,9 +226,12 @@ namespace SlnGen.Demo
                     }
                 }));
 
+            Project emptyLibProject = new NetStandardClassLibraryProject("EmptyClassLibrary", netStandardPlatform);
+
             return new Solution("TestNetStandardSolution")
-                .WithProject(classLibProject)
-                .WithProject(netFrameworkConsoleAppProject)
+                .WithProject(emptyLibProject)
+                .WithProject(classLibProject, "shared")
+                .WithProject(netFrameworkConsoleAppProject, "target")
                 .GenerateSolutionFiles(@"C:\");
         }
 
