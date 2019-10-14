@@ -3,10 +3,10 @@ using SlnGen.Core;
 using SlnGen.Core.Code;
 using SlnGen.Core.Projects;
 using SlnGen.Core.Utils;
-using ZESoft.SlnGen.Web.Files;
-using ZESoft.SlnGen.Web.References;
+using SlnGen.Web.Files;
+using SlnGen.Web.References;
 
-namespace ZESoft.SlnGen.Web.Projects
+namespace SlnGen.Web.Projects
 {
     public class NetCoreAPIProject : NetCoreProject
     {
@@ -32,6 +32,11 @@ namespace ZESoft.SlnGen.Web.Projects
 
             WithFile(new ProjectFile(new SGFile("Program.cs")
             {
+                AssemblyReferences =
+                {
+                    new SGAssemblyReference("Microsoft.AspNetCore"),
+                    new SGAssemblyReference("Microsoft.AspNetCore.Hosting")
+                },
                 Namespaces =
                 {
                     new SGNamespace(RootNamespace)

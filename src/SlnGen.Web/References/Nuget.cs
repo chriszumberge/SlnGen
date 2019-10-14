@@ -1,9 +1,6 @@
 ﻿using SlnGen.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ZESoft.SlnGen.Web.References
+namespace SlnGen.Web.References
 {
     public static class Nuget
     {

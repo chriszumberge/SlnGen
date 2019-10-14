@@ -2,7 +2,7 @@
 using SlnGen.Core.Code;
 using System.Collections.Generic;
 
-namespace ZESoft.SlnGen.Web.Files
+namespace SlnGen.Web.Files
 {
     public class NetCoreAPIStartupFile : ProjectFile
     {

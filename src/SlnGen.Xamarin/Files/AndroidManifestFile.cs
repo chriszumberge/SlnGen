@@ -16,7 +16,7 @@ namespace SlnGen.Xamarin.Files
             _manifestNode = new XElement("manifest",
                 new XAttribute(AndroidNamespace + "versionCode", "1"),
                 new XAttribute(AndroidNamespace + "versionName", "1.0"),
-                new XAttribute(AndroidNamespace + "package", packageName),
+                new XAttribute("package", packageName),
                 new XElement("uses-sdk",
                     new XAttribute(AndroidNamespace + "minSdkVersion", minSdkVersion.ToString()),
                     new XAttribute(AndroidNamespace + "targetSdkVersion", targetSdkVersion.ToString())

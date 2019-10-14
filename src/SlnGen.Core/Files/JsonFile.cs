@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 
-namespace ZESoft.SlnGen.Core.Files
+namespace SlnGen.Core.Files
 {
     public class JsonFile : ProjectFile
     {

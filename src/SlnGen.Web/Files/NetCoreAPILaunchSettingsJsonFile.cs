@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ZESoft.SlnGen.Core.Files;
+using SlnGen.Core.Files;
 
-namespace ZESoft.SlnGen.Web.Files
+namespace SlnGen.Web.Files
 {
     public class NetCoreAPILaunchSettingsJsonFile : JsonFile
     {
