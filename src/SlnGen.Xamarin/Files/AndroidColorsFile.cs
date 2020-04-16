@@ -24,7 +24,7 @@ namespace SlnGen.Xamarin.Files
         public AndroidColorsFile WithColor(string name, Color color)
         {
             // converting to argb guarantees hex string even from known color names
-            string colorHexString = color.ToHexString();
+            string colorHexString = color.ToHexString(false);
             _colors.Add(new ColorDefinition
             {
                 Name = name,

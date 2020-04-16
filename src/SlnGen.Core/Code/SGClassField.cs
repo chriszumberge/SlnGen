@@ -70,15 +70,19 @@ namespace SlnGen.Core.Code
 
         public bool IsReadonly { get; set; }
 
+        public bool IsVirtual { get; set; }
+
+        public bool IsAbstract { get; set; }
+
         public string InitializationValue { get; set; }
 
         public SGClassField(string fieldName, Type fieldType, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false,
-            bool isConst = false, bool isReadonly = false) :
-            this(fieldName, fieldType?.Name ?? throw new ArgumentNullException(nameof(fieldType)), accessibilityLevel, isStatic, isConst, isReadonly)
+            bool isConst = false, bool isReadonly = false, bool isVirtual = false, bool isAbstract = false) :
+            this(fieldName, fieldType?.Name ?? throw new ArgumentNullException(nameof(fieldType)), accessibilityLevel, isStatic, isConst, isReadonly, isVirtual, isAbstract)
         { }
 
         public SGClassField(string fieldName, string fieldTypeName, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false,
-            bool isConst = false, bool isReadonly = false)
+            bool isConst = false, bool isReadonly = false, bool isVirtual = false, bool isAbstract = false)
         {
             FieldName = fieldName;
             FieldType = fieldTypeName;
@@ -86,6 +90,8 @@ namespace SlnGen.Core.Code
             IsStatic = isStatic;
             IsConst = isConst;
             IsReadonly = isReadonly;
+            IsVirtual = isVirtual;
+            IsAbstract = isAbstract;
         }
 
         public SGClassField WithFieldName(string newFieldName)
@@ -130,6 +136,18 @@ namespace SlnGen.Core.Code
             return this;
         }
 
+        public SGClassField WithIsVirtual(bool isVirtual)
+        {
+            IsVirtual = isVirtual;
+            return this;
+        }
+
+        public SGClassField WithIsAbstract(bool isAbstract)
+        {
+            IsAbstract = isAbstract;
+            return this;
+        }
+
         public SGClassField WithInitializationValue(object initializationValue)
         {
             if (initializationValue?.GetType() == typeof(string))
@@ -151,6 +169,9 @@ namespace SlnGen.Core.Code
             if (IsStatic) { sb.Append("static "); }
             if (IsConst) { sb.Append("const "); }
             if (IsReadonly) { sb.Append("readonly "); }
+            if (IsVirtual) { sb.Append("virtual "); }
+            if (IsAbstract) { sb.Append("abstract "); }
+
             sb.Append($"{FieldType} ");
             sb.Append($"{FieldName}");
 

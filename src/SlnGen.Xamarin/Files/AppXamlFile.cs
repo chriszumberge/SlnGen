@@ -10,17 +10,17 @@ namespace SlnGen.Xamarin.Files
     {
         string _namespaceName;
 
+        public static XNamespace XamarinNamespace = "http://xamarin.com/schemas/2014/forms";
+        public static XNamespace MicrosoftNamespace = "http://schemas.microsoft.com/winfx/2009/xaml";
+
+        public XElement Resources = new XElement(XamarinNamespace + "Application.Resources");
+
         public AppXamlFile(string namespaceName) : base("App")
         {
             _namespaceName = namespaceName;
 
-            XNamespace xamarinNamespace = "http://xamarin.com/schemas/2014/forms";
-            XNamespace msftNamespace = "http://schemas.microsoft.com/winfx/2009/xaml";
-
-            _rootXamlNode = new XElement(xamarinNamespace + "Application",
-                    new XAttribute(msftNamespace + "Class", $"{namespaceName}.App"),
-                    new XElement(xamarinNamespace + "Application.Resources"
-                    )
+            _rootXamlNode = new XElement(XamarinNamespace + "Application",
+                    new XAttribute(MicrosoftNamespace + "Class", $"{namespaceName}.App")
                 );
         }
 
@@ -150,6 +150,8 @@ namespace SlnGen.Xamarin.Files
                     }
                 }
             };
+
+            _rootXamlNode.Add(Resources);
 
             using (var memoryStream = new MemoryStream())
             {

@@ -11,7 +11,7 @@ namespace SlnGen.Core.Utils
         /// Convert a .NET Color to a hex string.
         /// </summary>
         /// <returns>ex: "FFFFFF", "AB12E9"</returns>
-        public static string ToHexString(this Color color)
+        public static string ToHexString(this Color color, bool includeHash = true)
         {
             byte[] bytes = new byte[3];
             bytes[0] = color.R;
@@ -24,7 +24,9 @@ namespace SlnGen.Core.Utils
                 chars[i * 2] = _hexDigits[b >> 4];
                 chars[i * 2 + 1] = _hexDigits[b & 0xF];
             }
-            return new string(chars);
+            string hexString = new string(chars);
+            if (includeHash) hexString = string.Concat("#", hexString);
+            return hexString;
         }
     }
 }

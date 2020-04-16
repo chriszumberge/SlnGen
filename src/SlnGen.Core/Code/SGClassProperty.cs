@@ -1,5 +1,7 @@
 ﻿using SlnGen.Core.Utils;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SlnGen.Core.Code
@@ -67,6 +69,8 @@ namespace SlnGen.Core.Code
 
         public bool IsStatic { get; set; }
         public bool IsReadonly { get; set; }
+        public bool IsVirtual { get; set; }
+        public bool IsAbstract { get; set; }
 
         SGAccessibilityLevel _getterAccessibilityLevel;
         public SGAccessibilityLevel GetterAccessibilityLevel
@@ -104,12 +108,14 @@ namespace SlnGen.Core.Code
 
         public string InitializationValue { get; set; }
 
-        public SGClassProperty(string propertyName, Type propertyType, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isReadonly = false,
+        public List<SGAttribute> Attributes { get; set; } = new List<SGAttribute>();
+
+        public SGClassProperty(string propertyName, Type propertyType, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isReadonly = false, bool isVirtual = false, bool isAbstract = false,
             SGAccessibilityLevel getterAccessibilityLevel = null, SGAccessibilityLevel setterAccessibilityLevel = null) :
-            this(propertyName, propertyType?.Name ?? throw new ArgumentNullException(nameof(propertyType)), accessibilityLevel, isStatic, isReadonly, getterAccessibilityLevel, setterAccessibilityLevel)
+            this(propertyName, propertyType?.Name ?? throw new ArgumentNullException(nameof(propertyType)), accessibilityLevel, isStatic, isReadonly, isVirtual, isAbstract, getterAccessibilityLevel, setterAccessibilityLevel)
         { }
 
-        public SGClassProperty(string propertyName, string propertyTypeName, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isReadonly = false,
+        public SGClassProperty(string propertyName, string propertyTypeName, SGAccessibilityLevel accessibilityLevel = null, bool isStatic = false, bool isReadonly = false, bool isVirtual = false, bool isAbstract = false,
             SGAccessibilityLevel getterAccessibilityLevel = null, SGAccessibilityLevel setterAccessibilityLevel = null)
         {
             PropertyName = propertyName;
@@ -117,6 +123,8 @@ namespace SlnGen.Core.Code
             AccessibilityLevel = accessibilityLevel ?? SGAccessibilityLevel.Private;
             IsStatic = isStatic;
             IsReadonly = isReadonly;
+            IsVirtual = isVirtual;
+            IsAbstract = isAbstract;
             GetterAccessibilityLevel = getterAccessibilityLevel ?? SGAccessibilityLevel.None;
             SetterAccessibilityLevel = setterAccessibilityLevel ?? SGAccessibilityLevel.None;
         }
@@ -157,6 +165,18 @@ namespace SlnGen.Core.Code
             return this;
         }
 
+        public SGClassProperty WithIsVirtual(bool isVirtual)
+        {
+            IsVirtual = isVirtual;
+            return this;
+        }
+
+        public SGClassProperty WithIsAbstract(bool isAbstract)
+        {
+            IsAbstract = isAbstract;
+            return this;
+        }
+
         public SGClassProperty WithGetterAccessibilityLevel(SGAccessibilityLevel newGetterAccessibilityLevel)
         {
             GetterAccessibilityLevel = newGetterAccessibilityLevel;
@@ -183,6 +203,17 @@ namespace SlnGen.Core.Code
             return this;
         }
 
+        public SGClassProperty WithAttributes(params SGAttribute[] attributes)
+        {
+            if (attributes == null || attributes.Any(x => x == null))
+            {
+                throw new ArgumentNullException("Attributes cannot be null.");
+            }
+
+            Attributes.AddRange(attributes);
+            return this;
+        }
+
         // TODO eventually
         string GetterText = String.Empty;
         string SetterText = String.Empty;
@@ -191,8 +222,15 @@ namespace SlnGen.Core.Code
         {
             StringBuilder sb = new StringBuilder();
 
+            foreach (var attr in Attributes)
+            {
+                sb.AppendLine(attr.ToString());
+            }
+
             sb.Append($"{AccessibilityLevel} ");
             if (IsStatic) { sb.Append("static "); }
+            if (IsVirtual) { sb.Append("virtual "); }
+            if (IsAbstract) { sb.Append("abstract "); }
             sb.Append($"{PropertyType} ");
             sb.AppendLine(PropertyName);
 

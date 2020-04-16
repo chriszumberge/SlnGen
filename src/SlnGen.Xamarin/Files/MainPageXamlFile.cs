@@ -26,7 +26,7 @@ namespace SlnGen.Xamarin.Files
                     )
                 );
 
-            _file = new SGFile("App.xaml.cs")
+            _file = new SGFile("MainPage.xaml.cs")
             {
                 AssemblyReferences =
                 {

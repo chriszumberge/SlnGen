@@ -88,12 +88,11 @@ namespace SlnGen.Core
             return this;
         }
 
-        public string GenerateSolutionFiles(string solutionPath)
+        public string GenerateSolutionFiles(string solutionPath, bool createSolutionDirectory = true)
         {
             // TODO eventually not force it, but then we have to worry about the relative paths for the csproj references and I don't want
             // to deal with that right now. Forcing this project structure... if the user cares enough to change it they probably know enough
             // to be able to
-            bool createSolutionDirectory = true;
 
             string slnDirectoryPath = Path.Combine(solutionPath, SolutionName);
             DirectoryInfo slnDirectory = Directory.CreateDirectory(slnDirectoryPath);

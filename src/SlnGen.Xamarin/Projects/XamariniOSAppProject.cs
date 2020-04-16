@@ -13,7 +13,7 @@ namespace SlnGen.Xamarin.Projects
     public class XamariniOSAppProject : Project
     {
         public XamariniOSAppProject(string assemblyName, string appName, string bundleIdentifier, XamariniOSPlatform targetFrameworkVersion, NugetPackage xamarinPackage, string rootNamespace = "") :
-            this(assemblyName, appName, bundleIdentifier, new Guid(), targetFrameworkVersion, xamarinPackage, rootNamespace)
+            this(assemblyName, appName, bundleIdentifier, Guid.NewGuid(), targetFrameworkVersion, xamarinPackage, rootNamespace)
         { }
 
         public XamariniOSAppProject(string assemblyName, string appName, string bundleIdentifier, Guid assemblyGuid, XamariniOSPlatform targetFrameworkVersion, NugetPackage xamarinPackage, string rootNamespace = "") :
